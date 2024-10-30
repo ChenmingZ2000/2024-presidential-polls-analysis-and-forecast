@@ -94,3 +94,18 @@ Set.seed (123) is used to set random seeds to ensure that the same date is gener
 seq(start_date, end_date, by = "day") creates a date sequence from 2024-07-21 to 2024-11-05.
 sample(date_seq, size = n, replace = TRUE) randomly draws n dates from the sequence and allows repetition.
 This results in 1000 random dates within the specified date range.
+
+User
+Error in tibble():
+! Tibble columns must have compatible sizes.
+• Size 16000: Existing data.
+• Size 16000000: Column is_national.
+ℹ Only values of size one are recycled.
+Run rlang::last_trace() to see where the error occurred.
+ChatGPT
+The reason for this error is that the size of is_national is inconsistent with other variables. We need to make sure that is_national is the same size as draws * num_effects. To solve this problem, you can directly generate a specified number of is_national data points and ensure that their length is the same as the other variables.
+
+User
+Why are there so many extremes on both sides
+ChatGPT
+The reason for this error is that the size of is_national is inconsistent with other variables. We need to make sure that is_national is the same size as draws * num_effects. To solve this problem, you can directly generate a specified number of is_national data points and ensure that their length is the same as the other variables.
