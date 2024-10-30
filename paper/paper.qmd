@@ -19,7 +19,9 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+library(dplyr)
+library(knitr)
+library(ggplot2)
 ```
 
 
@@ -46,68 +48,260 @@ Telegraphing paragraph: The remainder of this paper is structured as follows. @s
 
 Polling data for the 2024 U.S. presidential election is provided by FiveThirtyEight [@fivethirtyeight]. This dataset compiles information from numerous polls conducted by various pollsters, detailing public support levels for presidential candidates. This data is periodically updated on FiveThirtyEight's website to reflect the latest polling information for the 2024 election. Each record includes information we need like state in which the poll was conducted (if applicable), polling dates (start and end), the specific pollster, the sample size of each poll, the polling methodology (such as phone, online, etc.), and support percentages for each candidate. This dataset serves as the foundation for analyzing trends and building predictive models for the winner of the upcoming US presidential election. Table tbl-pollingdata below previews this information for polls conducted in 2023 and 2024.
 
-To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `dplyr` [@dplyr], `ggplot2` [@ggplot2], and `broom` [@broom] for tidying model outputs. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes.
+To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `readxl` [@readxl], `dplyr` [@dplyr], `knitr` [@knitr], `ggplot2` [@ggplot2], and `broom` [@broom] for tidying model outputs. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes. Also this analysis inherits the folder structure from Professor Rohan Alexander from University of Toronto [@rohan].
 
 ## Measurement
 	
-Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
+The process of transforming real-world phenomena into structured data typically involves several critical steps, from designing surveys to final data entry. First, we identify what needs to be measured. In this case, we focus on public opinion regarding the 2024 presidential election, particularly support rates for various candidates. It is essential to define the data scope (e.g., national or state level) and key variables—such as polling information (e.g., polling organization, start and end dates), sample details (e.g., sample size and demographics), and candidate details (e.g., candidate name and party affiliation).
 
-## Outcome variables
+Next, polling organizations develop survey questions based on the desired data, considering sample size, sampling methods, and survey modes to capture respondents' preferences and voting intentions. Different methodologies impact the results, as they reflect the views of distinct groups, which may be influenced by factors like access channels, demographics, and technology usage. For instance, face-to-face surveys tend to capture opinions from offline-inclined groups, whereas voluntary online surveys exclude those less active online【cite】.
 
-Add graphs, tables and text. Use sub-sub-headings for each outcome variable or update the subheading to be singular.
+Once the survey is designed, polling begins, and responses are aggregated by the polling organization. Respondents' answers are recorded and categorized, converting their opinions into structured data points, though these lack the nuances of human complexity. To protect privacy, data are often anonymized and aggregated, retaining key insights. After collection, raw data undergo cleaning and processing to minimize sampling biases and errors. Yet, any single poll can have random and systematic error sources, so combining multiple poll results helps mitigate these errors【cite】.
 
+Processed data are entered into structured datasets. Ideally, well-formatted polling data are stored as individual records, typically including fields like polling organization, sample size, survey dates, margin of error, candidate support percentages, and methodology description. On platforms like FiveThirtyEight, these fields are standardized for ease of comparison and analysis. Finally, FiveThirtyEight and similar platforms aggregate these structured records and present them to the public or allow non-commercial research use, with data usually updated as new polls are released. This enables analysts and the public to track changes in candidate support, analyze trends, and interpret results. An interesting phenomenon, however, is that as election day approaches, poll results often "converge" or "follow" the average, reducing polling error, with evidence suggesting some "final adjustments" in methodology may occur【cite】.
 
+## Analysis Data
+This analysis is focused on Donald Trump, so we only collected observations where the candidate_name is Trump. At the same time, we prioritize the quality of the polls. In a political approval rate prediction model, which is often influenced by numerous complex factors, we encounter data that is typically complex and noisy. Low-quality poll results can introduce significant bias into our prediction model, further impacting the accuracy of inferences. Therefore, only polls with a numeric_grade above 2.7 were selected. Additionally, Trump's main opponent, Kamala Harris, only entered the race after Biden’s withdrawal, a major political event that could have significant effects on the support rates for both sides. As such, we focused solely on polls conducted after Biden’s withdrawal to enhance the model’s prediction accuracy for the final outcome.
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+In researching the likelihood of Trump winning, we selected specific variables to focus on those most impactful for predicting approval rates. Here is an overview of data used for this analysis @tbl-view. Following are selected ourcome variables and predictor variables, and explainations respectively.
 
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
+### Outcome variables
+In this analysis of Donald Trump’s support rate in the 2024 U.S. presidential election, the outcome variable is Trump’s support rate (pct) because it is directly related to the election results. The primary research goal of this analysis is to predict Trump’s chances of winning in the 2024 election, so the support rate is the main metric we aim to model and forecast. The support rate represents the proportion of respondents in a specific poll who support Trump. We seek to understand how the support rate is influenced by different factors, such as polling methodology, time, or geographical variables. By modeling the fluctuations in Trump’s support rate, we can infer his electoral performance, analyze the trends within his support base, and assess the impact of various factors on his popularity. Understanding these dynamics provides insights into Trump’s standing relative to his opponents and supports our overall election prediction.
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+### Predictor variables
+In this analysis, the predictor variables are the factors that we believe can influence the support rate for Trump. These variables are chosen based on their potential to explain changes in support rate. Following are the predictor variables that will be included in our model, along with an explanation of their significance.
+
+**start_date**: Public sentiment and approval rates fluctuate dynamically during an election period, influenced by the passage of time, major events, and campaign strategies. By recording the date of each poll, we can observe changes in support over time.
+
+**state/national**: Political environments and voter preferences may vary significantly by state, and national polls cannot fully reflect conditions in individual states. The electoral college system in the U.S. makes state-level approval rates crucial for predicting the likelihood of winning.
+
+**pollster**: Different polling organizations use varying survey methods, sampling strategies, and data-processing procedures, which impact the reliability and accuracy of the poll results. Knowing which polling organization published the data helps assess potential biases in the data.
+
+**methodology**: Different survey methods (e.g., telephone interviews, online questionnaires) significantly impact the representativeness of the results, as they directly influence the characteristics of the sampled population. Some methods may introduce biases toward specific demographic groups; for example, telephone surveys may skew toward older demographics, while online surveys may skew toward younger ones.
+
+**is_national**: This variable helps us distinguish between national and state-level polls, ensuring the model can adapt and adjust across different geographic levels.
+
+**days_since_Biden_Withdrawal**: Trump's main opponent, Kamala Harris, entered the race only after Biden withdrew. Major political events like Biden’s withdrawal can significantly impact voter approval rates, and tracking the time since this event helps assess both its short-term and long-term effects.
+
+Other potential variables (such as voter demographics like gender, age, race, and income) could indeed influence voter approval rates, but they primarily pertain to a **micro-level** analysis. After incorporating GDP and per capita income data from various U.S. states and nationwide in 2023 into a generalized linear model, we found that their correlation with presidential election outcomes was not very strong, likely due to data limitations in capturing the effect of economic changes on the election. Thus, we did not include these factors. Additionally, individual voter characteristics (such as gender and education level) are not consistently available in most polls. In comparison, the variables we chose are more complete and comprehensively capture the macro nature of the data. Therefore, selecting these variables allows us to maintain data simplicity while maximizing the capture of key factors influencing approval rates, avoiding the noise introduced by excessive micro-level variables.
+
+```{r, message=FALSE}
+analysis_data <- read_csv(here::here("/cloud/project/data/02-analysis_data/analysis_trump_data.csv"))
 ```
 
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
 ```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
+#| label: tbl-view
+#| tbl-cap: The First Few Lines of Cleaned Analysis Data
 #| echo: false
-#| warning: false
-#| message: false
 
-analysis_data <- read_csv(here::here("data/02-analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+kable(head(analysis_data, 10), 
+      col.names = c("start_date", "state/national", "pollster", "methodology", "Trump Support Rate", "is_national", "days_since_Biden_Withdrawal"), 
+      align = c("l", "c", "c", "c", "c", "c", "c"))
 ```
 
-Talk way more about it. 
+### Figures
 
-## Predictor variables
+The following figures, @fig-pollstermetho, @fig-state and @fig-overtime, display various aspects of data related to Trump's support rate, helping us understand how support rates vary with different factors. In @fig-pollstermetho and @fig-state, we have marked the occurrence count of each pollster or state on the x-axis, helping us identify potential sources of bias in the data. Low-frequency items (such as data points from certain pollsters or states) may reduce the representativeness of the model—low-frequency observations imply insufficient data for specific pollsters or states, which may not accurately reflect voter support rates in these areas. This incomplete data could lead to unreliable predictions for these pollsters or states, increasing prediction errors. Additionally, low-frequency data is more susceptible to extreme values. With fewer observations, certain outlier data points (e.g., a particularly high or low support rate in a single poll) can appear disproportionately significant, affecting the overall prediction. When fitting the model to low-frequency data, it may be more influenced by the "noise" in these data points, potentially introducing bias into the overall results. Systematic biases in low-frequency observations could spread throughout the model, impacting the overall accuracy of the predictions.
 
-Add graphs, tables and text.
+Although low-frequency observations may introduce some bias, directly removing them would result in information loss, especially in election predictions where the representativeness of different states and pollsters is crucial. Different pollsters and states have their own resources and priorities, leading to uneven data coverage. Some pollsters may prefer to publish data at specific times, while certain states, due to smaller populations or stable voter behavior, may receive less attention. Thus, it is challenging to completely balance the data quantity across different items. Although some observations have low frequency, they still contain valuable information. For instance, even though smaller or remote states may have limited data, their voter preferences are still significant under the Electoral College system. Completely deleting these observations would diminish these states' representation in the overall analysis, weakening the model's accuracy in reflecting support rates. Additionally, we aim to cover as many pollsters and states as possible with the model, so we retain even low-frequency observations. Thus, we keep these observations and mitigate the bias they introduce by combining other variables to build a more comprehensive and robust predictive model.
 
-Use sub-sub-headings for each outcome variable and feel free to combine a few into one if they go together naturally.
+@fig-pollstermetho shows the average support rates for the top and bottom ten pollsters, highlighting each pollster’s most commonly used methodology. We can observe that the support rates between the top 5 and bottom 5 pollsters differ by about 10%, which helps us understand the bias introduced by certain pollsters’ influence on support rates, as some pollsters may tend to show higher or lower support rates. This chart also examines the different methodologies used by these pollsters, as varying survey methods (e.g., phone surveys or online panels) may affect the results by reaching different groups of voters. Focusing on these differences aids in assessing the reliability and bias of the data.
+
+@fig-state compares the average support rates across states with the national average, showing regional differences in voter preferences. Due to the Electoral College system in the U.S. presidential election, variations in state support rates can significantly impact the election outcome. This analysis highlights the differences between state and national polls, helping us understand Trump’s relative support in each state. Paying attention to geographic disparities improves the model's prediction accuracy.
+
+@fig-overtime displays the trend in support rates over time for the top five pollsters with the most observations. We chose these pollsters because a sufficient number of observations is needed to accurately capture trend changes and reduce the impact of extreme values. Each subplot represents a pollster and shows the change in Trump’s support rate since Biden’s withdrawal. This helps us observe the dynamic change in support rates following major events, and we can also see how different pollsters respond to the same event. Analyzing time trends aids in understanding shifts in public opinion, providing more time-sensitive support rate predictions.
+
+```{r, message=FALSE}
+#| label: fig-pollstermetho
+#| fig-cap: Support Rates for Donald Trump of Ten Pollsters with Their Most Common used Metholodogy
+#| echo: false
+
+### Group by top 5 and bottom 5 avg pct by pollsters and their most common methodology
+# count average pct and occurrence times for each pollster
+pollster_summary <- analysis_data %>%
+  group_by(pollster, methodology) %>%
+  summarize(
+    avg_pct = mean(pct, na.rm = TRUE),
+    count = n()
+  ) %>%
+  ungroup()
+
+# find pollsters with top 5 avg pct and bottom 5 avg pct
+top5_pollsters <- pollster_summary %>%
+  group_by(pollster) %>%
+  summarize(
+    avg_pct = mean(avg_pct),
+    count = sum(count)
+  ) %>%
+  arrange(desc(avg_pct)) %>%
+  slice_head(n = 5) %>%
+  mutate(category = "Top 5")
+
+bottom5_pollsters <- pollster_summary %>%
+  group_by(pollster) %>%
+  summarize(
+    avg_pct = mean(avg_pct),
+    count = sum(count)
+  ) %>%
+  arrange(avg_pct) %>%
+  slice_head(n = 5) %>%
+  mutate(category = "Bottom 5")
+
+# merge
+selected_pollsters <- bind_rows(top5_pollsters, bottom5_pollsters) %>%
+  select(pollster, category)
+
+# find most commonly used methodology 
+selected_pollster_data <- pollster_summary %>%
+  filter(pollster %in% selected_pollsters$pollster) %>%
+  group_by(pollster) %>%
+  filter(count == max(count)) %>%
+  ungroup() %>%
+  left_join(selected_pollsters, by = "pollster")
 
 
+ggplot(selected_pollster_data, aes(x = reorder(paste(pollster, "(", count, ")", sep = ""), -avg_pct), y = avg_pct, fill = methodology)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ category, scales = "free_x") +
+  labs(
+    title = "Top 5 and Bottom 5 Avg Support Rate for Donald Trump",
+    subtitle = "With Most Common Used Methodologies of Each Pollsters",
+    x = "Pollster (Occurrence Count)",
+    y = "Average Support Rate (%)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 16, face = "bold", color = "#333333"),
+    axis.title = element_text(size = 14, color = "#333333")
+  ) +
+  scale_fill_brewer(palette = "Set3") # assign colors to different methodologies
+
+```
+```{r}
+#| label: fig-state
+#| fig-cap: Average Support Rate for Trump of Each Category Based on State
+#| echo: false
+
+### Group by avg pct of different states and national avg pct
+# count average pct and occurrence times for each state category
+state_summary <- analysis_data %>%
+  group_by(state) %>%
+  summarize(
+    avg_pct = mean(pct, na.rm = TRUE),
+    count = n()
+  ) %>%
+  ungroup()
+
+# find states with top 5 avg pct and bottom 5 avg pct plus national avg pct
+top5_state <- state_summary %>%
+  group_by(state) %>%
+  summarize(
+    avg_pct = mean(avg_pct),
+    count = sum(count)
+  ) %>%
+  arrange(desc(avg_pct)) %>%
+  slice_head(n = 5) %>%
+  mutate(category = "Top 5")
+
+bottom5_state <- state_summary %>%
+  group_by(state) %>%
+  summarize(
+    avg_pct = mean(avg_pct),
+    count = sum(count)
+  ) %>%
+  arrange(avg_pct) %>%
+  slice_head(n = 5) %>%
+  mutate(category = "Bottom 5")
+
+national <- state_summary %>%
+  group_by(state) %>%
+  filter(state == "national") %>%
+  summarize(
+    avg_pct = mean(avg_pct),
+    count = sum(count)
+  ) %>%
+  arrange(avg_pct) %>%
+  mutate(category = "national")
+
+# merge
+selected_states <- bind_rows(top5_state, bottom5_state, national) %>%
+  select(state, category)
+
+# find most commonly used methodology 
+selected_state_data <- state_summary %>%
+  filter(state %in% selected_states$state) %>%
+  group_by(state) %>%
+  ungroup() %>%
+  left_join(selected_states, by = "state")
 
 
+ggplot(selected_state_data, aes(x = reorder(paste(state, "(", count, ")", sep = ""), -avg_pct), y = avg_pct, fill = state)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ category, scales = "free_x") +
+  labs(
+    title = "Average Support Rate for Doanld Trump by states",
+    subtitle = "National Average Support Rate Included",
+    x = "State Names or National (Occurrence Count)",
+    y = "Average Support Rate (%)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 16, face = "bold", color = "#333333"),
+    axis.title = element_text(size = 14, color = "#333333")
+  ) +
+  scale_fill_brewer(palette = "Set3") # assign colors to different states
+```
 
+```{r, message=FALSE}
+#| label: fig-overtime
+#| fig-cap: Trend for Average Support Rate for Donald Trump Over Time Since Joe Biden's Withdrawal on 2024 July 21
+#| echo: false
 
+# Identify the top 10 pollsters by occurrence
+top_pollsters2 <- analysis_data %>%
+  count(pollster, sort = TRUE) %>%
+  top_n(5, n) %>%
+  pull(pollster)
+
+data <- analysis_data %>%
+  filter(pollster %in% top_pollsters2)
+
+# Assign colors for each pollster
+colors <- RColorBrewer::brewer.pal(n = 10, name = "Set3")
+
+### Time trend since Binden's Withdrawal
+support_trend_5day <- data %>%
+  mutate(grouped_days = (days_since_Biden_Withdrawal %/% 7) * 7) %>% # counted weekly to reduce effect by extreme values
+  group_by(grouped_days, pollster) %>%
+  summarize(avg_pct = mean(pct, na.rm = TRUE)) %>%
+  ungroup()
+
+# Step 2: Create the line plot with background distribution
+ggplot(support_trend_5day, aes(x = grouped_days, y = avg_pct)) +
+  geom_line(aes(color = pollster), linewidth = 1.2) + # Main line color
+  geom_jitter(data = data, aes(x = days_since_Biden_Withdrawal, y = pct), 
+              color = "#a6cee3", alpha = 0.4, width = 1, height = 0.5) +
+  scale_x_continuous(
+    breaks = seq(min(analysis_data$days_since_Biden_Withdrawal), 
+                 max(analysis_data$days_since_Biden_Withdrawal), 
+                 by = 14)
+  ) +
+  labs(
+    title = "Average Support Rate for Donald Trump Over Time",
+    subtitle = "Days counted weekly since Biden's Withdrawal",
+    x = "Days Since Biden's Withdrawal",
+    y = "Average Support Rate (%)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", color = "#333333"),
+    axis.title = element_text(size = 14, color = "#333333"),
+    axis.text = element_text(size = 12, color = "#555555")
+  ) +
+  facet_wrap(~ pollster, scales = "free_x")
+```
 
 
 # Model
@@ -152,7 +346,7 @@ Our results are summarized in @tbl-modelresults.
 library(rstanarm)
 
 first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
+  readRDS(file = here::here("/cloud/project/models/trump_time_model.rds"))
 ```
 
 ```{r}
@@ -169,6 +363,69 @@ modelsummary::modelsummary(
   statistic = "mad",
   fmt = 2
 )
+```
+
+```{r}
+# 提取残差
+residuals <- residuals(first_model)
+
+# 绘制残差的直方图
+hist(residuals, breaks = 30, main = "Residuals Distribution", xlab = "Residuals")
+
+# 绘制 QQ 图检查正态性
+qqnorm(residuals)
+qqline(residuals, col = "red")
+
+# 使用 Shapiro-Wilk 检验检查残差的正态性
+shapiro.test(residuals)
+
+# 残差对拟合值的散点图
+plot(fitted(first_model), residuals, main = "Residuals vs Fitted Values", xlab = "Fitted Values", ylab = "Residuals")
+abline(h = 0, col = "red")
+
+pp_check(first_model)
+```
+
+
+
+```{r}
+# 假设选举日是 2024 年 11 月 5 日
+election_day <- as.Date("2024-11-05")
+days_until_election <- as.numeric(election_day - min(trump_data$start_date))
+
+# 获取数据中最常见的 methodology 和 pollster 值
+common_methodology <- trump_data %>%
+  count(methodology) %>%
+  arrange(desc(n)) %>%
+  slice(1) %>%
+  pull(methodology)
+
+common_pollster <- trump_data %>%
+  count(pollster) %>%
+  arrange(desc(n)) %>%
+  slice(1) %>%
+  pull(pollster)
+
+# 创建预测数据，确保所有列长度一致
+prediction_data <- data.frame(
+  days_since_start = rep(days_until_election, length(unique(trump_data$state))),
+  state = unique(trump_data$state),
+  is_national = rep(0, length(unique(trump_data$state))),
+  methodology = rep(common_methodology, length(unique(trump_data$state))),
+  pollster = rep(common_pollster, length(unique(trump_data$state)))
+)
+
+# 使用模型进行预测
+predicted_support <- posterior_predict(first_model, newdata = prediction_data)
+
+# 计算每个州的平均预测支持率
+state_predictions <- rowMeans(predicted_support)
+
+# （可选）基于预测的州级支持率估算全国支持率
+national_support <- mean(state_predictions)
+
+# 输出预测结果
+print(national_support)
 ```
 
 
