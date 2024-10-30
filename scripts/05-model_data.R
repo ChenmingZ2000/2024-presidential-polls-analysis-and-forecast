@@ -1,11 +1,17 @@
 #### Preamble ####
-# Purpose: Models... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: This script models Trump's support rate in the 2024 U.S. Presidential Election 
+#          using Bayesian time-series analysis.
+# Author: Chenming Zhao
+# Date: 30 October 2024
+# Contact: chenming.zhao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: 
+#   - This script requires the `tidyverse` and `rstanarm` libraries for data manipulation 
+#     and Bayesian modeling.
+#   - Ensure that `analysis_trump_data.csv` is available in the specified path 
+#     "/cloud/project/data/02-analysis_data/".
+#   - The output model will be saved as `trump_time_model.rds` in the `models` folder.
+# Any other information needed? None
 
 #### Workspace setup ####
 library(tidyverse)
