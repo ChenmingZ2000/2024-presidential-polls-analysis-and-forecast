@@ -108,4 +108,33 @@ The reason for this error is that the size of is_national is inconsistent with o
 User
 Why are there so many extremes on both sides
 ChatGPT
-The reason for this error is that the size of is_national is inconsistent with other variables. We need to make sure that is_national is the same size as draws * num_effects. To solve this problem, you can directly generate a specified number of is_national data points and ensure that their length is the same as the other variables.
+Such cases of extreme values on both sides usually arise because of a problem in the choice or setting of the prior distribution. Here are some possible reasons and suggestions:
+
+The prior setting is too broad:
+
+If the variance of the prior distribution of the intercept or other influencing factors is too large, it may lead to the mean (
+𝜇
+μ) becomes extreme, making the simulated support rate (pct) too concentrated near 0 or 100. This situation is especially common with the normal distribution prior, since it has no boundary restrictions and the generated values can be large or small.
+Suggestion: Reduce the variance of the prior distribution of the intercept and other influencing factors to ensure the simulation
+𝜇
+μ is more concentrated in a reasonable range.
+Normal distribution is not truncated:
+
+The normal distribution generates some negative values or positive values much larger than 100, and these extreme values are restricted to the range of 0 to 100 in the simulations. Too many extreme positive or negative values will make the final support rate accumulate at the boundary, resulting in frequent extreme values on both sides.
+Recommendation: Consider using a distribution that works in the 0-100 range (e.g., the Beta distribution), or a more restrictive cutoff for the generated normal distribution values.
+Bias factors in the model:
+
+If the prior for some variables, such as beta_methodology or beta_pollster, is too extreme, it may pull support towards both ends. For example, if some method or pollator has a priori bias towards extremely low or extremely high approval ratings, resulting in the automatic generation of values in the model that are biased towards the extremes.
+Recommendation: Review the prior distributions of the variables to make sure their centers and variances are properly set.
+Combinations of random and fixed effects:
+
+If the random effects and fixed effects are not properly balanced in the model, this can lead to a bias in support. Too many combinations of effects can make certain support values infinitely larger or smaller.
+Recommendation: Simplify the model to reduce the prior variance of effects and ensure that effects don't amplify each other to extremes.
+Summary
+The occurrence of extreme values on both sides in the simulation indicates that the variance of the current prior distribution is too large or the distribution type is not suitable for this prediction task. Here are some steps you can take to improve:
+
+Reducing the intercept and the variance of other variables makes the simulation more focused.
+Try to use Beta distribution instead of normal distribution to avoid extreme values on both sides of the boundary.
+Adjust or redefine the random and fixed effects in the model to simplify the model structure.
+After adjustment, prior predictive check can be performed again to see if any extreme values still appear.
+
