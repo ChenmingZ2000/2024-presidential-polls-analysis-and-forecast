@@ -1,152 +1,1001 @@
-division,state,party
-Division 1,Victoria,Liberal
-Division 2,New South Wales,Liberal
-Division 3,Tasmania,Liberal
-Division 4,New South Wales,Liberal
-Division 5,Queensland,Liberal
-Division 6,New South Wales,Labor
-Division 7,Victoria,Liberal
-Division 8,Western Australia,Labor
-Division 9,Western Australia,Greens
-Division 10,Queensland,Labor
-Division 11,Queensland,Labor
-Division 12,Northern Territory,Liberal
-Division 13,New South Wales,Labor
-Division 14,Western Australia,Labor
-Division 15,Western Australia,National
-Division 16,Victoria,Liberal
-Division 17,South Australia,Liberal
-Division 18,Victoria,Liberal
-Division 19,Western Australia,Labor
-Division 20,South Australia,Labor
-Division 21,New South Wales,Liberal
-Division 22,Queensland,Greens
-Division 23,New South Wales,Liberal
-Division 24,New South Wales,Liberal
-Division 25,Queensland,Labor
-Division 26,Victoria,National
-Division 27,New South Wales,Liberal
-Division 28,Queensland,Liberal
-Division 29,Tasmania,Liberal
-Division 30,South Australia,Liberal
-Division 31,New South Wales,Liberal
-Division 32,Victoria,Labor
-Division 33,Tasmania,Liberal
-Division 34,New South Wales,Liberal
-Division 35,Western Australia,Labor
-Division 36,New South Wales,Liberal
-Division 37,Tasmania,Greens
-Division 38,Tasmania,Labor
-Division 39,Victoria,Greens
-Division 40,South Australia,Labor
-Division 41,New South Wales,Other
-Division 42,New South Wales,Other
-Division 43,Tasmania,Labor
-Division 44,Tasmania,National
-Division 45,Queensland,Liberal
-Division 46,Australian Capital Territory,Other
-Division 47,Queensland,Labor
-Division 48,Queensland,Other
-Division 49,South Australia,Liberal
-Division 50,Victoria,National
-Division 51,South Australia,Liberal
-Division 52,Victoria,Labor
-Division 53,South Australia,National
-Division 54,Queensland,Liberal
-Division 55,Queensland,Labor
-Division 56,South Australia,Liberal
-Division 57,New South Wales,Other
-Division 58,Northern Territory,Liberal
-Division 59,New South Wales,Labor
-Division 60,Western Australia,Labor
-Division 61,New South Wales,Liberal
-Division 62,South Australia,Liberal
-Division 63,Queensland,Labor
-Division 64,Tasmania,Labor
-Division 65,South Australia,Labor
-Division 66,Victoria,Labor
-Division 67,Queensland,Liberal
-Division 68,Queensland,Liberal
-Division 69,Tasmania,Labor
-Division 70,South Australia,National
-Division 71,Australian Capital Territory,Labor
-Division 72,Western Australia,Labor
-Division 73,Queensland,National
-Division 74,Victoria,Labor
-Division 75,Western Australia,Labor
-Division 76,Tasmania,Labor
-Division 77,Queensland,Liberal
-Division 78,Western Australia,Liberal
-Division 79,Queensland,Labor
-Division 80,Queensland,Liberal
-Division 81,Victoria,Labor
-Division 82,New South Wales,Liberal
-Division 83,Victoria,Liberal
-Division 84,Queensland,National
-Division 85,Western Australia,Liberal
-Division 86,New South Wales,Labor
-Division 87,Queensland,Liberal
-Division 88,New South Wales,Liberal
-Division 89,Tasmania,Liberal
-Division 90,South Australia,Labor
-Division 91,Victoria,Liberal
-Division 92,New South Wales,Labor
-Division 93,Tasmania,Labor
-Division 94,South Australia,Labor
-Division 95,Victoria,Liberal
-Division 96,Victoria,Labor
-Division 97,Western Australia,Liberal
-Division 98,Queensland,Liberal
-Division 99,South Australia,Liberal
-Division 100,New South Wales,Labor
-Division 101,South Australia,Labor
-Division 102,New South Wales,Labor
-Division 103,Victoria,Labor
-Division 104,Victoria,Labor
-Division 105,South Australia,Other
-Division 106,Western Australia,Labor
-Division 107,Tasmania,Liberal
-Division 108,Victoria,Labor
-Division 109,Queensland,Liberal
-Division 110,Victoria,Labor
-Division 111,Australian Capital Territory,Labor
-Division 112,Victoria,Liberal
-Division 113,Victoria,Liberal
-Division 114,Victoria,Liberal
-Division 115,Tasmania,Labor
-Division 116,Victoria,Labor
-Division 117,New South Wales,Labor
-Division 118,Victoria,Labor
-Division 119,Victoria,Greens
-Division 120,Northern Territory,Labor
-Division 121,South Australia,Liberal
-Division 122,New South Wales,Liberal
-Division 123,New South Wales,Labor
-Division 124,New South Wales,Liberal
-Division 125,New South Wales,National
-Division 126,New South Wales,Labor
-Division 127,Queensland,Labor
-Division 128,New South Wales,Other
-Division 129,Queensland,Labor
-Division 130,Australian Capital Territory,Liberal
-Division 131,Tasmania,Greens
-Division 132,New South Wales,National
-Division 133,New South Wales,Labor
-Division 134,Northern Territory,Labor
-Division 135,South Australia,National
-Division 136,Victoria,Labor
-Division 137,Tasmania,National
-Division 138,South Australia,Liberal
-Division 139,New South Wales,Labor
-Division 140,Victoria,Other
-Division 141,Queensland,Greens
-Division 142,Victoria,National
-Division 143,Western Australia,Labor
-Division 144,Victoria,Labor
-Division 145,Queensland,Liberal
-Division 146,Tasmania,Liberal
-Division 147,South Australia,Liberal
-Division 148,Victoria,Labor
-Division 149,New South Wales,National
-Division 150,New South Wales,Labor
-Division 151,Victoria,Liberal
+start_date,state,pollster,methodology,noise,supports_rate,is_national,days_since_biden_withdrawal
+2024-07-29,Kansas,C,online panel,5,42,0,8
+2024-09-22,Minnesota,F,probability panel,-1,48.1,0,63
+2024-10-18,South Carolina,E,probability panel,1,37.6,0,89
+2024-10-21,North Dakota,A,online panel,3,31.5,0,92
+2024-08-06,Idaho,E,online panel,-2,45,0,16
+2024-10-29,Nevada,D,probability panel,-5,53.7,0,100
+2024-08-18,Oklahoma,B,by phone,-1,28.9,0,28
+2024-10-12,Utah,A,by phone,-3,58,0,83
+2024-10-11,Minnesota,C,online panel,16,27.3,0,82
+2024-07-23,Hawaii,E,in-person,-5,46.3,0,2
+2024-08-22,New Hampshire,D,in-person,-6,29.4,0,32
+2024-08-08,Delaware,A,probability panel,-10,47.7,0,18
+2024-09-13,Idaho,F,online panel,10,38.8,0,54
+2024-08-24,Oklahoma,E,probability panel,4,46.7,0,34
+2024-10-15,Michigan,B,probability panel,-22,21.6,0,86
+2024-09-25,Alabama,B,probability panel,-7,26.8,0,66
+2024-10-29,Minnesota,B,by phone,1,39.4,0,100
+2024-10-10,North Carolina,E,in-person,2,39.9,0,81
+2024-07-24,Delaware,F,online panel,7,24.9,0,3
+2024-10-29,Delaware,B,by phone,3,24.3,0,100
+2024-08-01,Arkansas,B,in-person,7,34,0,11
+2024-08-29,New Jersey,C,online panel,5,42.3,0,39
+2024-10-08,Arkansas,F,by phone,-17,21.3,0,79
+2024-09-24,Wyoming,F,online panel,-13,51,0,65
+2024-07-25,Pennsylvania,A,in-person,-5,33.5,0,4
+2024-07-22,Maryland,E,by phone,-6,22.5,0,1
+2024-09-23,South Carolina,C,online panel,15,30.1,0,64
+2024-10-12,New Hampshire,F,by phone,5,39.6,0,83
+2024-08-12,Oregon,A,online panel,7,57.9,0,22
+2024-09-03,Washington,A,by phone,-1,45.9,0,44
+2024-07-31,Arkansas,B,online panel,3,35.8,0,10
+2024-10-19,Montana,F,in-person,-0,36.1,0,90
+2024-09-08,Mississippi,F,probability panel,-3,24.4,0,49
+2024-10-07,Minnesota,F,probability panel,-7,33.5,0,78
+2024-10-17,South Dakota,E,in-person,-8,35.4,0,88
+2024-09-01,Oklahoma,F,probability panel,5,31.2,0,42
+2024-07-22,Iowa,D,probability panel,-10,20.3,0,1
+2024-10-24,South Carolina,A,in-person,1,31.7,0,95
+2024-09-04,Michigan,D,in-person,7,48.5,0,45
+2024-07-21,Ohio,E,probability panel,-7,29.2,0,0
+2024-10-01,Florida,E,in-person,11,52.1,0,72
+2024-09-06,New Jersey,F,in-person,0,59.8,0,47
+2024-10-22,Oklahoma,D,online panel,14,43.5,0,93
+2024-10-16,Rhode Island,E,in-person,5,52.1,0,87
+2024-07-25,Indiana,D,by phone,5,33.6,0,4
+2024-08-11,New Hampshire,C,online panel,10,36.7,0,21
+2024-10-13,Oklahoma,B,in-person,14,26.1,0,84
+2024-10-01,Iowa,B,by phone,-4,54.8,0,72
+2024-11-02,Kentucky,D,probability panel,-0,34.6,0,104
+2024-09-27,Delaware,A,probability panel,4,39.6,0,68
+2024-09-21,Nevada,A,online panel,-8,59.7,0,62
+2024-10-20,Tennessee,A,probability panel,14,57.4,0,91
+2024-09-28,Georgia,D,by phone,-6,56.8,0,69
+2024-07-21,Washington,E,by phone,-6,52.9,0,0
+2024-07-26,Alaska,C,by phone,-4,50,0,5
+2024-10-20,Wisconsin,C,probability panel,-0,35.1,0,91
+2024-10-29,Indiana,D,by phone,17,43.8,0,100
+2024-08-22,Nevada,F,in-person,6,24,0,32
+2024-09-14,Minnesota,F,probability panel,-0,22.5,0,55
+2024-07-28,Michigan,E,by phone,-20,56.5,0,7
+2024-11-03,national,C,in-person,-12,59,1,105
+2024-10-03,Louisiana,B,probability panel,-10,52.1,0,74
+2024-08-05,South Carolina,F,probability panel,7,38.2,0,15
+2024-10-05,Alabama,A,by phone,19,42.4,0,76
+2024-10-14,Connecticut,E,online panel,-3,35.9,0,85
+2024-11-02,Missouri,A,online panel,10,41.7,0,104
+2024-10-20,Delaware,C,by phone,11,19.1,0,91
+2024-07-31,Mississippi,E,online panel,11,19.5,0,10
+2024-09-21,Wyoming,B,probability panel,-3,34.1,0,62
+2024-09-07,Rhode Island,F,online panel,7,59.1,0,48
+2024-10-27,Maine,E,probability panel,-3,25.5,0,98
+2024-08-17,Georgia,D,by phone,19,26.2,0,27
+2024-08-07,West Virginia,E,online panel,7,47.8,0,17
+2024-10-27,Oregon,D,in-person,13,34.8,0,98
+2024-09-11,Rhode Island,C,by phone,-1,28.2,0,52
+2024-09-20,California,D,in-person,-5,27.3,0,61
+2024-09-21,California,E,online panel,8,38.1,0,62
+2024-10-02,Virginia,A,online panel,9,51.6,0,73
+2024-08-26,Hawaii,D,online panel,-6,36.4,0,36
+2024-08-02,Iowa,F,by phone,11,22.4,0,12
+2024-10-03,Colorado,D,by phone,-6,54.4,0,74
+2024-10-25,Alabama,D,by phone,7,43,0,96
+2024-07-31,Hawaii,A,by phone,9,49.6,0,10
+2024-10-20,Massachusetts,F,by phone,-2,26.1,0,91
+2024-07-28,West Virginia,D,in-person,-0,34.7,0,7
+2024-11-01,Nebraska,C,in-person,1,31.8,0,103
+2024-09-06,Delaware,C,in-person,10,40.8,0,47
+2024-08-14,West Virginia,A,probability panel,-2,27.9,0,24
+2024-07-28,Wyoming,B,in-person,15,21.7,0,7
+2024-10-12,Maryland,C,in-person,-11,41.7,0,83
+2024-10-05,Tennessee,E,online panel,-1,34.1,0,76
+2024-07-23,New York,E,by phone,-5,49.5,0,2
+2024-09-30,Missouri,E,by phone,-2,55.8,0,71
+2024-09-10,Arkansas,B,by phone,-14,52.1,0,51
+2024-10-25,Hawaii,B,by phone,1,35.1,0,96
+2024-09-26,Kentucky,E,by phone,4,30.6,0,67
+2024-09-17,West Virginia,D,online panel,17,30.4,0,58
+2024-08-16,Wisconsin,F,by phone,9,46,0,26
+2024-08-22,Oregon,A,online panel,-11,43.5,0,32
+2024-10-09,South Dakota,A,online panel,-8,51.6,0,80
+2024-07-25,Delaware,F,online panel,9,53.1,0,4
+2024-09-19,Arkansas,A,probability panel,1,24.1,0,60
+2024-08-28,Indiana,D,by phone,-6,24.7,0,38
+2024-09-10,Indiana,A,online panel,23,55.5,0,51
+2024-08-08,Missouri,C,probability panel,5,45.7,0,18
+2024-09-28,Connecticut,C,online panel,-2,33.4,0,69
+2024-08-18,Louisiana,F,by phone,-9,37.5,0,28
+2024-09-10,Massachusetts,E,probability panel,-4,23.5,0,51
+2024-07-26,Hawaii,D,by phone,18,34.1,0,5
+2024-10-14,Washington,C,online panel,7,54.6,0,85
+2024-09-26,Kentucky,A,online panel,-33,40.7,0,67
+2024-10-20,North Carolina,B,by phone,10,58.3,0,91
+2024-10-17,Montana,E,by phone,-13,54.8,0,88
+2024-09-07,Texas,B,online panel,7,25.4,0,48
+2024-08-30,Alabama,D,online panel,-19,49.6,0,40
+2024-10-03,Alabama,E,online panel,-5,35.9,0,74
+2024-08-13,Minnesota,E,in-person,-10,35.7,0,23
+2024-10-16,Minnesota,A,by phone,1,23.9,0,87
+2024-09-29,Michigan,A,by phone,5,53.4,0,70
+2024-10-23,Maryland,C,by phone,-3,31.4,0,94
+2024-08-18,Nevada,C,in-person,3,24,0,28
+2024-08-19,Wisconsin,C,online panel,-9,20.8,0,29
+2024-09-09,Georgia,A,online panel,-0,43.1,0,50
+2024-11-03,Alabama,F,by phone,-9,31.6,0,105
+2024-09-30,New Jersey,B,by phone,-5,41.1,0,71
+2024-07-25,Maryland,C,probability panel,-14,49.6,0,4
+2024-09-05,national,F,in-person,14,29.4,1,46
+2024-10-07,North Carolina,E,online panel,15,51.5,0,78
+2024-07-30,Maryland,F,probability panel,12,26.6,0,9
+2024-08-11,Pennsylvania,E,probability panel,-18,49.5,0,21
+2024-09-29,Virginia,A,by phone,3,42.4,0,70
+2024-08-01,Indiana,A,in-person,5,58.1,0,11
+2024-08-26,Missouri,D,in-person,18,35.5,0,36
+2024-09-07,Arkansas,E,in-person,7,39.2,0,48
+2024-08-06,Wisconsin,D,online panel,-3,53.2,0,16
+2024-09-01,Mississippi,E,online panel,-3,34,0,42
+2024-10-09,Indiana,C,in-person,5,41.5,0,80
+2024-10-25,Mississippi,B,probability panel,-6,50.2,0,96
+2024-09-20,Idaho,B,by phone,10,56.4,0,61
+2024-10-13,Mississippi,B,by phone,-0,51.6,0,84
+2024-08-30,Alabama,C,probability panel,7,45.3,0,40
+2024-07-21,Michigan,B,by phone,-5,39.7,0,0
+2024-08-11,South Dakota,A,probability panel,-13,55.6,0,21
+2024-10-16,Virginia,E,by phone,3,37.8,0,87
+2024-11-04,California,C,probability panel,-12,35,0,106
+2024-08-05,North Carolina,B,by phone,-9,32.4,0,15
+2024-10-20,Hawaii,E,online panel,-0,50.4,0,91
+2024-09-06,Florida,A,by phone,-2,56.5,0,47
+2024-08-12,Ohio,D,probability panel,10,21.9,0,22
+2024-08-18,Oregon,F,probability panel,-4,52.6,0,28
+2024-10-09,West Virginia,C,by phone,-7,30.4,0,80
+2024-10-18,Missouri,B,in-person,11,53.6,0,89
+2024-09-29,Nevada,A,online panel,-1,25.2,0,70
+2024-08-01,Wyoming,F,probability panel,-7,21.8,0,11
+2024-11-04,Alabama,C,probability panel,17,45.2,0,106
+2024-09-04,Tennessee,F,in-person,-9,46.4,0,45
+2024-08-16,Oregon,C,probability panel,3,37.5,0,26
+2024-07-27,Idaho,A,by phone,5,36,0,6
+2024-10-17,Virginia,D,in-person,3,40.2,0,88
+2024-11-03,Vermont,D,by phone,2,42,0,105
+2024-09-22,Wisconsin,E,by phone,-16,34.6,0,63
+2024-09-19,Ohio,D,by phone,-19,30.6,0,60
+2024-10-20,Nebraska,E,by phone,-10,51.2,0,91
+2024-09-30,Tennessee,D,in-person,-3,56.7,0,71
+2024-10-20,New Hampshire,F,in-person,-7,24,0,91
+2024-10-14,Nebraska,F,online panel,-0,54.5,0,85
+2024-08-07,Connecticut,E,in-person,2,29.9,0,17
+2024-09-25,Colorado,D,in-person,8,30.8,0,66
+2024-09-11,Maryland,A,by phone,-0,57.6,0,52
+2024-10-25,Alabama,C,by phone,-7,26.5,0,96
+2024-07-22,Pennsylvania,A,online panel,2,57.2,0,1
+2024-10-29,Pennsylvania,D,in-person,4,49,0,100
+2024-08-18,New Mexico,A,probability panel,11,31,0,28
+2024-08-23,Kentucky,B,by phone,20,27.3,0,33
+2024-08-27,Nevada,E,probability panel,10,37.7,0,37
+2024-07-23,West Virginia,E,probability panel,-14,42.7,0,2
+2024-09-09,Missouri,D,in-person,-12,40.3,0,50
+2024-09-20,Oregon,E,in-person,13,22.3,0,61
+2024-09-06,Colorado,C,probability panel,7,56.6,0,47
+2024-10-14,North Dakota,B,online panel,5,48.3,0,85
+2024-10-14,Hawaii,C,in-person,2,58.5,0,85
+2024-10-08,Rhode Island,B,in-person,17,39,0,79
+2024-08-08,South Carolina,C,in-person,1,23.8,0,18
+2024-07-28,Utah,F,online panel,4,49.9,0,7
+2024-10-06,Missouri,E,in-person,-7,57.8,0,77
+2024-09-29,Ohio,F,probability panel,-17,34.6,0,70
+2024-09-22,Massachusetts,E,by phone,-20,42,0,63
+2024-07-26,North Carolina,C,in-person,-13,57,0,5
+2024-09-23,Alabama,E,online panel,8,20.3,0,64
+2024-10-27,Hawaii,C,by phone,14,45.8,0,98
+2024-10-11,Connecticut,C,by phone,10,59.2,0,82
+2024-08-09,national,E,online panel,-1,23,1,19
+2024-08-24,Delaware,A,in-person,-6,25.2,0,34
+2024-07-31,North Carolina,C,probability panel,1,32.2,0,10
+2024-10-24,Pennsylvania,E,by phone,9,22,0,95
+2024-09-19,Illinois,B,in-person,19,24.1,0,60
+2024-08-24,Nebraska,B,in-person,-9,23.7,0,34
+2024-09-28,Nebraska,C,in-person,-25,35.8,0,69
+2024-08-15,national,E,probability panel,11,29.1,1,25
+2024-09-11,Maine,E,online panel,-13,24.4,0,52
+2024-08-02,Kentucky,C,probability panel,-1,19.2,0,12
+2024-08-30,Florida,B,online panel,14,44.4,0,40
+2024-09-11,Kansas,A,online panel,-10,55.5,0,52
+2024-10-28,California,C,probability panel,7,32.6,0,99
+2024-08-29,Alaska,F,probability panel,5,46.7,0,39
+2024-10-19,New York,A,online panel,12,28.3,0,90
+2024-10-02,Colorado,F,online panel,5,24,0,73
+2024-10-10,New Hampshire,B,by phone,0,29.9,0,81
+2024-10-24,Iowa,B,in-person,4,50,0,95
+2024-10-20,Washington,F,in-person,13,38.8,0,91
+2024-09-17,North Dakota,A,by phone,16,53.1,0,58
+2024-08-13,Nevada,A,online panel,3,33.6,0,23
+2024-09-08,Kentucky,B,by phone,7,40,0,49
+2024-09-25,California,E,in-person,2,26.8,0,66
+2024-08-14,Michigan,C,by phone,8,54.5,0,24
+2024-09-18,Idaho,D,probability panel,-13,28.3,0,59
+2024-08-28,Utah,B,by phone,4,40.6,0,38
+2024-10-23,Kentucky,A,by phone,-6,35.2,0,94
+2024-07-23,Ohio,A,in-person,-3,32.9,0,2
+2024-09-13,Virginia,D,by phone,-15,23.5,0,54
+2024-08-09,Texas,A,online panel,15,47.1,0,19
+2024-09-13,Nebraska,B,in-person,-11,47.5,0,54
+2024-09-14,Pennsylvania,C,probability panel,-6,23.7,0,55
+2024-08-31,Hawaii,D,in-person,6,26.4,0,41
+2024-10-05,Idaho,D,online panel,-22,41.1,0,76
+2024-09-16,Wyoming,D,probability panel,-13,56.4,0,57
+2024-10-14,California,C,online panel,-19,45,0,85
+2024-07-31,Connecticut,F,in-person,-0,20.4,0,10
+2024-07-29,Virginia,C,in-person,-3,58.8,0,8
+2024-08-22,Connecticut,E,in-person,8,55.2,0,32
+2024-09-13,Massachusetts,A,probability panel,9,30.4,0,54
+2024-09-09,Illinois,B,probability panel,-3,30.8,0,50
+2024-10-01,North Carolina,C,online panel,-7,41.1,0,72
+2024-07-24,South Carolina,E,probability panel,-5,24.9,0,3
+2024-10-24,national,A,in-person,-0,56.4,1,95
+2024-07-29,Indiana,E,probability panel,15,53.7,0,8
+2024-10-13,Vermont,E,probability panel,-12,23.5,0,84
+2024-07-29,South Carolina,A,probability panel,11,27.9,0,8
+2024-08-29,Wyoming,E,online panel,-1,36.9,0,39
+2024-07-22,Mississippi,D,probability panel,-7,20.4,0,1
+2024-09-13,Pennsylvania,C,in-person,2,45.8,0,54
+2024-09-23,North Carolina,F,by phone,1,44.4,0,64
+2024-08-16,Wyoming,D,by phone,5,37.3,0,26
+2024-08-08,New Mexico,B,in-person,4,49.5,0,18
+2024-08-19,Nevada,D,probability panel,-4,38.1,0,29
+2024-10-03,Oregon,A,by phone,-1,27.4,0,74
+2024-08-31,Maryland,D,by phone,-4,46.1,0,41
+2024-08-01,Maine,B,online panel,-11,33.9,0,11
+2024-08-28,Kentucky,F,in-person,1,46.4,0,38
+2024-08-14,Oregon,E,online panel,-4,57.6,0,24
+2024-08-07,Mississippi,A,in-person,-9,46.1,0,17
+2024-08-21,Iowa,D,in-person,5,59.9,0,31
+2024-08-14,Wisconsin,A,probability panel,-10,48.2,0,24
+2024-10-06,Utah,D,probability panel,-13,44.2,0,77
+2024-10-26,New Mexico,E,online panel,6,38.5,0,97
+2024-11-04,Alabama,A,probability panel,-7,58.6,0,106
+2024-10-05,Oklahoma,A,in-person,-6,25.1,0,76
+2024-09-08,Indiana,F,in-person,0,29.9,0,49
+2024-09-23,Maryland,A,probability panel,-1,50.8,0,64
+2024-10-06,Texas,D,in-person,3,55.4,0,77
+2024-08-22,Oklahoma,F,by phone,18,58.9,0,32
+2024-08-05,Hawaii,B,in-person,-11,32.9,0,15
+2024-08-27,Connecticut,A,by phone,10,21.9,0,37
+2024-08-12,Utah,A,probability panel,10,35.1,0,22
+2024-10-31,Massachusetts,B,probability panel,6,53.5,0,102
+2024-08-13,Nebraska,D,online panel,-6,25.4,0,23
+2024-10-27,Colorado,C,online panel,-10,48.1,0,98
+2024-08-14,Hawaii,B,in-person,10,25,0,24
+2024-10-21,Nevada,B,by phone,-5,24.7,0,92
+2024-10-07,Arkansas,C,online panel,4,34.1,0,78
+2024-09-16,Georgia,F,by phone,5,21.7,0,57
+2024-10-06,Montana,D,online panel,-23,28.1,0,77
+2024-08-28,Arkansas,D,by phone,-12,41.1,0,38
+2024-09-27,New Jersey,E,in-person,-5,38.7,0,68
+2024-10-28,Wyoming,C,by phone,-9,44.2,0,99
+2024-08-27,national,D,probability panel,6,26.9,1,37
+2024-09-29,Oklahoma,E,by phone,-5,20.5,0,70
+2024-09-09,Washington,F,by phone,-5,53.8,0,50
+2024-08-17,Alaska,E,in-person,1,30.3,0,27
+2024-10-13,Wyoming,E,online panel,-8,50.5,0,84
+2024-08-30,Minnesota,D,in-person,-8,22,0,40
+2024-09-20,Alaska,D,online panel,-1,31.3,0,61
+2024-07-30,Florida,C,by phone,3,34.6,0,9
+2024-08-04,New Hampshire,D,online panel,-18,39.4,0,14
+2024-09-13,New Jersey,F,in-person,16,37.6,0,54
+2024-10-31,Arkansas,A,online panel,9,54.2,0,102
+2024-09-09,South Carolina,F,probability panel,8,31.3,0,50
+2024-09-18,West Virginia,F,online panel,-18,44.4,0,59
+2024-07-28,Wisconsin,A,online panel,-3,34.4,0,7
+2024-09-27,Maryland,C,in-person,17,34.5,0,68
+2024-10-15,North Dakota,F,online panel,5,25,0,86
+2024-09-29,North Carolina,A,in-person,16,52.4,0,70
+2024-09-21,Indiana,C,online panel,3,27,0,62
+2024-10-04,Montana,E,probability panel,11,38,0,75
+2024-09-04,North Dakota,D,online panel,-17,35.2,0,45
+2024-10-06,national,C,by phone,0,55.9,1,77
+2024-10-20,national,E,in-person,10,49,1,91
+2024-08-07,Maine,F,in-person,-6,54.5,0,17
+2024-08-05,Louisiana,E,in-person,-4,22.9,0,15
+2024-10-29,North Carolina,D,online panel,-5,31.3,0,100
+2024-09-13,South Carolina,D,probability panel,5,45,0,54
+2024-07-25,New Hampshire,D,probability panel,-2,44,0,4
+2024-10-11,New Jersey,D,in-person,-12,44.4,0,82
+2024-09-20,Indiana,F,in-person,6,33,0,61
+2024-10-03,Oregon,F,online panel,4,29.4,0,74
+2024-09-12,Rhode Island,D,by phone,1,25.6,0,53
+2024-09-01,Missouri,E,by phone,-11,47.6,0,42
+2024-10-02,Ohio,B,in-person,-5,45,0,73
+2024-10-27,Virginia,E,probability panel,1,48.9,0,98
+2024-09-26,national,C,in-person,7,56.4,1,67
+2024-09-15,Nevada,E,online panel,0,21.5,0,56
+2024-10-30,South Dakota,A,in-person,1,38.4,0,101
+2024-08-05,Oklahoma,A,in-person,-3,34.6,0,15
+2024-08-19,Florida,A,online panel,1,24.3,0,29
+2024-07-22,North Dakota,D,in-person,-2,45.6,0,1
+2024-09-08,Kentucky,B,by phone,12,45.5,0,49
+2024-07-26,Mississippi,A,online panel,12,52.5,0,5
+2024-10-11,Texas,F,in-person,13,42.2,0,82
+2024-10-19,Oklahoma,B,by phone,-15,35,0,90
+2024-08-08,Colorado,C,online panel,3,41.3,0,18
+2024-09-12,Hawaii,D,in-person,-9,24.2,0,53
+2024-09-07,North Dakota,D,in-person,1,47.3,0,48
+2024-10-09,Vermont,A,by phone,-2,23.2,0,80
+2024-10-14,Massachusetts,F,probability panel,-12,59.6,0,85
+2024-09-23,Maryland,B,by phone,-4,48.7,0,64
+2024-09-21,Connecticut,E,in-person,-6,21.4,0,62
+2024-10-19,national,C,online panel,11,32.7,1,90
+2024-07-29,Maine,F,in-person,13,54.4,0,8
+2024-08-21,Montana,D,in-person,-12,37.5,0,31
+2024-10-08,New Mexico,D,online panel,-4,51.8,0,79
+2024-09-29,Oklahoma,D,online panel,-10,35.7,0,70
+2024-08-29,Maryland,B,probability panel,-9,27.2,0,39
+2024-10-27,Maryland,F,by phone,1,38.9,0,98
+2024-10-19,Indiana,B,by phone,-2,51.1,0,90
+2024-09-16,Maine,F,probability panel,-1,39.9,0,57
+2024-08-25,Alaska,B,probability panel,3,53.5,0,35
+2024-09-21,New Hampshire,A,online panel,-5,45.7,0,62
+2024-09-25,Mississippi,F,by phone,2,27.9,0,66
+2024-08-17,Illinois,F,in-person,4,56.3,0,27
+2024-10-05,Michigan,A,in-person,5,27.5,0,76
+2024-09-23,Vermont,D,probability panel,-5,22.1,0,64
+2024-09-15,Minnesota,A,in-person,-5,31.6,0,56
+2024-10-31,Alabama,A,in-person,-12,51.7,0,102
+2024-08-09,Maine,B,online panel,3,28.7,0,19
+2024-08-27,Montana,E,online panel,7,48.3,0,37
+2024-10-11,Hawaii,E,in-person,-1,29.2,0,82
+2024-08-06,Washington,D,probability panel,-10,19.1,0,16
+2024-10-25,Colorado,C,by phone,12,44.1,0,96
+2024-10-16,North Carolina,F,online panel,-1,47.1,0,87
+2024-09-19,New Hampshire,D,in-person,-14,29.4,0,60
+2024-10-30,Idaho,C,in-person,-3,56.7,0,101
+2024-09-03,Pennsylvania,B,online panel,-0,59,0,44
+2024-07-31,Kentucky,F,by phone,1,32.8,0,10
+2024-08-04,Pennsylvania,B,by phone,-9,53.9,0,14
+2024-09-15,Texas,E,in-person,3,31.1,0,56
+2024-10-04,New Jersey,E,in-person,-1,55.1,0,75
+2024-08-26,Vermont,F,probability panel,-3,38.7,0,36
+2024-10-13,Maryland,B,in-person,-12,45.4,0,84
+2024-10-21,Massachusetts,F,by phone,-12,22.8,0,92
+2024-10-26,Nevada,A,in-person,4,21.4,0,97
+2024-09-21,Indiana,E,by phone,-3,55.4,0,62
+2024-10-07,Virginia,D,in-person,7,51.6,0,78
+2024-10-22,Idaho,A,in-person,21,30.7,0,93
+2024-10-13,California,C,by phone,16,24.5,0,84
+2024-10-29,Wyoming,D,online panel,-9,23.5,0,100
+2024-10-30,national,F,by phone,2,26.5,1,101
+2024-10-05,Massachusetts,F,by phone,-3,31.9,0,76
+2024-07-24,Kentucky,E,online panel,10,40.1,0,3
+2024-10-21,New Mexico,A,online panel,9,57.5,0,92
+2024-09-18,New York,D,online panel,-5,46.1,0,59
+2024-08-13,Nebraska,B,in-person,-3,25.6,0,23
+2024-07-30,Iowa,A,online panel,12,27.7,0,9
+2024-10-15,Alabama,B,in-person,-0,42.7,0,86
+2024-08-12,Missouri,C,by phone,-5,44.6,0,22
+2024-10-26,Maine,B,online panel,-10,41.7,0,97
+2024-08-01,Hawaii,A,online panel,14,21,0,11
+2024-08-07,North Carolina,B,in-person,3,31.3,0,17
+2024-10-13,South Carolina,A,in-person,2,30.8,0,84
+2024-10-17,Kansas,D,in-person,-6,24.8,0,88
+2024-08-30,Nebraska,C,online panel,-2,40.2,0,40
+2024-10-07,Minnesota,E,in-person,-20,31.7,0,78
+2024-09-29,Nebraska,B,in-person,11,58.5,0,70
+2024-10-16,Alabama,B,probability panel,-2,47.2,0,87
+2024-09-07,Massachusetts,D,probability panel,-5,24.5,0,48
+2024-10-19,Texas,B,probability panel,-2,20.3,0,90
+2024-08-07,Nevada,D,online panel,-4,41.1,0,17
+2024-09-26,Georgia,E,probability panel,8,53.2,0,67
+2024-08-25,Montana,A,in-person,-2,48.2,0,35
+2024-10-13,Massachusetts,E,online panel,14,56.8,0,84
+2024-10-31,Utah,A,by phone,-8,37.5,0,102
+2024-10-23,national,D,online panel,1,32.3,1,94
+2024-08-23,New Jersey,A,probability panel,3,40.2,0,33
+2024-08-02,Connecticut,D,in-person,-0,49.4,0,12
+2024-08-19,Michigan,A,in-person,-2,43.9,0,29
+2024-07-25,Pennsylvania,B,by phone,3,30.8,0,4
+2024-08-07,Tennessee,D,online panel,5,38.8,0,17
+2024-10-26,Nevada,F,in-person,-11,52.3,0,97
+2024-09-02,Utah,E,in-person,-1,23.3,0,43
+2024-09-05,Alaska,A,in-person,-10,40.7,0,46
+2024-07-25,Virginia,D,probability panel,13,23.7,0,4
+2024-10-18,Kansas,C,in-person,11,34.5,0,89
+2024-09-20,Rhode Island,A,in-person,-1,30.2,0,61
+2024-07-28,Michigan,E,by phone,4,53.6,0,7
+2024-09-07,Kansas,E,probability panel,0,31.8,0,48
+2024-09-10,Nevada,E,in-person,-7,57.5,0,51
+2024-08-26,Maine,F,in-person,-19,21.5,0,36
+2024-09-04,Pennsylvania,E,online panel,-9,38.8,0,45
+2024-10-01,Arkansas,E,by phone,-3,19.5,0,72
+2024-10-21,Texas,D,probability panel,-13,50.3,0,92
+2024-08-13,Alabama,E,probability panel,-5,31.1,0,23
+2024-10-14,national,B,online panel,-16,40.3,1,85
+2024-07-25,Tennessee,F,online panel,-1,48.7,0,4
+2024-09-22,Colorado,D,by phone,-7,24.5,0,63
+2024-10-27,North Dakota,F,in-person,-6,19.6,0,98
+2024-07-22,Missouri,E,probability panel,5,38.5,0,1
+2024-10-03,Wyoming,B,by phone,-7,28.8,0,74
+2024-07-26,Oklahoma,A,in-person,10,58.4,0,5
+2024-10-17,Alabama,C,in-person,4,40.2,0,88
+2024-08-14,New York,A,by phone,12,53.6,0,24
+2024-08-23,New Mexico,B,in-person,7,49.9,0,33
+2024-11-02,Georgia,B,probability panel,14,24.9,0,104
+2024-09-14,Virginia,F,in-person,-7,37.4,0,55
+2024-10-02,Ohio,F,probability panel,4,30.4,0,73
+2024-09-19,Florida,E,probability panel,-6,33.6,0,60
+2024-08-23,Texas,F,online panel,23,44.7,0,33
+2024-10-30,Tennessee,F,online panel,3,42.5,0,101
+2024-08-09,Maryland,A,in-person,10,29.8,0,19
+2024-08-10,Florida,F,online panel,7,41.8,0,20
+2024-10-31,West Virginia,F,probability panel,-5,59.7,0,102
+2024-07-31,national,A,online panel,11,47.8,1,10
+2024-07-28,Washington,A,probability panel,-2,56,0,7
+2024-10-10,Kansas,D,probability panel,0,50.6,0,81
+2024-09-05,Georgia,D,in-person,3,37.4,0,46
+2024-08-02,North Carolina,C,online panel,-14,19.8,0,12
+2024-10-22,Oklahoma,D,probability panel,-7,49.6,0,93
+2024-10-10,Nevada,D,online panel,15,29.1,0,81
+2024-09-09,Virginia,C,online panel,-9,40.8,0,50
+2024-10-10,Pennsylvania,B,in-person,7,40.3,0,81
+2024-08-30,South Carolina,E,in-person,8,19.8,0,40
+2024-08-29,Pennsylvania,F,probability panel,5,44.4,0,39
+2024-09-15,Montana,A,probability panel,-8,42.9,0,56
+2024-07-26,Alabama,A,in-person,6,53.5,0,5
+2024-09-23,Georgia,A,in-person,21,52.2,0,64
+2024-07-25,Idaho,B,online panel,2,43.2,0,4
+2024-10-19,Colorado,C,by phone,-1,23.9,0,90
+2024-08-04,Texas,A,in-person,-7,26.3,0,14
+2024-09-15,Rhode Island,E,online panel,-8,43.2,0,56
+2024-08-06,New Mexico,F,probability panel,-6,19.8,0,16
+2024-10-22,Nebraska,E,by phone,-17,45.1,0,93
+2024-07-28,California,D,in-person,-2,35.4,0,7
+2024-08-27,Utah,F,online panel,-12,22.1,0,37
+2024-08-02,North Dakota,E,in-person,9,49.4,0,12
+2024-09-15,Delaware,A,in-person,11,40.3,0,56
+2024-09-05,West Virginia,A,probability panel,-6,51.4,0,46
+2024-09-18,West Virginia,B,online panel,-12,32.3,0,59
+2024-10-25,Tennessee,C,online panel,22,53.5,0,96
+2024-10-29,New Hampshire,E,probability panel,1,40,0,100
+2024-09-20,Mississippi,C,by phone,-0,45.6,0,61
+2024-08-27,national,A,probability panel,7,25.3,1,37
+2024-10-29,Washington,B,in-person,-5,32.3,0,100
+2024-08-07,Arkansas,E,in-person,-5,36.3,0,17
+2024-09-23,Illinois,A,online panel,-11,32.8,0,64
+2024-08-04,North Carolina,C,online panel,1,20.4,0,14
+2024-09-06,Ohio,F,online panel,-2,31.6,0,47
+2024-09-22,Georgia,F,probability panel,10,19.3,0,63
+2024-10-01,California,B,by phone,-5,24.7,0,72
+2024-10-15,Maine,E,in-person,14,58.7,0,86
+2024-07-31,Rhode Island,B,by phone,-5,36.8,0,10
+2024-10-15,national,A,online panel,-4,40.6,1,86
+2024-08-19,Idaho,A,online panel,-4,39.1,0,29
+2024-07-25,Oklahoma,C,in-person,-1,46.7,0,4
+2024-08-16,Oklahoma,D,online panel,-9,34.3,0,26
+2024-08-19,Rhode Island,A,by phone,-12,26.3,0,29
+2024-10-14,South Dakota,B,probability panel,-2,45.2,0,85
+2024-09-17,Maryland,F,by phone,-5,38.1,0,58
+2024-08-03,Wyoming,C,online panel,-1,37.6,0,13
+2024-10-20,North Dakota,B,by phone,-6,34.9,0,91
+2024-10-22,Maine,D,by phone,-13,40.6,0,93
+2024-09-01,Washington,D,in-person,9,27.4,0,42
+2024-10-25,Iowa,A,by phone,-2,53.2,0,96
+2024-09-16,Tennessee,D,in-person,14,41.4,0,57
+2024-08-02,Illinois,E,online panel,-2,28.7,0,12
+2024-10-07,Oregon,D,probability panel,14,37.4,0,78
+2024-08-23,Virginia,E,online panel,18,38.6,0,33
+2024-10-04,Idaho,A,online panel,18,57.1,0,75
+2024-09-08,Kansas,D,online panel,5,38.8,0,49
+2024-10-14,Rhode Island,F,in-person,10,30.8,0,85
+2024-08-17,California,C,probability panel,-6,50.1,0,27
+2024-09-19,California,A,by phone,8,56.1,0,60
+2024-07-26,Tennessee,B,probability panel,9,36.5,0,5
+2024-08-10,Delaware,A,by phone,26,59.9,0,20
+2024-09-01,New York,E,in-person,-14,24.1,0,42
+2024-10-10,Florida,A,probability panel,4,36.7,0,81
+2024-07-29,North Dakota,A,in-person,-11,45.7,0,8
+2024-07-24,Georgia,F,probability panel,18,52,0,3
+2024-09-09,Colorado,E,in-person,-0,49.7,0,50
+2024-10-15,Nebraska,C,in-person,3,20.9,0,86
+2024-09-16,California,A,online panel,-2,33.1,0,57
+2024-09-18,Minnesota,E,by phone,7,57.9,0,59
+2024-10-08,Louisiana,C,in-person,13,40.4,0,79
+2024-08-19,Oregon,C,by phone,-34,49.7,0,29
+2024-09-15,Maine,F,probability panel,-1,31.5,0,56
+2024-08-26,Connecticut,D,online panel,-4,33.8,0,36
+2024-10-20,New Mexico,F,probability panel,4,47.6,0,91
+2024-10-17,Delaware,D,probability panel,-9,22.3,0,88
+2024-10-16,Oklahoma,B,online panel,-17,21.2,0,87
+2024-10-02,New York,A,in-person,0,49.6,0,73
+2024-10-11,Mississippi,C,probability panel,20,52.9,0,82
+2024-07-22,Wyoming,B,probability panel,13,52.8,0,1
+2024-11-03,New York,C,in-person,2,22.3,0,105
+2024-10-04,South Dakota,E,in-person,3,38.2,0,75
+2024-09-13,New Jersey,A,online panel,-1,47.6,0,54
+2024-08-07,Nebraska,C,online panel,10,21,0,17
+2024-10-29,South Carolina,E,online panel,16,45.5,0,100
+2024-08-09,Indiana,B,by phone,16,34.5,0,19
+2024-07-26,Connecticut,D,probability panel,-14,43.1,0,5
+2024-07-27,Utah,D,by phone,-9,46.8,0,6
+2024-09-16,Wyoming,A,online panel,14,56.8,0,57
+2024-10-05,Oregon,F,online panel,-0,42.3,0,76
+2024-09-17,North Dakota,D,online panel,4,36.6,0,58
+2024-09-07,Georgia,B,probability panel,-7,20.8,0,48
+2024-09-28,Wyoming,B,probability panel,5,51.3,0,69
+2024-10-11,Idaho,C,probability panel,1,49,0,82
+2024-08-26,Colorado,A,probability panel,-10,33.4,0,36
+2024-08-12,Florida,F,probability panel,5,43,0,22
+2024-10-25,Missouri,F,by phone,17,58.1,0,96
+2024-10-20,Alaska,A,in-person,4,24.4,0,91
+2024-07-21,Maine,F,in-person,3,27.4,0,0
+2024-10-21,Alaska,F,by phone,-5,21.1,0,92
+2024-10-25,Georgia,F,in-person,19,30.9,0,96
+2024-08-06,Delaware,B,by phone,-5,27.7,0,16
+2024-08-10,Tennessee,C,probability panel,-25,50.9,0,20
+2024-08-14,Wyoming,E,probability panel,1,45.2,0,24
+2024-10-13,Colorado,B,online panel,3,32.6,0,84
+2024-10-29,Vermont,E,by phone,-3,21.1,0,100
+2024-10-09,New Jersey,A,probability panel,9,32.8,0,80
+2024-09-17,Arkansas,C,by phone,-3,42,0,58
+2024-08-08,Idaho,E,online panel,12,24.6,0,18
+2024-10-08,Maryland,D,online panel,9,49.7,0,79
+2024-10-24,Vermont,C,probability panel,21,50.1,0,95
+2024-10-30,Kentucky,D,probability panel,1,51.1,0,101
+2024-08-29,Georgia,F,online panel,-6,47.1,0,39
+2024-08-01,Kansas,E,online panel,6,30.8,0,11
+2024-09-02,Indiana,E,by phone,3,29,0,43
+2024-08-18,Utah,B,in-person,-7,49.3,0,28
+2024-10-24,Arkansas,A,by phone,-1,55.8,0,95
+2024-10-05,national,F,in-person,12,52,1,76
+2024-08-20,North Dakota,B,by phone,2,57.2,0,30
+2024-10-19,Minnesota,F,in-person,-19,39.4,0,90
+2024-10-13,Maine,A,by phone,19,19.3,0,84
+2024-07-28,Washington,B,probability panel,4,26.7,0,7
+2024-08-20,Minnesota,D,in-person,6,22,0,30
+2024-09-24,Nevada,E,by phone,-13,28.7,0,65
+2024-10-02,Florida,B,by phone,-11,55.1,0,73
+2024-10-24,Maine,F,online panel,5,47.7,0,95
+2024-09-10,Oklahoma,D,probability panel,-1,33.5,0,51
+2024-08-05,Minnesota,F,online panel,-12,44.6,0,15
+2024-09-11,Wyoming,B,in-person,15,42.2,0,52
+2024-07-22,Alabama,C,by phone,-8,20.7,0,1
+2024-08-20,Alabama,E,online panel,4,19.7,0,30
+2024-10-12,Ohio,B,in-person,-2,59.1,0,83
+2024-07-30,Michigan,D,probability panel,3,57.1,0,9
+2024-08-26,Texas,F,in-person,15,57.4,0,36
+2024-09-10,Florida,C,in-person,6,30,0,51
+2024-08-02,California,E,online panel,-8,24.5,0,12
+2024-08-10,Maryland,D,probability panel,11,36,0,20
+2024-10-25,Kentucky,B,by phone,-7,40.3,0,96
+2024-08-06,Vermont,C,by phone,13,36.3,0,16
+2024-08-20,Utah,E,online panel,22,59.7,0,30
+2024-09-26,West Virginia,F,probability panel,-25,44.6,0,67
+2024-10-19,Rhode Island,C,online panel,-10,28.4,0,90
+2024-08-16,California,B,probability panel,-14,49.3,0,26
+2024-08-21,Wyoming,F,probability panel,4,27.9,0,31
+2024-08-17,Hawaii,A,in-person,-4,48.6,0,27
+2024-07-25,Maryland,D,by phone,-3,54.9,0,4
+2024-08-30,Utah,E,by phone,-17,40.3,0,40
+2024-08-10,North Carolina,E,probability panel,-21,28.3,0,20
+2024-08-29,Louisiana,F,in-person,1,43.1,0,39
+2024-10-01,national,B,online panel,2,51.3,1,72
+2024-09-14,Connecticut,F,probability panel,6,59,0,55
+2024-08-08,Oregon,A,online panel,9,45.7,0,18
+2024-10-06,Ohio,F,in-person,-8,34.2,0,77
+2024-09-10,Idaho,D,probability panel,-4,29.2,0,51
+2024-08-23,Hawaii,B,online panel,3,27.8,0,33
+2024-10-23,Colorado,E,probability panel,0,34.9,0,94
+2024-09-18,Pennsylvania,E,by phone,-9,36.5,0,59
+2024-08-20,Kentucky,E,probability panel,-8,27.8,0,30
+2024-08-28,Delaware,C,probability panel,10,36.6,0,38
+2024-08-09,Indiana,D,online panel,7,27.2,0,19
+2024-09-06,Illinois,C,probability panel,13,38.6,0,47
+2024-10-27,Illinois,D,by phone,-19,56.6,0,98
+2024-07-23,Indiana,C,probability panel,6,55.2,0,2
+2024-09-07,Vermont,B,by phone,-7,57.1,0,48
+2024-09-17,North Dakota,B,online panel,-3,41.8,0,58
+2024-08-27,North Carolina,F,by phone,-11,27.1,0,37
+2024-09-21,Missouri,A,by phone,9,58.1,0,62
+2024-08-05,Maine,F,by phone,-16,50.2,0,15
+2024-07-27,Michigan,A,in-person,-13,53.6,0,6
+2024-08-27,North Dakota,A,online panel,5,39.7,0,37
+2024-11-01,Pennsylvania,D,online panel,6,33,0,103
+2024-10-28,Kansas,A,by phone,-18,26.6,0,99
+2024-10-22,Ohio,F,by phone,-8,58.8,0,93
+2024-10-23,Indiana,F,in-person,-12,35.9,0,94
+2024-10-27,Oregon,B,online panel,10,20.3,0,98
+2024-09-13,Montana,C,probability panel,8,44.5,0,54
+2024-08-31,Maine,F,by phone,-4,51.1,0,41
+2024-09-14,California,F,probability panel,-9,30.6,0,55
+2024-07-21,Nebraska,A,probability panel,-1,26.8,0,0
+2024-07-22,Kentucky,E,online panel,-4,37.7,0,1
+2024-10-14,New Jersey,B,by phone,-10,58.7,0,85
+2024-09-06,Connecticut,B,online panel,16,53.8,0,47
+2024-08-27,New Hampshire,F,in-person,8,30.7,0,37
+2024-08-15,Mississippi,B,in-person,4,35.8,0,25
+2024-08-14,Illinois,F,in-person,5,53.2,0,24
+2024-09-14,Connecticut,B,by phone,-11,54.1,0,55
+2024-08-24,West Virginia,A,by phone,-8,31.9,0,34
+2024-08-30,Missouri,D,probability panel,7,27.7,0,40
+2024-09-10,national,A,in-person,9,24,1,51
+2024-10-03,Vermont,E,in-person,7,46.4,0,74
+2024-08-19,Indiana,B,in-person,-11,45.2,0,29
+2024-07-26,West Virginia,C,probability panel,-4,34.9,0,5
+2024-08-26,Maryland,D,by phone,2,30.6,0,36
+2024-07-27,Kansas,E,in-person,-14,26,0,6
+2024-09-12,Utah,A,online panel,-10,35.6,0,53
+2024-08-26,North Carolina,E,online panel,-6,53,0,36
+2024-10-27,California,B,by phone,5,38.8,0,98
+2024-08-29,Maryland,F,by phone,5,52.6,0,39
+2024-08-18,Massachusetts,F,in-person,22,26.9,0,28
+2024-08-17,Rhode Island,D,probability panel,-7,29,0,27
+2024-07-28,Indiana,A,probability panel,-10,28,0,7
+2024-09-06,Rhode Island,C,in-person,-5,51.5,0,47
+2024-09-06,California,C,probability panel,7,55.8,0,47
+2024-10-12,Oregon,F,in-person,-8,33.2,0,83
+2024-08-23,Missouri,B,by phone,-11,30.9,0,33
+2024-09-19,Wyoming,F,probability panel,-21,32.7,0,60
+2024-09-14,South Carolina,A,probability panel,24,58.8,0,55
+2024-11-02,Virginia,D,online panel,8,58.3,0,104
+2024-09-07,Connecticut,F,by phone,2,58.6,0,48
+2024-10-18,Kansas,C,by phone,-13,28.1,0,89
+2024-10-24,Maine,B,by phone,-0,36.9,0,95
+2024-09-10,Arkansas,C,online panel,16,59.1,0,51
+2024-09-27,West Virginia,C,in-person,-15,20.8,0,68
+2024-08-06,Virginia,E,by phone,10,41.1,0,16
+2024-10-18,Maine,D,online panel,-5,43.4,0,89
+2024-10-30,California,A,probability panel,-4,39.9,0,101
+2024-07-29,New Hampshire,C,probability panel,-7,39.8,0,8
+2024-08-08,North Dakota,A,online panel,1,36.7,0,18
+2024-11-03,New Jersey,E,in-person,-2,58.2,0,105
+2024-10-23,Wisconsin,F,by phone,-8,35.4,0,94
+2024-10-17,Maryland,A,online panel,10,52.9,0,88
+2024-08-29,Kentucky,E,probability panel,12,55,0,39
+2024-08-18,Michigan,B,by phone,17,20,0,28
+2024-10-13,Georgia,A,in-person,-9,32,0,84
+2024-08-12,Florida,A,online panel,15,54.9,0,22
+2024-07-31,Maryland,D,in-person,-5,53.5,0,10
+2024-08-16,Georgia,C,in-person,15,47,0,26
+2024-10-28,Indiana,C,in-person,2,36.1,0,99
+2024-08-05,Kentucky,A,by phone,3,48.9,0,15
+2024-10-11,Iowa,B,in-person,3,21.9,0,82
+2024-07-27,Kentucky,E,by phone,13,51.7,0,6
+2024-09-01,Nebraska,B,in-person,17,58.2,0,42
+2024-10-11,Maine,F,online panel,-2,53.1,0,82
+2024-11-04,Hawaii,D,in-person,-5,22.2,0,106
+2024-08-04,Illinois,D,probability panel,-7,35.9,0,14
+2024-09-05,Missouri,F,by phone,-9,43.3,0,46
+2024-07-21,Nebraska,F,probability panel,-5,45.5,0,0
+2024-08-31,Montana,A,probability panel,-10,55.1,0,41
+2024-09-02,West Virginia,F,in-person,4,45.7,0,43
+2024-10-18,Georgia,C,in-person,1,36.6,0,89
+2024-10-20,Alaska,C,online panel,-3,29.4,0,91
+2024-08-04,Alaska,B,probability panel,3,54.9,0,14
+2024-08-25,California,E,in-person,5,38,0,35
+2024-09-21,California,C,in-person,-3,45.1,0,62
+2024-09-27,New Jersey,A,in-person,6,53.1,0,68
+2024-09-06,New York,F,in-person,-4,19.9,0,47
+2024-08-25,Florida,E,in-person,7,46.7,0,35
+2024-09-16,Arkansas,C,in-person,-8,57.9,0,57
+2024-07-22,Georgia,E,by phone,-7,35.6,0,1
+2024-08-24,Alabama,E,by phone,-15,19.9,0,34
+2024-10-29,Georgia,B,probability panel,7,59.4,0,100
+2024-09-25,Utah,D,probability panel,-2,55.9,0,66
+2024-08-01,Oregon,C,in-person,-1,38.1,0,11
+2024-10-30,Missouri,B,by phone,-8,20.6,0,101
+2024-08-26,Connecticut,C,by phone,-6,39.6,0,36
+2024-10-27,Louisiana,C,probability panel,6,48,0,98
+2024-07-29,Idaho,D,by phone,5,23.3,0,8
+2024-10-17,Illinois,D,probability panel,3,29.9,0,88
+2024-10-21,Michigan,B,by phone,-3,27,0,92
+2024-10-17,Maine,C,probability panel,-12,44.4,0,88
+2024-09-23,South Carolina,E,online panel,21,51.6,0,64
+2024-09-11,Rhode Island,D,in-person,6,34.8,0,52
+2024-10-19,Ohio,E,in-person,-15,49,0,90
+2024-09-06,South Carolina,E,by phone,20,50.2,0,47
+2024-08-13,Alaska,C,in-person,-4,52.3,0,23
+2024-09-23,Vermont,D,by phone,8,47.1,0,64
+2024-08-03,Massachusetts,C,in-person,11,45.5,0,13
+2024-07-22,Hawaii,D,online panel,8,29.1,0,1
+2024-10-05,Hawaii,B,probability panel,-16,27.6,0,76
+2024-09-27,North Dakota,D,in-person,21,52.6,0,68
+2024-10-29,Nevada,B,probability panel,-8,24.4,0,100
+2024-08-08,Florida,A,in-person,-4,54.7,0,18
+2024-09-06,Maine,A,in-person,4,47.8,0,47
+2024-09-03,Oregon,F,in-person,-1,42.9,0,44
+2024-10-02,Vermont,A,in-person,-12,38.8,0,73
+2024-08-27,Vermont,D,by phone,8,44.7,0,37
+2024-10-05,Missouri,C,in-person,-12,40.3,0,76
+2024-09-14,Delaware,E,in-person,5,37.8,0,55
+2024-10-28,California,E,online panel,-5,51.9,0,99
+2024-09-15,Illinois,B,by phone,4,57.2,0,56
+2024-10-26,Illinois,E,by phone,-13,39.3,0,97
+2024-09-30,Oregon,D,online panel,-5,43.4,0,71
+2024-09-28,Utah,E,probability panel,-11,21.2,0,69
+2024-07-26,Tennessee,A,in-person,6,39.4,0,5
+2024-08-19,Texas,D,by phone,4,38,0,29
+2024-09-10,North Dakota,C,online panel,17,35.9,0,51
+2024-08-06,Texas,E,online panel,2,54.9,0,16
+2024-08-20,Oregon,C,probability panel,-16,60,0,30
+2024-10-23,California,F,in-person,-24,19.4,0,94
+2024-07-29,Wisconsin,A,online panel,16,47.7,0,8
+2024-10-22,Ohio,C,in-person,4,25.6,0,93
+2024-09-11,Wisconsin,E,in-person,4,59.4,0,52
+2024-10-08,national,A,in-person,5,33,1,79
+2024-10-06,Idaho,E,online panel,-1,39.9,0,77
+2024-09-15,Nevada,B,by phone,1,31.3,0,56
+2024-08-27,Maryland,B,in-person,4,28.8,0,37
+2024-10-24,Wisconsin,E,online panel,-4,20,0,95
+2024-08-22,Oklahoma,D,in-person,-6,27.1,0,32
+2024-07-21,New York,E,online panel,-8,56.6,0,0
+2024-09-28,Wisconsin,C,probability panel,-7,58.2,0,69
+2024-08-10,Illinois,B,in-person,-13,51.3,0,20
+2024-07-22,Louisiana,D,online panel,14,28.2,0,1
+2024-07-21,Kansas,C,probability panel,11,49.4,0,0
+2024-10-30,Missouri,C,online panel,13,37.8,0,101
+2024-09-19,Illinois,F,probability panel,16,20.8,0,60
+2024-09-21,Alaska,C,by phone,-10,33.7,0,62
+2024-09-28,Michigan,F,online panel,-11,36.9,0,69
+2024-08-16,Idaho,C,by phone,-8,27.8,0,26
+2024-08-31,Kansas,A,online panel,8,25.5,0,41
+2024-08-12,Missouri,A,online panel,-9,56.4,0,22
+2024-08-17,Kansas,A,by phone,10,21,0,27
+2024-07-22,Montana,D,in-person,-1,45.2,0,1
+2024-09-19,national,F,online panel,11,23,1,60
+2024-09-22,Vermont,C,probability panel,-5,25.4,0,63
+2024-07-29,Iowa,A,by phone,8,54.3,0,8
+2024-10-12,North Carolina,D,online panel,-5,33,0,83
+2024-09-13,Indiana,E,probability panel,-5,45.5,0,54
+2024-10-05,West Virginia,F,in-person,13,23.6,0,76
+2024-10-12,South Carolina,D,in-person,-6,21,0,83
+2024-08-06,Delaware,F,in-person,-11,41.5,0,16
+2024-08-11,Arkansas,B,probability panel,3,25.1,0,21
+2024-10-06,Pennsylvania,D,in-person,-15,39.9,0,77
+2024-10-22,Mississippi,E,online panel,2,32.8,0,93
+2024-09-13,Minnesota,A,in-person,-2,42.1,0,54
+2024-08-29,Iowa,E,online panel,-10,39.2,0,39
+2024-08-20,North Dakota,D,by phone,6,33.7,0,30
+2024-08-22,Alaska,B,probability panel,-8,41.3,0,32
+2024-08-16,Wyoming,D,in-person,-11,48.5,0,26
+2024-08-31,Oregon,E,by phone,12,32.8,0,41
+2024-11-04,Mississippi,D,probability panel,-0,39.8,0,106
+2024-08-31,North Carolina,F,in-person,18,41,0,41
+2024-08-24,Minnesota,B,online panel,-6,26.2,0,34
+2024-10-03,Minnesota,F,in-person,9,27.9,0,74
+2024-10-08,Indiana,E,in-person,7,44.2,0,79
+2024-08-25,Wyoming,F,probability panel,15,47.7,0,35
+2024-08-04,California,D,by phone,-2,59.9,0,14
+2024-08-04,Indiana,B,in-person,0,23,0,14
+2024-09-19,South Dakota,F,by phone,19,39.4,0,60
+2024-10-19,Minnesota,B,probability panel,10,29.5,0,90
+2024-10-06,New Jersey,E,by phone,4,49.3,0,77
+2024-08-17,Nevada,B,by phone,5,41.9,0,27
+2024-10-14,South Dakota,A,online panel,-12,33.9,0,85
+2024-09-06,Ohio,B,online panel,-0,53.1,0,47
+2024-07-24,Maine,C,online panel,-2,55.5,0,3
+2024-08-18,national,C,probability panel,-2,20.4,1,28
+2024-08-25,Florida,B,probability panel,18,42.2,0,35
+2024-10-28,New Mexico,E,probability panel,-1,43,0,99
+2024-08-05,Ohio,F,online panel,-12,37.1,0,15
+2024-09-13,Ohio,A,probability panel,-19,35.6,0,54
+2024-08-15,Wisconsin,A,in-person,-0,38.5,0,25
+2024-08-12,Nebraska,E,online panel,-9,56.2,0,22
+2024-09-02,Oregon,E,in-person,7,32.9,0,43
+2024-09-22,New Mexico,D,probability panel,-13,52.1,0,63
+2024-08-03,Colorado,A,by phone,-3,27.9,0,13
+2024-10-23,Montana,F,by phone,13,37.4,0,94
+2024-08-19,Texas,F,online panel,-14,33.7,0,29
+2024-10-12,Arkansas,D,online panel,3,46.9,0,83
+2024-11-03,Hawaii,F,in-person,-9,28.7,0,105
+2024-08-21,New Mexico,B,by phone,-5,22.6,0,31
+2024-10-12,Delaware,C,probability panel,9,42.4,0,83
+2024-09-10,Virginia,D,in-person,-6,29.6,0,51
+2024-08-25,Mississippi,E,online panel,-11,40.2,0,35
+2024-07-31,Kansas,B,probability panel,-34,45.7,0,10
+2024-07-27,Louisiana,D,probability panel,3,21.9,0,6
+2024-07-24,Missouri,D,in-person,5,27.6,0,3
+2024-09-03,Pennsylvania,D,by phone,7,29.8,0,44
+2024-09-07,Minnesota,E,by phone,-9,29.5,0,48
+2024-09-26,Georgia,E,probability panel,16,50.9,0,67
+2024-08-24,Colorado,C,in-person,-13,30.4,0,34
+2024-08-31,Tennessee,C,probability panel,8,37.8,0,41
+2024-09-30,Missouri,E,in-person,2,23.3,0,71
+2024-08-22,North Carolina,F,online panel,-22,59.1,0,32
+2024-07-26,Kansas,E,in-person,4,19.7,0,5
+2024-08-21,Alabama,A,online panel,1,25.1,0,31
+2024-09-07,South Dakota,E,probability panel,-3,37.9,0,48
+2024-09-23,Maine,B,in-person,5,45.4,0,64
+2024-09-10,Alabama,B,online panel,-8,21.7,0,51
+2024-08-29,South Dakota,F,in-person,1,49.7,0,39
+2024-09-19,Maine,B,by phone,-14,48.5,0,60
+2024-10-30,Pennsylvania,F,probability panel,-6,36.1,0,101
+2024-08-09,Maryland,D,by phone,0,30.7,0,19
+2024-10-25,Colorado,C,in-person,-27,48.3,0,96
+2024-09-13,Utah,A,by phone,-9,40.8,0,54
+2024-10-07,Alaska,D,by phone,3,57.7,0,78
+2024-09-28,South Carolina,E,online panel,-3,57.7,0,69
+2024-10-31,New Mexico,C,in-person,-7,42,0,102
+2024-09-16,Illinois,A,by phone,-9,29.9,0,57
+2024-08-15,Alabama,F,online panel,12,32.1,0,25
+2024-07-31,Kansas,A,in-person,1,46.9,0,10
+2024-08-23,Hawaii,F,in-person,1,45.2,0,33
+2024-08-25,South Carolina,C,online panel,14,38.6,0,35
+2024-08-14,Connecticut,B,probability panel,-23,28.5,0,24
+2024-10-30,Alabama,B,probability panel,-1,35.5,0,101
+2024-08-11,Maryland,B,by phone,-22,38.9,0,21
+2024-08-14,Massachusetts,C,probability panel,4,39.8,0,24
+2024-10-12,Nebraska,C,by phone,-5,38.3,0,83
+2024-08-27,Kentucky,B,probability panel,13,37.2,0,37
+2024-08-25,New Mexico,B,probability panel,21,42.4,0,35
+2024-07-23,Texas,F,online panel,-12,49.1,0,2
+2024-10-29,Alaska,D,online panel,20,23.7,0,100
+2024-09-15,New Jersey,D,in-person,17,24.1,0,56
+2024-07-27,Florida,C,probability panel,16,58.8,0,6
+2024-07-25,Virginia,B,by phone,5,37.7,0,4
+2024-09-24,Connecticut,D,in-person,-14,57.8,0,65
+2024-08-19,Maryland,D,in-person,6,37.4,0,29
+2024-07-21,Connecticut,F,by phone,3,57.6,0,0
+2024-07-22,Florida,A,online panel,15,49.3,0,1
+2024-10-05,Nebraska,E,by phone,9,58.4,0,76
+2024-10-03,Idaho,F,online panel,-0,31.9,0,74
+2024-08-23,Maine,C,in-person,-12,33.8,0,33
+2024-09-03,Utah,E,in-person,-12,31.8,0,44
+2024-10-16,Ohio,D,probability panel,7,52.6,0,87
+2024-07-23,Ohio,D,by phone,0,31.6,0,2
+2024-10-23,Idaho,D,online panel,-4,49,0,94
+2024-10-08,Colorado,A,online panel,13,43.5,0,79
+2024-08-15,Mississippi,C,probability panel,-16,31.5,0,25
+2024-09-14,Nevada,B,in-person,8,52.7,0,55
+2024-10-03,Pennsylvania,C,by phone,2,20.3,0,74
+2024-09-23,New Mexico,F,online panel,3,19.8,0,64
+2024-09-09,Washington,A,in-person,13,39.1,0,50
+2024-08-09,Georgia,E,probability panel,7,47.9,0,19
+2024-10-17,Louisiana,C,online panel,4,54.1,0,88
+2024-08-20,Wisconsin,F,probability panel,28,36.8,0,30
+2024-08-31,national,D,by phone,8,48.9,1,41
+2024-07-24,Nebraska,C,in-person,-16,54.1,0,3
+2024-09-29,New York,B,probability panel,7,37,0,70
+2024-07-21,Minnesota,C,by phone,-2,45.2,0,0
+2024-09-05,Wisconsin,D,probability panel,-9,59.9,0,46
+2024-08-15,Missouri,A,online panel,20,21.3,0,25
+2024-08-09,Connecticut,D,by phone,-3,32.8,0,19
+2024-09-04,Montana,B,in-person,2,34.3,0,45
+2024-10-20,Maryland,D,probability panel,5,43.2,0,91
+2024-09-19,Florida,B,by phone,-6,52.7,0,60
+2024-10-02,Montana,A,by phone,-2,52.8,0,73
+2024-08-23,Montana,B,probability panel,-0,43.2,0,33
+2024-07-30,Nebraska,A,by phone,-8,59.8,0,9
+2024-10-29,Tennessee,B,by phone,4,36.9,0,100
+2024-09-21,Oregon,D,online panel,7,44.9,0,62
+2024-09-28,Montana,C,online panel,-11,42.2,0,69
+2024-09-09,Oklahoma,B,probability panel,7,47.5,0,50
+2024-09-14,Iowa,A,probability panel,-3,36.2,0,55
+2024-10-12,Wisconsin,D,online panel,-7,38,0,83
+2024-08-27,Rhode Island,E,online panel,-2,52,0,37
+2024-08-24,Tennessee,B,in-person,0,47.2,0,34
+2024-11-03,Indiana,F,in-person,-0,30.2,0,105
+2024-09-21,Pennsylvania,E,in-person,12,49,0,62
+2024-07-28,South Dakota,B,by phone,-7,20.9,0,7
+2024-09-25,Florida,C,by phone,4,25.8,0,66
+2024-08-16,Iowa,D,online panel,-29,56.9,0,26
+2024-10-24,Nevada,D,online panel,0,57.3,0,95
+2024-10-23,Louisiana,D,in-person,-13,29,0,94
+2024-08-06,California,E,probability panel,-1,25.8,0,16
+2024-10-30,Hawaii,C,by phone,-7,19.6,0,101
+2024-09-13,New Hampshire,F,in-person,-7,24.6,0,54
+2024-10-30,Delaware,F,online panel,-4,56.8,0,101
+2024-10-27,Alabama,E,online panel,-5,47.2,0,98
+2024-07-28,Maine,D,by phone,0,20.2,0,7
+2024-10-01,New Jersey,A,online panel,13,26.4,0,72
+2024-10-05,Kentucky,F,in-person,-0,32.7,0,76
+2024-08-23,Arkansas,D,in-person,23,50.6,0,33
+2024-10-08,Indiana,A,online panel,20,57.1,0,79
+2024-11-04,Connecticut,D,probability panel,-2,59.1,0,106
+2024-07-31,Kansas,C,online panel,-12,26,0,10
+2024-10-20,New Mexico,E,by phone,5,42.6,0,91
+2024-09-07,West Virginia,B,online panel,-3,29.5,0,48
+2024-10-22,New Hampshire,B,online panel,-16,25.3,0,93
+2024-08-19,Georgia,A,probability panel,5,32.4,0,29
+2024-08-11,New York,B,by phone,-14,25.8,0,21
+2024-07-29,North Dakota,D,online panel,-12,59.3,0,8
+2024-07-31,Connecticut,C,in-person,-8,23.6,0,10
+2024-09-01,Wisconsin,A,by phone,-2,59.8,0,42
+2024-10-26,Florida,B,probability panel,-15,28.4,0,97
+2024-08-06,Missouri,F,online panel,9,52.8,0,16
+2024-07-21,Illinois,F,probability panel,12,53.7,0,0
+2024-07-29,North Carolina,D,by phone,3,42,0,8
+2024-10-16,Illinois,D,by phone,12,27.5,0,87
+2024-10-04,New York,B,probability panel,16,33.3,0,75
+2024-09-17,South Carolina,D,in-person,-3,34.8,0,58
+2024-07-25,Louisiana,E,in-person,-1,59.7,0,4
+2024-09-11,Oklahoma,D,online panel,17,40,0,52
+2024-07-26,Alabama,C,online panel,14,40.6,0,5
+2024-10-31,South Carolina,C,by phone,6,55.2,0,102
+2024-08-07,Utah,F,by phone,3,49.6,0,17
+2024-09-07,Oklahoma,A,online panel,16,58.6,0,48
+2024-08-23,Hawaii,A,online panel,-14,26.4,0,33
+2024-08-31,North Dakota,D,by phone,-5,41.2,0,41
+2024-07-30,Delaware,C,online panel,-4,40.6,0,9
+2024-07-22,Idaho,A,in-person,-8,26.4,0,1
+2024-09-06,New Hampshire,B,probability panel,2,26.5,0,47
+2024-09-20,Mississippi,A,in-person,9,28.5,0,61
+2024-08-22,Illinois,D,in-person,-4,52.5,0,32
+2024-08-02,New Jersey,B,by phone,3,52.9,0,12
+2024-10-09,Kentucky,A,online panel,3,46.1,0,80
+2024-09-13,Wyoming,C,by phone,8,22.2,0,54
+2024-10-28,Texas,F,by phone,1,46.1,0,99
+2024-07-29,Washington,B,in-person,-4,29.7,0,8
+2024-09-22,Tennessee,B,by phone,-5,44.4,0,63
+2024-07-28,Mississippi,C,in-person,-25,27.2,0,7
+2024-10-15,Illinois,B,probability panel,3,56.5,0,86
+2024-08-26,Washington,B,probability panel,8,39.4,0,36
+2024-09-29,Kentucky,F,probability panel,-9,27.3,0,70
+2024-08-07,California,F,in-person,-4,37.6,0,17
+2024-10-19,Illinois,F,probability panel,-10,30.4,0,90
+2024-10-10,Hawaii,D,online panel,1,32.1,0,81
+2024-09-27,Montana,F,probability panel,0,27,0,68
+2024-09-18,Minnesota,C,probability panel,2,32,0,59
+2024-10-09,South Dakota,C,online panel,5,43.3,0,80
+2024-09-26,Illinois,B,by phone,5,56.4,0,67
+2024-07-26,New York,D,probability panel,-10,21.6,0,5
+2024-08-01,West Virginia,F,in-person,4,47.2,0,11
+2024-08-13,West Virginia,D,probability panel,-1,34.9,0,23
+2024-10-30,Illinois,C,in-person,12,20.1,0,101
+2024-10-06,Mississippi,E,probability panel,4,24.6,0,77
+2024-08-12,West Virginia,E,online panel,-6,31.2,0,22
+2024-07-23,Kentucky,A,probability panel,-5,32.8,0,2
+2024-09-29,Tennessee,F,in-person,-3,38.2,0,70
+2024-10-28,Maryland,A,by phone,-6,24.4,0,99
+2024-11-01,Rhode Island,C,by phone,-2,35.7,0,103
+2024-10-22,New Jersey,F,by phone,9,56.6,0,93
+2024-09-05,Michigan,A,online panel,-0,19.3,0,46
+2024-10-31,Missouri,A,online panel,-8,41.1,0,102
+2024-09-18,Nevada,A,by phone,-10,52.8,0,59
+2024-08-20,Hawaii,F,in-person,16,58.3,0,30
+2024-09-13,Nebraska,C,online panel,-4,47.1,0,54
+2024-08-21,Wyoming,F,online panel,4,35.1,0,31
+2024-10-26,Wyoming,A,in-person,-3,43.6,0,97
+2024-09-18,Minnesota,C,by phone,-7,36.6,0,59
+2024-07-28,Tennessee,D,in-person,-10,24.7,0,7
+2024-10-24,Virginia,A,online panel,-4,52.8,0,95
+2024-09-08,Illinois,D,in-person,1,35.6,0,49
+2024-08-30,Alaska,B,by phone,-6,34.6,0,40
+2024-11-01,Hawaii,B,online panel,-14,46.9,0,103
+2024-10-24,Kansas,B,probability panel,-11,52.9,0,95
+2024-10-17,New Hampshire,A,by phone,8,50.7,0,88
+2024-09-30,Wisconsin,D,online panel,4,36.7,0,71
+2024-09-26,Kansas,A,in-person,2,39.8,0,67
+2024-10-16,South Dakota,D,by phone,6,40.7,0,87
+2024-08-30,North Carolina,C,in-person,1,50.1,0,40
+2024-07-26,North Dakota,B,in-person,4,40.8,0,5
+2024-09-24,Nevada,E,in-person,-9,59.7,0,65
+2024-08-13,New York,F,probability panel,4,39.8,0,23
+2024-08-07,Texas,E,online panel,-9,52.9,0,17
+2024-09-21,California,D,online panel,-3,59.2,0,62
+2024-08-11,South Dakota,D,by phone,-11,59.6,0,21
+2024-09-16,Oregon,A,in-person,-22,26.4,0,57
+2024-08-26,Florida,F,online panel,-25,32.5,0,36
+2024-09-12,Hawaii,A,by phone,-2,45.8,0,53
+2024-10-09,Texas,F,in-person,-2,31.9,0,80
+2024-10-12,Tennessee,C,in-person,10,44.7,0,83
+2024-08-01,Virginia,E,in-person,3,59.3,0,11
+2024-10-20,Idaho,F,online panel,13,38.8,0,91
+2024-10-08,New Hampshire,B,probability panel,2,20.6,0,79
+2024-08-26,Michigan,B,probability panel,-5,43.8,0,36
+2024-08-24,Indiana,B,probability panel,13,58.5,0,34
+2024-09-26,Rhode Island,A,probability panel,-10,25.6,0,67
+2024-09-14,Indiana,A,by phone,-2,29.8,0,55
+2024-08-01,New Mexico,C,by phone,-0,35.9,0,11
+2024-09-01,Minnesota,C,probability panel,2,36.1,0,42
+2024-10-30,Alabama,D,by phone,-10,49,0,101
+2024-09-04,national,C,in-person,-5,56.7,1,45
+2024-07-21,Kansas,A,probability panel,-14,40.1,0,0
+2024-09-18,New Jersey,D,probability panel,12,43,0,59
+2024-09-03,Nebraska,B,online panel,3,44.4,0,44
+2024-10-18,Wisconsin,F,probability panel,-5,55.3,0,89
+2024-08-14,Wisconsin,F,probability panel,2,38.4,0,24
+2024-08-25,Tennessee,C,probability panel,-11,40.4,0,35
+2024-11-03,Illinois,E,in-person,-15,53.2,0,105
+2024-08-17,Oregon,C,probability panel,7,55.8,0,27
+2024-10-29,Alabama,B,in-person,7,34.4,0,100
+2024-08-27,Oregon,D,in-person,6,27.2,0,37
+2024-09-05,West Virginia,A,probability panel,-5,36.5,0,46

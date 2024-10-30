@@ -1,52 +1,53 @@
 #### Preamble ####
-# Purpose: Simulates a dataset of Australian electoral divisions, including the 
-  #state and party that won each division.
-# Author: Rohan Alexander
-# Date: 26 September 2024
-# Contact: rohan.alexander@utoronto.ca
+# Purpose: Simulates a dataset of America 2024 presidential polls, including the 
+#          state, pollster, methodology, support rate, and other relevant fields.
+# Author: Chenming Zhao
+# Date: 26 October 2024
+# Contact: chenming.zhao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: The `tidyverse` package must be installed
+# Pre-requisites: The `tidyverse` and `lubridate` packages must be installed.
 # Any other information needed? Make sure you are in the `starter_folder` rproj
 
 
 #### Workspace setup ####
 library(tidyverse)
-set.seed(853)
+library(lubridate)
 
 
 #### Simulate data ####
-# State names
-states <- c(
-  "New South Wales",
-  "Victoria",
-  "Queensland",
-  "South Australia",
-  "Western Australia",
-  "Tasmania",
-  "Northern Territory",
-  "Australian Capital Territory"
-)
+set.seed(853)
 
-# Political parties
-parties <- c("Labor", "Liberal", "Greens", "National", "Other")
+# function that give random date from 2024-07-21 to 2024-11-05
+random_dates <- function(n) {
+  start_date <- as.Date("2024-07-21")
+  end_date <- as.Date("2024-11-04")
+  date_seq <- seq(start_date, end_date, by = "day")
+  sampled_dates <- sample(date_seq, size = n, replace = TRUE)}
 
-# Create a dataset by randomly assigning states and parties to divisions
-analysis_data <- tibble(
-  division = paste("Division", 1:151),  # Add "Division" to make it a character
-  state = sample(
-    states,
-    size = 151,
-    replace = TRUE,
-    prob = c(0.25, 0.25, 0.15, 0.1, 0.1, 0.1, 0.025, 0.025) # Rough state population distribution
-  ),
-  party = sample(
-    parties,
-    size = 151,
-    replace = TRUE,
-    prob = c(0.40, 0.40, 0.05, 0.1, 0.05) # Rough party distribution
+# simulate data
+political_support <-
+  tibble(
+    start_date = random_dates(1000),
+    state = sample(c("Alabama", "Alaska", "Arkansas", "California", "Colorado", 
+                     "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
+                     "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
+                     "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
+                     "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", 
+                     "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
+                     "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
+                     "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
+                     "Tennessee", "Texas", "Utah", "Vermont", "Virginia", 
+                     "Washington", "West Virginia", "Wisconsin", "Wyoming", "national"), size = 1000, replace = TRUE),
+    pollster = sample(c("A", "B", "C", "D", "E", "F"), size = 1000, replace = TRUE),
+    methodology = sample(c("online panel", "by phone", "in-person", "probability panel"), size = 1000, replace = TRUE),
+    noise = rnorm(n = 1000, mean = 0, sd = 10) |> round(),
+    supports_rate = round(runif(1000, min = 19, max = 60), 1),
+    is_national = if_else(state == "national", 1, 0),
+    days_since_biden_withdrawal = as.numeric(start_date - as.Date("2024-07-21"))
   )
-)
+
+political_support
 
 
 #### Save data ####
-write_csv(analysis_data, "data/00-simulated_data/simulated_data.csv")
+write_csv(political_support, "/cloud/project/data/00-simulated_data/simulated_data.csv")
