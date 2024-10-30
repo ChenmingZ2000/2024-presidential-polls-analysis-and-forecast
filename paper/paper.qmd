@@ -306,31 +306,65 @@ ggplot(support_trend_5day, aes(x = grouped_days, y = avg_pct)) +
 
 # Model
 
-The goal of our modelling strategy is twofold. Firstly,...
+The goal of our modelling strategy is to build a time series model to predict the percentage of support for Trump (pct) over time. This model incorporates multiple variables, including the polling methodology (methodology), the number of days since Biden's withdrawal from the race on 21 July 2024 (days_since_Biden_Withdrawal), whether the poll is at the national level (is_national), as well as random effects for each state (state) and each pollster (pollster).  These variables are chosen to capture the effects of time, polling characteristics, and geographic location on support rates, allowing us to obtain dynamic estimates of support for Trump and to predict the winner of 2024 U.S. presidential election.
 
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+Here we briefly describe the Bayesian analysis model used to investigate the factors influencing support for Trump in the polling data. The model incorporates both fixed effects, such as polling methodology and time since Biden's withdrawal, and random effects to account for variations across states and pollsters. Background details, model assumptions, and diagnostics are included in [Appendix -@sec-model-details].
 
 ## Model set-up
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+This model is a generalized linear mixed model (GLMM), specifically:
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
+\[
+y_i \sim \mathcal{N}(\mu_i, \sigma^2)
+\]
+
+Define $y_i$ as the percentage of support (pct) for Trump in poll in the $i$-th observation, assumed to follow a normal distribution with mean $\mu_i$ and variance $\sigma^2$. This model accounts for variations across different methodologies, time since Biden’s withdrawal, and differences between national and state-level polls, with random intercepts for each state and random intercepts and slopes for each pollster.
+
+The linear component of the model is defined as follows: 
+
+\[
+\mu_i = \alpha + \beta_1 \cdot \text{methodology}_i + \beta_2 \cdot \text{days\_since\_Biden\_Withdrawal}_i + \beta_3 \cdot \text{is\_national}_i + u_{\text{state}[i]} + (v_{\text{pollster}[i]} + \gamma_{\text{pollster}[i]} \cdot \text{days\_since\_Biden\_Withdrawal}_i)
+\]
+
+where:
+
+- $y_i$ is the percentage of support (pct) for Trump in poll $i$.
+- $\mu_i$ represents the predicted Trump support for poll $i$.
+- $\alpha \sim \text{Normal}(45, 5)$ is the global intercept for Trump support.
+- $\beta_1 \sim \text{Normal}(0, 5)$ represents the effect of polling methodology on Trump support.
+- $\beta_2 \sim \text{Normal}(0, 5)$ represents the effect of days since Biden’s withdrawal.
+- $\beta_3 \sim \text{Normal}(0, 5)$ distinguishes national polls from state-level polls.
+
+Random effects:
+
+\begin{align}
+u_{\text{state}} \sim \text{Normal}(0, \sigma_{\text{state}}) \\
+v_{\text{pollster}} \sim \text{Normal}(0, \sigma_{\text{pollster}}) \\
+\gamma_{\text{pollster}} \sim \text{Normal}(0, \sigma_{\text{pollster\_slope}}) \\
 \end{align}
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+where:
+
+- \( u_{\text{state}[i]} \) is the random intercept for each state, allowing for state-level variations in Trump support.
+- \( v_{\text{pollster}[i]} \) is the random intercept for each pollster, capturing pollster-specific effects.
+- \( \gamma_{\text{pollster}[i]} \) is the random slope associated with the time variable (\(\text{days\_since\_Biden\_Withdrawal}\)) for each pollster.
+
+\[
+\sigma \sim \text{Exponential}(1)
+\]
+
+We run the model in R [@citeR] using the `rstanarm` package of @rstanarm, and we use the default priors from `rstanarm`.
 
 
 ### Model justification
+#### Expectation of relationships between variables
+We anticipate that different polling `methodology` may affect the estimation of support rates. While we cannot precisely determine which polling method might lean toward which demographic group, it is plausible to assume that methods like "online panels" or "phone surveys" might reach different segments of voters, thus introducing some bias into the support rate estimates. For instance, online surveys may engage more frequent internet users, while phone surveys may cover more traditional media users. This bias could lead to varying estimates of support for Trump. By introducing the methodology variable into the model, we aim to correct for these systematic biases associated with different polling methods. Specifically, by controlling for the estimation results across different methods, the model can isolate the biases introduced by each method, allowing the final support rate estimate to better reflect the preferences of the overall voter population. This way, the model can capture potential differences across methods when incorporating data from various polling sources, thereby reducing the systematic error caused by these differences.
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+For the variable `days_since_Biden_Withdrawal`, we hypothesize that, over time, Trump’s approval ratings may fluctuate due to shifts in the election landscape, policy discussions, and changes in voter sentiment. This hypothesis is based on the dynamic nature of polling data: as elections near their end, poll results typically converge, reflecting more accurate forecasts for election day (see Blumenthal's Polls, Forecasts, and Aggregators). The Economist's forecast model explains this trend, noting that as election day approaches, voters are more likely to solidify their choices, and polling results tend to capture actual public opinion more accurately while the effects of short-term dynamics diminish (How This Works, The Economist). The time factor not only captures shifts in approval ratings as election day draws closer but also allows us to observe how key political events impact approval ratings. For example, candidate debates, policy announcements, or major international events could significantly influence voter preferences at various points in time (see Blumenthal 2010). Thus, we anticipate that the `days_since_Biden_Withdrawal` variable may exhibit a positive or negative trend, depending on the political climate and voter responses to Trump in particular periods.
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
+Through the `is_national` variable, we distinguish between national and state-level polls. We expect that national polls, which typically have larger and more representative samples, are better suited to capturing overall trends, while state-level polls may reflect finer, localized biases and specific regional issues. Because national polls often encompass a broader and more balanced voter base, they provide a more stable forecast of overall voter trends. In contrast, due to geographic and demographic variations, state-level polls often exhibit greater fluctuations in error than national polls. These fluctuations stem from regional issues and diverse demographic characteristics, which may not align fully with national trends (Disentangling Bias and Variance in Election Polls). By introducing `is_national`, this variable enables the model to capture support rate differences arising from geographic and demographic differences. For example, Trump’s support may be higher in traditionally red states, while in swing states, where competition is intense and voter interest is high, his support rates may fluctuate more significantly. This approach helps explain the regional differences in support rates influenced by political leanings and campaign dynamics.
+
+As noted above, differences in state political backgrounds may lead to systematic shifts in support rates; therefore, we included a random intercept `(1 | state)` for each state, with the intention that this random intercept would capture the differing impacts each state has on Trump’s support rate. Similarly, political biases and methodological differences across polling organizations may affect their support rate results. By incorporating `(1 + days_since_Biden_Withdrawal | pollster)`, we allow for variability in estimates by different pollsters over time. We anticipate that, due to differences in the stance or methodologies of these organizations, their estimates of Trump’s support rate in the period following Biden’s withdrawal will vary accordingly.
 
 
 # Results
