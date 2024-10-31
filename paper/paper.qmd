@@ -27,6 +27,7 @@ library(knitr)
 library(ggplot2)
 library(kableExtra)
 library(bayesplot)
+library(patchwork)
 ```
 
 
@@ -51,44 +52,42 @@ Telegraphing paragraph: The remainder of this paper is structured as follows. @s
 
 ## Overview
 
-Polling data for the 2024 U.S. presidential election is provided by FiveThirtyEight [@fivethirtyeight]. This dataset compiles information from numerous polls conducted by various pollsters, detailing public support levels for presidential candidates. This data is periodically updated on FiveThirtyEight's website to reflect the latest polling information for the 2024 election. Each record includes information we need like state in which the poll was conducted (if applicable), polling dates (start and end), the specific pollster, the sample size of each poll, the polling methodology (such as phone, online, etc.), and support percentages for each candidate. This dataset serves as the foundation for analyzing trends and building predictive models for the winner of the upcoming US presidential election. Table tbl-pollingdata below previews this information for polls conducted in 2023 and 2024.
+Polling data for the 2024 U.S. presidential election is provided by FiveThirtyEight [@fivethirtyeight]. This dataset compiles information from numerous polls conducted by various pollsters, detailing public support levels for presidential candidates. This data is periodically updated on FiveThirtyEight's website to reflect the latest polling information for the 2024 election. Each record includes information we need like state in which the poll was conducted (or conducted nationally), polling dates (start and end), the specific pollster, the sample size of each poll, the polling methodology, and support percentages for each candidate. This dataset serves as the foundation for analyzing trends and building predictive models for the winner of the upcoming US presidential election. Table tbl-pollingdata below previews this information for polls conducted in 2023 and 2024.
 
-To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `readxl` [@readxl], `dplyr` [@dplyr], `knitr` [@knitr], `ggplot2` [@ggplot2], and `broom` [@broom] for tidying model outputs. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes. Also this analysis inherits the folder structure from Professor Rohan Alexander from University of Toronto [@rohan].
+To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `readxl` [@readxl], `dplyr` [@dplyr], `knitr` [@knitr], `ggplot2` [@ggplot2], `kableExtra` [@kableExtra] and `patchwork` [@patch]. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes. Also this analysis inherits the folder structure from Professor Rohan Alexander from University of Toronto [@rohan].
 
 ## Measurement
 	
 The process of transforming real-world phenomena into structured data typically involves several critical steps, from designing surveys to final data entry. First, we identify what needs to be measured. In this case, we focus on public opinion regarding the 2024 presidential election, particularly support rates for various candidates. It is essential to define the data scope (e.g., national or state level) and key variables—such as polling information (e.g., polling organization, start and end dates), sample details (e.g., sample size and demographics), and candidate details (e.g., candidate name and party affiliation).
 
-Next, polling organizations develop survey questions based on the desired data, considering sample size, sampling methods, and survey modes to capture respondents' preferences and voting intentions. Different methodologies impact the results, as they reflect the views of distinct groups, which may be influenced by factors like access channels, demographics, and technology usage. For instance, face-to-face surveys tend to capture opinions from offline-inclined groups, whereas voluntary online surveys exclude those less active online【cite】.
+Next, polling organizations develop survey questions based on the desired data, considering sample size, sampling methods, and survey modes to capture respondents' preferences and voting intentions. Different methodologies impact the results, as they reflect the views of distinct groups, which may be influenced by factors like access channels, demographics, and technology usage. For instance, face-to-face surveys tend to capture opinions from offline-inclined groups, whereas voluntary online surveys exclude those less active online.
 
-Once the survey is designed, polling begins, and responses are aggregated by the polling organization. Respondents' answers are recorded and categorized, converting their opinions into structured data points, though these lack the nuances of human complexity. To protect privacy, data are often anonymized and aggregated, retaining key insights. After collection, raw data undergo cleaning and processing to minimize sampling biases and errors. Yet, any single poll can have random and systematic error sources, so combining multiple poll results helps mitigate these errors【cite】.
+Once the survey is designed, polling begins, and responses are aggregated by the polling organization. Respondents' answers are recorded and categorized, converting their opinions into structured data points, though these lack the nuances of human complexity. To protect privacy, data are often anonymized and aggregated, retaining key insights. After collection, raw data undergo cleaning and processing to minimize sampling biases and errors. Yet, any single poll can have random and systematic error sources, so combining multiple poll results helps mitigate these errors [@blumenthal2010polls].
 
-Processed data are entered into structured datasets. Ideally, well-formatted polling data are stored as individual records, typically including fields like polling organization, sample size, survey dates, margin of error, candidate support percentages, and methodology description. On platforms like FiveThirtyEight, these fields are standardized for ease of comparison and analysis. Finally, FiveThirtyEight and similar platforms aggregate these structured records and present them to the public or allow non-commercial research use, with data usually updated as new polls are released. This enables analysts and the public to track changes in candidate support, analyze trends, and interpret results. An interesting phenomenon, however, is that as election day approaches, poll results often "converge" or "follow" the average, reducing polling error, with evidence suggesting some "final adjustments" in methodology may occur【cite】.
+Processed data are entered into structured datasets. Ideally, well-formatted polling data are stored as individual records, typically including fields like polling organization, sample size, survey dates, margin of error, candidate support percentages, and methodology description. On platforms like FiveThirtyEight, these fields are standardized for ease of comparison and analysis. Finally, FiveThirtyEight and similar platforms aggregate these structured records and present them to the public or allow non-commercial research use, with data usually updated as new polls are released. This enables analysts and the public to track changes in candidate support, analyze trends, and interpret results. An interesting phenomenon, however, is that as election day approaches, poll results often "converge" or "follow" the average, reducing polling error, with evidence suggesting some "final adjustments" in methodology may occur [@blumenthal2010polls].
 
 ## Analysis Data
 This analysis is focused on Donald Trump, so we only collected observations where the candidate_name is Trump. At the same time, we prioritize the quality of the polls. In a political approval rate prediction model, which is often influenced by numerous complex factors, we encounter data that is typically complex and noisy. Low-quality poll results can introduce significant bias into our prediction model, further impacting the accuracy of inferences. Therefore, only polls with a numeric_grade above 2.7 were selected. Additionally, Trump's main opponent, Kamala Harris, only entered the race after Biden’s withdrawal, a major political event that could have significant effects on the support rates for both sides. As such, we focused solely on polls conducted after Biden’s withdrawal to enhance the model’s prediction accuracy for the final outcome.
 
-In researching the likelihood of Trump winning, we selected specific variables to focus on those most impactful for predicting approval rates. Here is an overview of data used for this analysis @tbl-view. Following are selected ourcome variables and predictor variables, and explainations respectively.
+In researching the likelihood of Trump winning, we selected specific variables to focus on those most impactful for predicting approval rates. Here is an overview of data used for this analysis @tbl-view. Following are selected outcome variables and predictor variables, and explainations respectively.
 
-### Outcome variables
-In this analysis of Donald Trump’s support rate in the 2024 U.S. presidential election, the outcome variable is Trump’s support rate (pct) because it is directly related to the election results. The primary research goal of this analysis is to predict Trump’s chances of winning in the 2024 election, so the support rate is the main metric we aim to model and forecast. The support rate represents the proportion of respondents in a specific poll who support Trump. We seek to understand how the support rate is influenced by different factors, such as polling methodology, time, or geographical variables. By modeling the fluctuations in Trump’s support rate, we can infer his electoral performance, analyze the trends within his support base, and assess the impact of various factors on his popularity. Understanding these dynamics provides insights into Trump’s standing relative to his opponents and supports our overall election prediction.
+### Outcome Variables
+In this analysis of Donald Trump’s support rate in the 2024 U.S. presidential election, the outcome variable is Trump’s support rate (pct) because it is directly related to the election results. The primary research goal of this analysis is to predict Trump’s chances of winning in the 2024 election, so the support rate is the main metric we aim to model and forecast. The support rate here represents the proportion of respondents in a specific poll who support Trump. We seek to understand how the support rate is influenced by different factors, such as polling methodology, time, or geographical variables. By modeling the fluctuations in Trump’s support rate, we can infer his electoral performance, and assess the impact of various factors on his popularity. Understanding these dynamics provides insights into Trump’s standing relative to his opponents and supports our overall election prediction.
 
-### Predictor variables
+### Predictor Variables
 In this analysis, the predictor variables are the factors that we believe can influence the support rate for Trump. These variables are chosen based on their potential to explain changes in support rate. Following are the predictor variables that will be included in our model, along with an explanation of their significance.
-
-**start_date**: Public sentiment and approval rates fluctuate dynamically during an election period, influenced by the passage of time, major events, and campaign strategies. By recording the date of each poll, we can observe changes in support over time.
 
 **state/national**: Political environments and voter preferences may vary significantly by state, and national polls cannot fully reflect conditions in individual states. The electoral college system in the U.S. makes state-level approval rates crucial for predicting the likelihood of winning.
 
 **pollster**: Different polling organizations use varying survey methods, sampling strategies, and data-processing procedures, which impact the reliability and accuracy of the poll results. Knowing which polling organization published the data helps assess potential biases in the data.
 
-**methodology**: Different survey methods (e.g., telephone interviews, online questionnaires) significantly impact the representativeness of the results, as they directly influence the characteristics of the sampled population. Some methods may introduce biases toward specific demographic groups; for example, telephone surveys may skew toward older demographics, while online surveys may skew toward younger ones.
+**methodology**: Different survey methods (e.g., telephone interviews, online questionnaires) significantly impact the representativeness of the results, as they directly influence the characteristics of the sampled population. Some methods may introduce biases toward specific demographic groups.
 
 **is_national**: This variable helps us distinguish between national and state-level polls, ensuring the model can adapt and adjust across different geographic levels.
 
-**days_since_Biden_Withdrawal**: Trump's main opponent, Kamala Harris, entered the race only after Biden withdrew. Major political events like Biden’s withdrawal can significantly impact voter approval rates, and tracking the time since this event helps assess both its short-term and long-term effects.
+**days_since_Biden_Withdrawal**: This variable shows the difference between the start day of the poll and the number of days since Biden's withdrawal. Trump's main opponent, Kamala Harris, entered the race only after Biden withdrew. Major political events like Biden’s withdrawal can significantly impact voter approval rates, and tracking the time since this event helps assess both its short-term and long-term effects.
 
-Other potential variables (such as voter demographics like gender, age, race, and income) could indeed influence voter approval rates, but they primarily pertain to a **micro-level** analysis. After incorporating GDP and per capita income data from various U.S. states and nationwide in 2023 into a generalized linear model, we found that their correlation with presidential election outcomes was not very strong, likely due to data limitations in capturing the effect of economic changes on the election. Thus, we did not include these factors. Additionally, individual voter characteristics (such as gender and education level) are not consistently available in most polls. In comparison, the variables we chose are more complete and comprehensively capture the macro nature of the data. Therefore, selecting these variables allows us to maintain data simplicity while maximizing the capture of key factors influencing approval rates, avoiding the noise introduced by excessive micro-level variables.
+Other potential variables (such as voter demographics like gender, age, race, and income) could indeed influence voter approval rates, but we found that their correlation with presidential election outcomes was not very strong. Additionally, individual voter characteristics are not consistently available in most polls. Thus, we did not include these factors. 
 
 ```{r, message=FALSE}
 #| echo: false
@@ -110,21 +109,21 @@ kable(head(analysis_data, 10),
 kable_styling(font_size = 7)
 ```
 
-### Figures
+### Relations Between Variables
 
 The following figures, @fig-pollstermetho, @fig-state and @fig-overtime, display various aspects of data related to Trump's support rate, helping us understand how support rates vary with different factors. In @fig-pollstermetho and @fig-state, we have marked the occurrence count of each pollster or state on the x-axis, helping us identify potential sources of bias in the data. Low-frequency items (such as data points from certain pollsters or states) may reduce the representativeness of the model—low-frequency observations imply insufficient data for specific pollsters or states, which may not accurately reflect voter support rates in these areas. This incomplete data could lead to unreliable predictions for these pollsters or states, increasing prediction errors. Additionally, low-frequency data is more susceptible to extreme values. With fewer observations, certain outlier data points (e.g., a particularly high or low support rate in a single poll) can appear disproportionately significant, affecting the overall prediction. When fitting the model to low-frequency data, it may be more influenced by the "noise" in these data points, potentially introducing bias into the overall results. Systematic biases in low-frequency observations could spread throughout the model, impacting the overall accuracy of the predictions.
 
 Although low-frequency observations may introduce some bias, directly removing them would result in information loss, especially in election predictions where the representativeness of different states and pollsters is crucial. Different pollsters and states have their own resources and priorities, leading to uneven data coverage. Some pollsters may prefer to publish data at specific times, while certain states, due to smaller populations or stable voter behavior, may receive less attention. Thus, it is challenging to completely balance the data quantity across different items. Although some observations have low frequency, they still contain valuable information. For instance, even though smaller or remote states may have limited data, their voter preferences are still significant under the Electoral College system. Completely deleting these observations would diminish these states' representation in the overall analysis, weakening the model's accuracy in reflecting support rates. Additionally, we aim to cover as many pollsters and states as possible with the model, so we retain even low-frequency observations. Thus, we keep these observations and mitigate the bias they introduce by combining other variables to build a more comprehensive and robust predictive model.
 
-@fig-pollstermetho shows the average support rates for the top and bottom ten pollsters, highlighting each pollster’s most commonly used methodology. We can observe that the support rates between the top 5 and bottom 5 pollsters differ by about 10%, which helps us understand the bias introduced by certain pollsters’ influence on support rates, as some pollsters may tend to show higher or lower support rates. This chart also examines the different methodologies used by these pollsters, as varying survey methods (e.g., phone surveys or online panels) may affect the results by reaching different groups of voters. Focusing on these differences aids in assessing the reliability and bias of the data.
+The plot on the left side in @fig-pct1 shows the average support rates for the top and bottom ten pollsters, highlighting each pollster’s most commonly used methodology. We can observe that the support rates between the top 5 and bottom 5 pollsters differ by about 10%, which helps us understand the bias introduced by certain pollsters’ influence on support rates, as some pollsters may tend to show higher or lower support rates. This chart also examines the different methodologies used by these pollsters, as varying survey methods (e.g., phone surveys or online panels) may affect the results by reaching different groups of voters. Focusing on these differences aids in assessing the reliability and bias of the data.
 
-@fig-state compares the average support rates across states with the national average, showing regional differences in voter preferences. Due to the Electoral College system in the U.S. presidential election, variations in state support rates can significantly impact the election outcome. This analysis highlights the differences between state and national polls, helping us understand Trump’s relative support in each state. Paying attention to geographic disparities improves the model's prediction accuracy.
+The plot on the left side in @fig-pct1 compares the average support rates across states with the national average, showing regional differences in voter preferences. Due to the Electoral College system in the U.S. presidential election, variations in state support rates can significantly impact the election outcome. This analysis highlights the differences between state and national polls, helping us understand Trump’s relative support in each state. Paying attention to geographic disparities improves the model's prediction accuracy.
 
-@fig-overtime displays the trend in support rates over time for the top five pollsters with the most observations. We chose these pollsters because a sufficient number of observations is needed to accurately capture trend changes and reduce the impact of extreme values. Each subplot represents a pollster and shows the change in Trump’s support rate since Biden’s withdrawal. This helps us observe the dynamic change in support rates following major events, and we can also see how different pollsters respond to the same event. Analyzing time trends aids in understanding shifts in public opinion, providing more time-sensitive support rate predictions.
+@fig-pct2 displays the trend in support rates over time for the top five pollsters with the most observations. We chose these pollsters because a sufficient number of observations is needed to accurately capture trend changes and reduce the impact of extreme values. Each subplot represents a pollster and shows the change in Trump’s support rate since Biden’s withdrawal. This helps us observe the dynamic change in support rates following major events, and we can also see how different pollsters respond to the same event. Analyzing time trends aids in understanding shifts in public opinion, providing more time-sensitive support rate predictions.
 
-```{r, message=FALSE, fig.width=5, fig.height=3}
-#| label: fig-pollstermetho
-#| fig-cap: Support Rates for Donald Trump of Ten Pollsters with Their Most Common used Metholodogy
+```{r, message=FALSE, fig.width=6, fig.height=3}
+#| label: fig-pct1
+#| fig-cap: Support rates for Donald Trump which showed in different variables plot 1
 #| echo: false
 
 ### Group by top 5 and bottom 5 avg pct by pollsters and their most common methodology
@@ -171,7 +170,7 @@ selected_pollster_data <- pollster_summary %>%
   left_join(selected_pollsters, by = "pollster")
 
 
-ggplot(selected_pollster_data, aes(x = reorder(paste(pollster, "(", count, ")", sep = ""), -avg_pct), y = avg_pct, fill = methodology)) +
+p1 <- ggplot(selected_pollster_data, aes(x = reorder(paste(pollster, "(", count, ")", sep = ""), -avg_pct), y = avg_pct, fill = methodology)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~ category, scales = "free_x") +
   labs(
@@ -183,18 +182,17 @@ ggplot(selected_pollster_data, aes(x = reorder(paste(pollster, "(", count, ")", 
   theme_minimal() +
   theme(
     axis.text.x = element_text(size = 5, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 6),
-    plot.title = element_text(size = 8, face = "bold", color = "#333333"),
-    plot.subtitle = element_text(size = 7, color = "#333333"),
-    axis.title = element_text(size = 7, color = "#333333")
+    axis.text.y = element_text(size = 5),
+    plot.title = element_text(size = 7, face = "bold", color = "#333333"),
+    plot.subtitle = element_text(size = 6, color = "#333333"),
+    legend.title = element_text(size = 4, color = "#333333"),
+    legend.text = element_text(size = 4, color = "#333333"),
+    legend.key.size = unit(0.5, "lines"),
+    axis.title = element_text(size = 6, color = "#333333"),
+    strip.text = element_text(size = 5)
   ) +
   scale_fill_brewer(palette = "Set3") # assign colors to different methodologies
 
-```
-```{r, message=FALSE, fig.width=5, fig.height=3}
-#| label: fig-state
-#| fig-cap: Average Support Rate for Trump of Each Category Based on State
-#| echo: false
 
 ### Group by avg pct of different states and national avg pct
 # count average pct and occurrence times for each state category
@@ -249,7 +247,7 @@ selected_state_data <- state_summary %>%
   left_join(selected_states, by = "state")
 
 
-ggplot(selected_state_data, aes(x = reorder(paste(state, "(", count, ")", sep = ""), -avg_pct), y = avg_pct, fill = state)) +
+p2 <- ggplot(selected_state_data, aes(x = reorder(paste(state, "(", count, ")", sep = ""), -avg_pct), y = avg_pct, fill = state)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~ category, scales = "free_x") +
   labs(
@@ -261,20 +259,25 @@ ggplot(selected_state_data, aes(x = reorder(paste(state, "(", count, ")", sep = 
   theme_minimal() +
   theme(
     axis.text.x = element_text(size = 5, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 6),
-    plot.title = element_text(size = 8, face = "bold", color = "#333333"),
-    plot.subtitle = element_text(size = 7, color = "#333333"),
-    axis.title = element_text(size = 7, color = "#333333")
+    axis.text.y = element_text(size = 5),
+    plot.title = element_text(size = 7, face = "bold", color = "#333333"),
+    plot.subtitle = element_text(size = 6, color = "#333333"),
+    legend.title = element_text(size = 5, color = "#333333"),
+    legend.text = element_text(size = 5, color = "#333333"),
+    legend.key.size = unit(0.5, "lines"),
+    axis.title = element_text(size = 6, color = "#333333"),
+    strip.text = element_text(size = 5)
   ) +
   scale_fill_brewer(palette = "Set3") # assign colors to different states
+
+p1 + p2
 ```
 
-```{r, message=FALSE, fig.width=5, fig.height=3}
-#| label: fig-overtime
-#| fig-cap: Trend for Average Support Rate for Donald Trump Over Time Since Joe Biden's Withdrawal on 2024 July 21
+```{r, message=FALSE, fig.width= 5, fig.height= 3}
+#| label: fig-pct2
+#| fig-cap: Support rates for Donald Trump which showed in different variables plot 2
 #| echo: false
-
-# Identify the top 10 pollsters by occurrence
+### Identify the top 10 pollsters by occurrence
 top_pollsters2 <- analysis_data %>%
   count(pollster, sort = TRUE) %>%
   top_n(5, n) %>%
@@ -295,9 +298,9 @@ support_trend_5day <- data %>%
 
 # Step 2: Create the line plot with background distribution
 ggplot(support_trend_5day, aes(x = grouped_days, y = avg_pct)) +
-  geom_line(aes(color = pollster), linewidth = 1.2) + # Main line color
+  geom_line(aes(color = pollster), linewidth = 0.7) + # Main line
   geom_jitter(data = data, aes(x = days_since_Biden_Withdrawal, y = pct), 
-              color = "#a6cee3", alpha = 0.4, width = 1, height = 0.5) +
+              color = "#a6cee3", alpha = 0.4, width = 0.5, height = 0.5) +
   scale_x_continuous(
     breaks = seq(min(analysis_data$days_since_Biden_Withdrawal), 
                  max(analysis_data$days_since_Biden_Withdrawal), 
@@ -311,17 +314,22 @@ ggplot(support_trend_5day, aes(x = grouped_days, y = avg_pct)) +
   ) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(size = 5, angle = 45, hjust = 1),
+    axis.text.x = element_text(size = 4, angle = 45, hjust = 1),
     axis.text.y = element_text(size = 5),
-    plot.title = element_text(size = 8, face = "bold", color = "#333333"),
-    plot.subtitle = element_text(size = 7, color = "#333333"),
-    axis.title = element_text(size = 7, color = "#333333")
+    plot.title = element_text(size = 7, face = "bold", color = "#333333"),
+    plot.subtitle = element_text(size = 6, color = "#333333"),
+    legend.title = element_text(size = 5, color = "#333333"),
+    legend.text = element_text(size = 4, color = "#333333"),
+    legend.key.size = unit(0.5, "lines"),
+    axis.title = element_text(size = 6, color = "#333333"),
+    strip.text = element_text(size = 5)
   ) +
-  facet_wrap(~ pollster, scales = "free_x")
+  facet_wrap(~ pollster, scales = "free_y")
 ```
 
 
 # Model
+Our model applies a hierarchical Bayesian approach, based on the framework proposed by Gelman et al. (2020).   This method builds a layered structure that combines polling data collected by different organizations using various methodologies with regional and temporal trends to more accurately predict support rates on Election Day.   Running within a Bayesian framework, our model employs a random walk prior to reflect the dynamically changing support rates following Biden's withdrawal in 2024.   This prior distribution is based on historical election trends and the latest polling data, allowing the model to continuously update as new data becomes available.
 
 The goal of our modelling strategy is to build a time series model to predict the percentage of support for Trump (pct) over time. This model incorporates multiple variables, including the polling methodology (methodology), the number of days since Biden's withdrawal from the race on 21 July 2024 (days_since_Biden_Withdrawal), whether the poll is at the national level (is_national), as well as random effects for each state (state) and each pollster (pollster).  These variables are chosen to capture the effects of time, polling characteristics, and geographic location on support rates, allowing us to obtain dynamic estimates of support for Trump and to predict the winner of 2024 U.S. presidential election.
 
@@ -365,22 +373,29 @@ where:
 - $\gamma_{\text{pollster}[i]}$ is the random slope associated with the time variable ($\mathrm{days\_since\_Biden\_Withdrawal}$) for each pollster.
 
 
-### Model justification
-#### Expectation of relationships between variables
-Our model applies a hierarchical Bayesian approach, based on the framework proposed by Gelman et al. (2020). This method builds a layered structure that combines polling data collected by different organizations using various methodologies with regional and temporal trends to more accurately predict support rates on Election Day. Running within a Bayesian framework, our model employs a random walk prior to reflect the dynamically changing support rates following Biden's withdrawal in 2024. This prior distribution is based on historical election trends and the latest polling data, allowing the model to continuously update as new data becomes available.
+## Model justification
+### Model Prior Selection, Assumptions, and Validation
+We based our prior choices on historical polling data and previous research in electoral studies, aiming to provide informative priors without overly constraining the model. For instance, we set a prior on the intercept as $\text{Normal} \sim (45, 5)$, assuming Trump’s support rate centers around 45%, with some uncertainty. Effect size priors (e.g., $\text{Normal} \sim (0, 5)$ for variables such as methodology and days_since_Biden_Withdrawal) reflect our expectation of moderate effects for these variables. This balance between informative priors and adaptability allows the model to accommodate data while providing a reasonable starting framework.
 
-We anticipate that different polling `methodology` may affect the estimation of support rates. While we cannot precisely determine which polling method might lean toward which demographic group, it is plausible to assume that methods like "online panels" or "phone surveys" might reach different segments of voters, thus introducing some bias into the support rate estimates. For instance, online surveys may engage more frequent internet users, while phone surveys may cover more traditional media users. This bias could lead to varying estimates of support for Trump. By introducing the methodology variable into the model, we aim to correct for these systematic biases associated with different polling methods. Specifically, by controlling for the estimation results across different methods, the model can isolate the biases introduced by each method, allowing the final support rate estimate to better reflect the preferences of the overall voter population. This way, the model can capture potential differences across methods when incorporating data from various polling sources, thereby reducing the systematic error caused by these differences.
+The model assumes that state-level differences and polling method effects are random and normally distributed. In reality, polling methods and state trends may exhibit non-normal behavior, especially during significant political events. Random effects for different polling agencies are introduced to account for biases associated with varying methodologies. However, we assume that each agency's methodology remains consistent over time, an assumption that may not hold if agencies adjust their sampling techniques. While the model effectively captures overall polling trends, it may not fully reflect subtle shifts within specific demographic subgroups (such as gender, race, socioeconomic status) since these details are not consistently available or may be obscured across poll results.
 
-For the variable `days_since_Biden_Withdrawal`, we hypothesize that, over time, Trump’s approval ratings may fluctuate due to shifts in the election landscape, policy discussions, and changes in voter sentiment. This hypothesis is based on the dynamic nature of polling data: as elections near their end, poll results typically converge, reflecting more accurate forecasts for election day (see Blumenthal's Polls, Forecasts, and Aggregators). The Economist's forecast model explains this trend, noting that as election day approaches, voters are more likely to solidify their choices, and polling results tend to capture actual public opinion more accurately while the effects of short-term dynamics diminish (How This Works, The Economist). The time factor not only captures shifts in approval ratings as election day draws closer but also allows us to observe how key political events impact approval ratings. For example, candidate debates, policy announcements, or major international events could significantly influence voter preferences at various points in time (see Blumenthal 2010). Thus, we anticipate that the `days_since_Biden_Withdrawal` variable may exhibit a positive or negative trend, depending on the political climate and voter responses to Trump in particular periods.
+We implemented the model using the rstanarm package, leveraging MCMC sampling for Bayesian inference. To validate the model, we performed out-of-sample testing and calculated the RMSE (Root Mean Square Error), which resulted in 2.31. In the context of complex, socially influenced political surveys, this error level is considered acceptable. Convergence diagnostics show that R-hat values are close to 1, and the Effective Sample Size (ESS) is generally large (often over 400), indicating good independence among samples. Sensitivity analyses on priors indicate that slight adjustments do not significantly alter the predictions, demonstrating model stability.
 
-Through the `is_national` variable, we distinguish between national and state-level polls. We expect that national polls, which typically have larger and more representative samples, are better suited to capturing overall trends, while state-level polls may reflect finer, localized biases and specific regional issues. Because national polls often encompass a broader and more balanced voter base, they provide a more stable forecast of overall voter trends. In contrast, due to geographic and demographic variations, state-level polls often exhibit greater fluctuations in error than national polls. These fluctuations stem from regional issues and diverse demographic characteristics, which may not align fully with national trends (Disentangling Bias and Variance in Election Polls). By introducing `is_national`, this variable enables the model to capture support rate differences arising from geographic and demographic differences. For example, Trump’s support may be higher in traditionally red states, while in swing states, where competition is intense and voter interest is high, his support rates may fluctuate more significantly. This approach helps explain the regional differences in support rates influenced by political leanings and campaign dynamics.
+We also considered a simpler linear regression model (excluding hierarchical structures) and a more complex model (incorporating additional economic data like state GDP and personal income). Through testing, we found that the simpler model could not adequately capture differences across polling agencies and states, while the more complex model added computational cost with minimal gains in accuracy. Consequently, we chose the current approach to balance flexibility, interpretability, and computational efficiency.
 
-As noted above, differences in state political backgrounds may lead to systematic shifts in support rates; therefore, we included a random intercept `(1 | state)` for each state, with the intention that this random intercept would capture the differing impacts each state has on Trump’s support rate. Similarly, political biases and methodological differences across polling organizations may affect their support rate results. By incorporating `(1 + days_since_Biden_Withdrawal | pollster)`, we allow for variability in estimates by different pollsters over time. We anticipate that, due to differences in the stance or methodologies of these organizations, their estimates of Trump’s support rate in the period following Biden’s withdrawal will vary accordingly.
+### Expectation of relationships between variables
+
+We anticipate that different polling `methodology` may affect the estimation of support rates. While we cannot precisely determine which polling method might lean toward which demographic group, it is plausible to assume that methods like "online panels" or "phone surveys" might reach different segments of voters, thus introducing some bias into the support rate estimates. For instance, online surveys may engage more frequent internet users, while phone surveys may cover more traditional media users. This bias could lead to varying estimates of support for Trump.
+
+For the variable `days_since_Biden_Withdrawal`, we hypothesize that, over time, Trump’s approval ratings may fluctuate due to shifts in the election landscape, policy discussions, and changes in voter sentiment. This hypothesis is based on the dynamic nature of polling data: as elections near their end, poll results typically converge, reflecting more accurate forecasts for election day (see Blumenthal's Polls, Forecasts, and Aggregators). We anticipate that the `days_since_Biden_Withdrawal` variable may exhibit a positive or negative trend, depending on the political climate and voter responses to Trump in particular periods.
+
+Through the `is_national` variable, we distinguish between national and state-level polls, this variable enables the model to capture support rate differences arising from geographic and demographic differences. We expect that national polls, which typically have larger and more representative samples, are better suited to capturing overall trends, while state-level polls may reflect finer, localized biases and specific regional issues because national polls often encompass a broader and more balanced voter base, they provide a more stable forecast of overall voter trends. In contrast, due to geographic and demographic variations, state-level polls often exhibit greater fluctuations in error than national polls. These fluctuations stem from regional issues and diverse demographic characteristics, which may not align fully with national trends (Disentangling Bias and Variance in Election Polls).
+
+Therefore, we included a random intercept `(1 | state)` for each state, with the intention that this random intercept would capture the differing impacts each state has on Trump’s support rate. Similarly, by incorporating `(1 + days_since_Biden_Withdrawal | pollster)`, we allow for variability in estimates by different pollsters over time. We anticipate that, due to differences in the stance or methodologies of these organizations, their estimates of Trump’s support rate in the period following Biden’s withdrawal will vary accordingly.
 
 
 # Results
-## Model Summary
-
+## Model Output
 Our results are summarized in a table which is available [here](https://8360846bf92342d59862bf4ec3515643.app.posit.cloud/file_show?path=%2Fcloud%2Fproject%2Fpaper%2Fmodel_summary_table.html). This summary reveals the effects of different polling methods and organizations on our estimates. For instance, there is a small difference in estimates between data collected via online panels and phone surveys. The model adjusts for these differences by using a hierarchical structure, which accounts for inconsistencies caused by methodological and organizational biases. Specifically, variance parameters for different methods (such as online ads vs. phone surveys) indicate the different impacts these methods have on sampling coverage and voter behavior, helping the model balance these differences. 
 
 The model’s $R^2$ value is 0.641, indicating that it explains about 64% of the variation in support rates. This shows that the model effectively captures the main patterns in the data, although not every detail. Additionally, the Intraclass Correlation Coefficient (ICC) is 0.9, suggesting a high degree of clustering in the data, meaning that factors like state-specific and polling organization differences significantly contribute to overall variability. Other indicators, such as WAIC (2621.8) and RMSE (2.31), further confirm the model’s good fit, showing that it maintains predictive accuracy without overfitting. Also, to balance precision and flexibility, we set a polling error rate of 3% based on historical data. This helps the model capture typical uncertainty without becoming overly confident. 
@@ -409,28 +424,28 @@ modelsummary::modelsummary(
   list("First model" = first_model),
   statistic = "mad",
   fmt = 2,
-  output = here::here("/cloud/project/paper/model_summary_table.html")  # Save as HTML file
+  output = here::here("/cloud/project/paper/model_summary_table.html")
 )
 ```
 
 ## Prediction Output
-From @fig-results-1, the model predicts that nationwide support for Trump on Election Day, November 5, 2024, will center between 45% to 50% and shows moderate fluctuations. This variability is mainly attributed to national events and differences in polling methods. For instance, nationwide events such as economic shifts or unexpected political occurrences may influence voter sentiment, while differences in polling methods (such as phone surveys versus online panels) may introduce slight fluctuations in estimates due to differences in sample coverage.
+From @fig-results, the model predicts that nationwide support for Trump on Election Day, November 5, 2024, will center between 45% to 50% and shows moderate fluctuations. This variability is mainly attributed to national events and differences in polling methods. For instance, nationwide events such as economic shifts or unexpected political occurrences may influence voter sentiment, while differences in polling methods (such as phone surveys versus online panels) may introduce slight fluctuations in estimates due to differences in sample coverage.
 
-At the state level, @fig-results-2 shows predictions indicate significant variations between states. For example, support in Texas is considerably higher than in California, with a gap of over 10 percentage points, while swing states like Pennsylvania and Michigan display greater volatility. This result further validates the model’s robustness; the introduction of a random intercept for each state reflects systematic differences across states. This design aligns with data trends, suggesting that states with diverse geographic and demographic profiles exhibit unique political tendencies.
+At the state level, @fig-results shows predictions indicate significant variations between states. For example, support in Texas is considerably higher than in California, with a gap of over 10 percentage points, while swing states like Pennsylvania and Michigan display greater volatility. This result further validates the model’s robustness; the introduction of a random intercept for each state reflects systematic differences across states. This design aligns with data trends, suggesting that states with diverse geographic and demographic profiles exhibit unique political tendencies.
 
-```{r, fig.width=5, fig.height=3}
+```{r, fig.width=5, fig.height=5}
 #| echo: false
 #| eval: true
 #| label: fig-results
-#| fig-cap: "TODO"
+#| fig-cap: Prediction of average support for Donald Trump on 2024-11-05
 #| warning: false
 national_only <- prediction_data[prediction_data$state == "national", ]
 all_states <- prediction_data[prediction_data$state != "national", ]
 
-ggplot(national_only, aes(x = state, y = predicted_support)) +
+p4 <- ggplot(national_only, aes(x = state, y = predicted_support)) +
   geom_point(size = 3, color = "lightblue") +
   geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.2, color = "lightblue") +
-  labs(title = "Election Day National Trump Support Rate Prediction", y = "Predictied Support Rate (%)", x = "Area Type") +
+  labs(title = "Election Day National Trump Support Rate Prediction", y = "Predictied Support Rate (%)", x = "Area Type in US") +
   theme_minimal() +
   theme(axis.text.x = element_text(size = 7),
     axis.text.y = element_text(size = 6),
@@ -438,7 +453,7 @@ ggplot(national_only, aes(x = state, y = predicted_support)) +
     axis.title = element_text(size = 7, color = "#333333"))
 
 # Plot for state data
-ggplot(all_states, aes(x = state, y = predicted_support)) +
+p5 <- ggplot(all_states, aes(x = state, y = predicted_support)) +
   geom_jitter(size = 3, color = "lightblue", width = 0.3) +  # Adds slight horizontal jitter to reduce overlap
   geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.2, color = "lightblue", alpha = 0.6) +
   geom_smooth(aes(group = 1), method = "lm", color = "orange", se = FALSE) +  # Adds a trend line across all states
@@ -451,14 +466,24 @@ ggplot(all_states, aes(x = state, y = predicted_support)) +
     plot.title = element_text(size = 8, face = "bold", color = "#333333"),
     axis.title = element_text(size = 7, color = "#333333"))
 
+p4 + p5 + plot_layout(nrow = 2)
 ```
 
 # Discussion
 
-In discussing the strengths and limitations of our model, we aim to evaluate its robustness and the challenges it faces in capturing the complexities of voter behavior. Each step, from data collection to model construction, involves certain assumptions and potential biases. Below is a detailed discussion of these aspects:
+## Winner Prediction
+Based on the support rate predictions for Trump at both the national and state levels displayed in the charts in the results section, it appears challenging for Trump to emerge victorious in the upcoming U.S. presidential election on November 5, 2024, against his primary opponent, Harris. The first chart shows the national support rate prediction for Trump, centering around 45% to 50%. Historically, any candidate needs to reach or exceed the 50% threshold to secure a decisive victory. The current predictions reveal some level of uncertainty, although minor shifts in voter sentiment might occur leading up to Election Day, leaving Trump with a possibility of winning. 
 
-## Defects of Existing Data {#sec-first-point}
+The second chart illustrates the support rates at the state level, revealing significant differences between red and blue states. For instance, Trump’s predicted support rate is higher in traditionally conservative states such as Texas, while in strong Democratic states like California, his support rate is lower. In swing states like Pennsylvania and Michigan, the support rate hovers around 50%, aligning with historical trends where these states tend to have close contests.
 
+To draw final conclusions from these predictions, it is essential to consider historical polling data and past election results. In previous U.S. presidential elections, shifts in sentiment in swing states have played a crucial role in determining the outcome. For example, the 2016 election highlighted the importance of swing states like Pennsylvania, Michigan, and Wisconsin, where polls underestimated Trump’s support. A study by the Pew Research Center noted that last-minute sentiment shifts and polling errors led to an unexpected advantage for Trump (source: Pew Research Center). Studies by *The Economist* and *FiveThirtyEight* emphasize the critical impact of swing states on election outcomes, also noting that national polls do not always reflect the dynamics of the Electoral College (source: The Economist). The Electoral College system can result in a candidate winning the popular vote but losing the election, or vice versa. This system has affected U.S. elections multiple times, demonstrating the importance of state-level results relative to national polling trends (source: National Archives).
+
+Given the current support rate predictions from our model and the historical performance of swing states, it is projected that Trump may not secure a clear victory. Furthermore, the volatility in swing states suggests that if these states lean Democratic as they did in 2020, Harris would likely win. However, the final outcome will depend on voter turnout, the last stages of the campaign, and any major events leading up to Election Day.
+
+## Weaknesses and next steps
+In discussing the limitations of polls and our model, we aim to evaluate its robustness and the challenges it faces in capturing the complexities of voter behavior. Each step, from data collection to model construction, involves certain assumptions and potential biases. Below is a detailed discussion of these aspects:
+
+### Defects of Existing Data {#sec-first-point}
 Firstly, a major challenge for the model lies in estimating a large number of parameters with limited polling data. This scarcity of data can make the model highly sensitive to choices in priors and interstate covariance structures. For example, relying on historical patterns from states with limited data may fail to reflect the latest shifts in voter sentiment. This issue is also seen across different polling organizations and survey methods. As Gelman et al. (2020) noted, the model can fluctuate between overconfidence and unreasonable uncertainty. To address this, we could consider incorporating alternative data sources, such as social media sentiment or historical population voting trends, to supplement polling data in underrepresented areas. However, these sources carry their own issues, as they may lack reliability and rigor.
 
 Then, in handling systematic bias introduced by different polling methods, the model accounts for variance by assigning specific variance parameters for each method (e.g., phone interviews vs. online panels). Each method may systematically overestimate or underestimate support for a particular candidate【cite】. For instance, online panels may attract more politically engaged individuals, leading to biases compared to random phone interviews. To reduce these biases, the model includes variance adjustments specific to each method. Further improvements could involve re-weighting polls based on historical accuracy or introducing dynamic adjustments for newer polling methods. However, as pointed out in 【2014】, historical data often include responses to unique events that are not repeatable, making it difficult to assess the accuracy of historical information as a reference. Similarly, the model uses a random walk prior to accommodate fluctuations in public support over time, yet it may struggle to capture abrupt changes driven by political events, such as a debate or controversial statement. The inherent randomness of world events makes it challenging to fully address this problem.
@@ -467,66 +492,37 @@ Geographic factors are another focus, with special attention to swing states, wh
 
 Furthermore, the polling data we focus on captures voter intent rather than voting probability. Factors such as likelihood of turnout or eligibility are concealed beneath the support rates, and changes in turnout due to major public events may affect election day outcomes. Because these details are not included in the polls, the model cannot fully capture these changes. If the model could dynamically adjust voting behavior estimates based on actual turnout indicators, such as mail ballot requests or early voting numbers, it would better reflect changes in voter behavior and strengthen predictions of the presidential election outcome.
 
-## Polling Deficiencies
-
-### Bias and Transparency
-
+### The Influence of Reality
+#### Bias and Transparency
 The influence of polling agencies’ biases and methodological transparency on election predictions has long been a research focus. Every polling agency's choices—whether intentional or unintentional—can introduce biases into results. In highly polarized political environments, factors like question wording, sampling techniques, and demographic weighting can amplify potential biases. For example, research from the Pew Research Center and Stanford University shows that differences in methods, such as educational weighting or nonresponse adjustments, can lead to significant polling biases, especially for politically sensitive figures like Donald Trump (source1).
 
 Another complex issue is "partisan nonresponse bias," where certain political groups are less likely to participate in polls. This trend has become more prominent in recent years, notably affecting conservative respondents. Pollsters must take extra care in sampling to accurately represent all population segments, which presents particular challenges in practice and makes it hard to eliminate these biases entirely (source2).
 
 Additionally, there is a feedback loop between published poll results and voter behavior: trends shown in polls can influence undecided voters or shift the enthusiasm levels of a candidate's supporters. The presence of "shy" or undecided voters further complicates the challenge of accurate polling. Despite methodological advancements, polling remains prone to errors that are often underestimated compared to the actual unpredictability of elections (source3).
 
-### Financial Constraints
-
+#### Financial Constraints
 Financial limitations are a major barrier to achieving ideal polling coverage, particularly when trying to gather representative polling data across all U.S. states. Polling each state comprehensively is costly, especially in low-population states or states deemed "safe" for one candidate. In these cases, data scarcity means the model largely relies on data from more populous or swing states, which may not fully represent the diversity of the nationwide electorate, introducing potential biases.
 
 According to a Pew Research Center report, polling biases often stem from financial constraints and methodological choices, such as the use of cost-effective online panels, which may not effectively capture perspectives from older, rural, or technologically less-adept groups. These groups often require different recruitment strategies and data collection methods, increasing polling costs (Pew Research Center, 2024)【387†source】. Another Pew report highlights that participation in extreme partisan regions is often low, which makes balanced representation more challenging and increases the financial and logistical burden of implementing corrective weighting and sampling techniques【388†source】.
 
 In theory, expanding polling coverage could improve model representativeness and accuracy. However, due to the high cost of polling and the statistical law of diminishing marginal returns, this expansion is often constrained by budget and logistical support. The concept of diminishing marginal returns means that as more resources (like time, money, or personnel) are invested in an activity, the additional benefit from each extra unit of investment gradually decreases. For instance, the first slice of pizza might be very satisfying, but by the third or fourth slice, enjoyment decreases. For polling, investing resources to cover more regions initially increases data representativeness significantly, but as major groups are covered, further investments yield smaller improvements, inevitably leaving certain groups underrepresented in the results.
 
-## The Influence of Reality
-### The Balance Between Model Complexity and Interpretability
-
+#### The Balance Between Model Complexity and Interpretability
 While our model integrates multiple parameters and hierarchical structures to address the variability across states and polling methodologies for a more accurate election support forecast, this complexity also introduces significant challenges in interpretability. For non-expert users, understanding how random intercepts or variance parameters influence the final prediction requires a certain level of statistical knowledge. Even though we attempt to make the model’s main drivers (e.g., state-level effects or specific methodological impacts) more understandable through simplified summaries and visualizations, several issues remain.
 
 Visualizations often struggle to fully capture the complex structure of our model. The model includes data from 50 U.S. states, multiple polling organizations, and various survey methodologies. If we attempted to display every detail within a chart, the visualizations would become overwhelmingly complex, making it difficult for readers to extract key insights. Conversely, if we limit the display to a subset, such as only highlighting key states or selected polling methods, this approach risks losing the completeness of information. These simplified visualizations fail to convey all sources of variation within the model, potentially leading readers to overlook significant factors and misunderstand the impact of omitted influences. Additionally, this partial representation can foster a feedback loop where oversimplified summaries influence potential voters' perceptions, impacting the trends in unpredictable ways.
 
-### The Randomness of the Real World
-
+#### The Randomness of the Real World
 Voter preferences can shift rapidly due to events like debates, economic changes, or international incidents, challenging election predictions. Regular polling may fail to capture these shifts if not updated frequently, leading to outdated and potentially misleading forecasts. The Harvard Data Science Review highlighted this uncertainty in the 2020 election, where state-level opinion volatility was influenced by economic and educational factors, necessitating models that incorporate these dynamic interactions[HARVARD DATA SCIENCE REVIEW]
 
-With elections occurring only every four years, opportunities to validate prediction models are limited. Standard techniques like cross-validation are challenging to implement due to data scarcity, pushing models to rely heavily on historical data, which risks overfitting to past trends. Harvard Data Science Review notes that this reliance can result in models exhibiting excessive certainty or unreasonable uncertainty, especially when recent polling data is lacking​
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
+With elections occurring only every four years, opportunities to validate prediction models are limited. Standard techniques like cross-validation are challenging to implement due to data scarcity, pushing models to rely heavily on historical data, which risks overfitting to past trends. Harvard Data Science Review notes that this reliance can result in models exhibiting excessive certainty or unreasonable uncertainty, especially when recent polling data is lacking.
 
 \newpage
 
 \appendix
 
 # Appendix {-}
-```{r}
-posterior_vs_prior(first_model, pars = c("(Intercept)", "methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "is_national")) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
 
-```{r}
-pp_check(first_model)
-```
-
-
-```{r}
-plot(first_model, "trace", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
-plot(first_model, "rhat")
-```
-```{r}
-plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
-```
 
 
 
@@ -534,9 +530,58 @@ plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "
 # Additional data details
 
 # Model details {#sec-model-details}
+`bayesplot` [@bayesplot] used for posteriors of model.
 
 ## Posterior predictive check
+```{r, fig.width=5, fig.height=3}
+#| echo: false
+#| eval: true
+#| label: fig-post1
+#| fig-cap: "TODO"
+#| warning: false
 
+posterior_vs_prior(first_model, pars = c("(Intercept)", "methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "is_national")) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom") +
+  coord_flip()
+```
+
+```{r, fig.width=5, fig.height=3}
+#| echo: false
+#| eval: true
+#| label: fig-post2
+#| fig-cap: "TODO"
+#| warning: false
+
+
+pp_check(first_model)
+```
+
+
+```{r, fig.width=5, fig.height=3}
+#| echo: false
+#| eval: true
+#| label: fig-post3
+#| fig-cap: "TODO"
+#| warning: false
+
+
+plot(first_model, "trace", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
+
+plot(first_model, "rhat")
+```
+
+```{r, fig.width=5, fig.height=3}
+#| echo: false
+#| eval: true
+#| label: fig-post4
+#| fig-cap: "TODO"
+#| warning: false
+
+
+plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
+```
 
 ## Diagnostics
 
