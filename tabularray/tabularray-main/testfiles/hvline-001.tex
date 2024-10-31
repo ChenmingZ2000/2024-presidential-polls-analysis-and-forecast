@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[b5paper,margin=1cm]{geometry}
+\pagestyle{empty}
+
+\input{regression-test}
+
+\usepackage{tabularray}
+\usepackage{array}
+
+\SetTblrTracing{none}
+\UseTblrLibrary{varwidth}
+
+\begin{document}
+
+\START
+
+\hrule\bigskip
+
+\BEGINTEST{hline and vline}
+\begin{tblr}{|l|[dotted]|[2pt]c|r|[solid]|[dashed]|}
+\hline
+One   &  Two  & Three \\
+\hline\hline[dotted]\hline
+Four  & Five  &   Six \\
+\hline[dashed]\hline[1pt]
+Seven & Eight &  Nine \\
+\hline
+\end{tblr}
+\ENDTEST
+
+\bigskip\hrule\bigskip
+
+\BEGINTEST{hline and vline segments of different widths #260}
+\begin{tblr}{
+  hlines, vlines,
+  hline{2} = {1}{1}{4pt},
+  hline{2} = {2}{1}{2pt},
+  hline{2} = {1}{2}{2pt},
+  hline{2} = {2}{2}{4pt},
+}
+  Alpha   & Beta \\
+  Epsilon & Zeta \\
+\end{tblr}
+\begin{tblr}{
+  hlines, vlines,
+  vline{2} = {1}{1}{4pt},
+  vline{2} = {2}{1}{2pt},
+  vline{2} = {1}{2}{2pt},
+  vline{2} = {2}{2}{4pt},
+}
+  Alpha   & Beta \\
+  Epsilon & Zeta \\
+\end{tblr}
+\ENDTEST
+
+\end{document}

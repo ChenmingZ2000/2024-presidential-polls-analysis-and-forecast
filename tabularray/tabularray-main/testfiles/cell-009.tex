@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage[b5paper,margin=1cm]{geometry}
+\pagestyle{empty}
+
+\input{regression-test}
+
+\usepackage{array,multirow}
+\usepackage{tabularray}
+
+\SetTblrTracing{none}
+\UseTblrLibrary{varwidth}
+
+\ExplSyntaxOn
+\let \replicate = \prg_replicate:nn
+\ExplSyntaxOff
+
+\begin{document}
+
+\hrule\bigskip
+
+tabular \par
+
+\bigskip
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Multirow}
+       & \multicolumn{2}{c|}{Multicolumn}
+                             & \multicolumn{2}{c|}{\multirow{2}{*}{Multirow and Multicolumn}} \\
+\hline
+       & column-2 & column-3 & \multicolumn{2}{c|}{} \\
+\hline
+cell-1 & cell-2   & cell-3   & cell-4 & cell-5 \\
+\hline
+\end{tabular}
+
+\bigskip
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Multirow}
+       & \multicolumn{2}{c|}{Multicolumn}
+                             & \multicolumn{2}{c|}{\multirow{2}{*}{Multirow and Multicolumn}} \\
+\cline{2-3}
+       & column-2 & column-3 & \multicolumn{2}{c|}{} \\
+\hline
+cell-1 & cell-2   & cell-3   & cell-4 & cell-5 \\
+\hline
+\end{tabular}
+
+\bigskip
+
+tabularray \par
+
+\bigskip
+
+\START
+
+\BEGINTEST{multirow and multicolumn: \cline}
+\begin{tblr}{|c|c|c|c|c|}
+\hline
+\SetCell[r=2]{c} Multirow
+       & \SetCell[c=2]{c} Multicolumn
+                  &          & \SetCell[r=2,c=2]{c} Multirow and Multicolumn \\
+\cline{2-3}
+ ???   & column-2 & column-3 & ??? \\
+\hline
+cell-1 & cell-2   & cell-3   & cell-4 & cell-5 \\
+\hline
+\end{tblr}
+\ENDTEST
+
+\bigskip
+
+\BEGINTEST{multirow and multicolumn: \hline}
+\begin{tblr}{|c|c|c|c|c|}
+\hline
+\SetCell[r=2]{c} Multirow
+       & \SetCell[c=2]{c} Multicolumn
+                  &          & \SetCell[r=2,c=2]{c} Multirow and Multicolumn \\
+\hline
+ ???   & column-2 & column-3 & ??? \\
+\hline
+cell-1 & cell-2   & cell-3   & cell-4 & cell-5 \\
+\hline
+\end{tblr}
+\ENDTEST
+
+\end{document}

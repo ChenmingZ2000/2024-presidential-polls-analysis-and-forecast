@@ -1,0 +1,60 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+\setcounter{chapter}{5}
+
+\begin{document}
+
+\chapter{Tips and Tricks}
+
+\section{Control Horizontal Alignment}
+
+You can control horizontal alignment of cells in \texttt{tabularray} with
+\href{https://www.ctan.org/pkg/ragged2e}{\texttt{ragged2e}} package,
+by redefining some of the following commands:
+
+\begin{codehigh}
+\RenewDocumentCommand\TblrAlignBoth{}{\justifying}
+\RenewDocumentCommand\TblrAlignLeft{}{\RaggedRight}
+\RenewDocumentCommand\TblrAlignCenter{}{\Centering}
+\RenewDocumentCommand\TblrAlignRight{}{\RaggedLeft}
+\end{codehigh}
+
+Please read the documentation of \texttt{ragged2e} package for more details of
+their alignment commands.
+
+\section{Use Safe Verbatim Commands}%
+\label{sec:fakeverb}
+
+Due to the limitation of TeX, even if you have passed \texttt{verb} option to a
+\texttt{tabularray} table, you still could not use some special characters in a
+\verb!\verb! command. As an replacement, you may use \verb|\fakeverb| command from \href{https://www.ctan.org/pkg/codehigh}{\texttt{codehigh}} package.
+
+The \verb|\fakeverb| command will remove the backslashes in the following control symbols before
+typesetting its content: \fakeverb{\\\\}, \fakeverb{\\\{}, \fakeverb{\\\}}, \fakeverb{\\\#}, \fakeverb{\\\^} and \texttt{\textbackslash\textvisiblespace}, \fakeverb{\\\%}.
+Also the argument of \verb|\fakeverb| command need to be enclosed with curly braces.
+Therefore it could be safely used inside \verb|tabularray| tables and other LaTeX commands.
+
+Here is an example of using \verb!\fakeverb! commands inside a \verb|tblr| environment
+(you don't need \texttt{verb} option to use \verb!\fakeverb!):
+
+\begin{demohigh}
+\begin{tblr}{hlines}
+  Special & \fakeverb{\abc{}$&^_^uvw 123} \\
+  Spacing & \fakeverb{\bfseries\ \#\%}    \\
+  Nesting & \fbox{\fakeverb{$\left\\\{A\right.$\#}}
+\end{tblr}
+\end{demohigh}
+
+In the above example, balanced curly braces and control words (such as \verb!\bfseries!)
+need not to be escaped---only several special characters need to be escaped.
+Please read the documentation of \texttt{codehigh} package for more details of
+\verb|\fakeverb| commands.%
+\footnote{By the way, \fakeverb{\EscVerb} command from
+\href{https://www.ctan.org/pkg/fvextra}{\texttt{fvextra}} package is similar to
+\fakeverb{\fakeverb} command, but with \fakeverb{\EscVerb} you need to escape every control word.}
+
+\end{document}

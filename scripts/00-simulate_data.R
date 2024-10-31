@@ -17,6 +17,8 @@ library(lubridate)
 #### Simulate data ####
 set.seed(853)
 
+trump_data$methodology <- as.factor(trump_data$methodology)
+
 # function that give random date from 2024-07-21 to 2024-11-05
 random_dates <- function(n) {
   start_date <- as.Date("2024-07-21")

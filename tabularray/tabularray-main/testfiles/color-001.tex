@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage[b5paper,margin=1cm]{geometry}
+\pagestyle{empty}
+
+\input{regression-test}
+
+\usepackage{xcolor}
+%\usepackage{ninecolors}
+\usepackage{tabularray}
+\usepackage{array}
+
+\SetTblrTracing{none}
+\UseTblrLibrary{varwidth}
+
+\begin{document}
+
+\START
+\hrule\medskip
+
+\BEGINTEST{cell background}
+\begin{tblr}[b]{|l|[dotted]|[2pt]c|r|[solid]|[dashed]|}
+\hline
+\SetCell{b,r,orange}Onej   &  Two  & Three \\
+\hline\hline\hline
+Four  & \SetCell{teal}Five  &   Six \\
+\hline\hline
+\SetCell{lime}Seven & Eight &  Nine \\
+\hline
+\end{tblr}
+\qquad
+\begin{tblr}[b]{|Q[h,l]|[dotted]|[2pt]Q[h,c]|Q[h,r]|[solid]|[dashed]|}
+\hline
+\SetCell{f,r,orange}Onej   &  Two  & Three \\
+\hline\hline\hline
+Four  & \SetCell{teal}Five  &   Six \\
+\hline\hline
+\SetCell{lime}Seven & Eight &  Nine \\
+\hline
+\end{tblr}
+\ENDTEST
+
+\medskip\hrule\medskip
+
+%% Issue #2: Setting fonts?
+\BEGINTEST{cell foreground and font with measure=hbox}
+\begin{tblr}{
+ colspec  = {lcr},
+ row{odd} = {bg=azure9},
+ row{1}   = {c,bg=azure3,fg=white,font=\sffamily},
+ measure  = hbox,
+}
+ Alpha & Beta    & Gamma \\
+ Delta & Epsilon & Zeta \\
+ Eta   & Theta   & Iota \\
+ Kappa & Lambda  & Mu \\
+ Nu Xi Omicron & Pi Rho Sigma & Tau Upsilon Phi \\
+\end{tblr}
+\ENDTEST
+
+\bigskip
+
+%% Issue #36: \color inside varwidth
+\BEGINTEST{cell foreground and font with measure=vbox}
+\begin{tblr}{
+ colspec  = {lcr},
+ row{odd} = {bg=azure9},
+ row{1}   = {c,bg=azure3,fg=white,font=\sffamily},
+ measure  = vbox,
+}
+ Alpha & Beta    & Gamma \\
+ Delta & Epsilon & Zeta \\
+ Eta   & Theta   & Iota \\
+ Kappa & Lambda  & Mu \\
+ Nu Xi Omicron & Pi Rho Sigma & Tau Upsilon Phi \\
+\end{tblr}
+\ENDTEST
+
+\medskip\hrule\medskip
+
+%% Issue #62: make fg option revisable
+\BEGINTEST{overwrite cell foreground}
+\begin{tblr}{
+  hlines, vlines,
+  cells	= {fg=white,bg=gray5},
+  cell{2}{2} = {fg=green8,bg=blue2},
+}
+  A & B \\
+  C & D \\
+\end{tblr}
+\ENDTEST
+
+\end{document}

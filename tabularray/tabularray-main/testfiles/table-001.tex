@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage[b5paper,margin=1cm]{geometry}
+\pagestyle{empty}
+
+\input{regression-test}
+\ExplSyntaxOn
+\sys_ensure_backend:
+\debug_on:n { check-declarations }
+\ExplSyntaxOff
+
+\usepackage{array}
+\START
+\usepackage{tabularray}
+
+\AddToHook{package/varwidth/before}{\OMIT}
+\AddToHook{package/varwidth/after}{\TIMO}
+
+\SetTblrTracing{none}
+\UseTblrLibrary{varwidth}
+
+\OMIT
+\begin{document}
+\TIMO
+
+\hrule\bigskip
+
+\BEGINTEST{start tabularray in vertical mode}
+\par\begin{tabular}{l}One\end{tabular}TEXT
+\par\begin{tblr}{l}One\end{tblr}TEXT
+\ENDTEST
+
+\end{document}

@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage[b5paper,margin=1cm]{geometry}
+\pagestyle{empty}
+
+\input{regression-test}
+
+\usepackage{xcolor}
+%\usepackage{ninecolors}
+\usepackage{tabularray}
+\usepackage{array}
+
+\SetTblrTracing{none}
+\UseTblrLibrary{varwidth}
+
+\begin{document}
+
+\hrule\bigskip
+
+\START
+
+\BEGINTEST{even and odd selectors with options}
+\begin{tblr}{
+  row{1} = {gray9},
+  cell{odd}{1} = {red9},
+  cell{odd[4]}{2} = {green9},
+  cell{odd[3-X]}{3} = {blue9},
+}
+  Head  &Head   &Head  \\
+  Talk A&Place A&Date A\\
+  Talk B&Place B&Date B\\
+  Talk C&Place C&Date C\\
+  Talk D&Place D&Date D\\
+  Talk E&Place E&Date E\\
+  Talk F&Place F&Date F\\
+  Talk A&Place A&Date A\\
+  Talk B&Place B&Date B\\
+  Talk C&Place C&Date C\\
+  Talk D&Place D&Date D\\
+  Talk E&Place E&Date E\\
+  Talk F&Place F&Date F\\
+  Talk A&Place A&Date A\\
+  Talk B&Place B&Date B\\
+  Talk C&Place C&Date C\\
+  Talk D&Place D&Date D\\
+  Talk E&Place E&Date E\\
+  Talk F&Place F&Date F\\
+\end{tblr}
+\qquad
+\begin{tblr}{
+  row{1} = {gray9},
+  cell{even}{1} = {yellow9},
+  cell{even[4]}{2} = {cyan9},
+  cell{even[3-X]}{3} = {purple9},
+}
+  Head  &Head   &Head  \\
+  Talk A&Place A&Date A\\
+  Talk B&Place B&Date B\\
+  Talk C&Place C&Date C\\
+  Talk D&Place D&Date D\\
+  Talk E&Place E&Date E\\
+  Talk F&Place F&Date F\\
+  Talk A&Place A&Date A\\
+  Talk B&Place B&Date B\\
+  Talk C&Place C&Date C\\
+  Talk D&Place D&Date D\\
+  Talk E&Place E&Date E\\
+  Talk F&Place F&Date F\\
+  Talk A&Place A&Date A\\
+  Talk B&Place B&Date B\\
+  Talk C&Place C&Date C\\
+  Talk D&Place D&Date D\\
+  Talk E&Place E&Date E\\
+  Talk F&Place F&Date F\\
+\end{tblr}
+\ENDTEST
+
+\bigskip\hrule\bigskip
+
+\BEGINTEST{named indexes U-Z}% #353
+\begin{tblr}{
+  hline{U-W}={dashed},row{V}={ht=2\baselineskip},
+  hline{X,Y,Z}, row{Y}={cmd=\fbox}
+}
+  Alpha   & Beta  & Gamma  & Delta \\
+  Epsilon & Zeta  & Eta    & Theta \\
+  Iota    & Kappa & Lambda & Mu    \\
+  Alpha   & Beta  & Gamma  & Delta \\
+  Epsilon & Zeta  & Eta    & Theta \\
+  Iota    & Kappa & Lambda & Mu    \\
+  Alpha   & Beta  & Gamma  & Delta \\
+  Epsilon & Zeta  & Eta    & Theta \\
+  Iota    & Kappa & Lambda & Mu
+\end{tblr}
+\ENDTEST
+
+\bigskip\hrule\bigskip
+
+\BEGINTEST{named indexes U-Z in child from}
+\begin{tblr}{
+  hlines, vlines,
+  cell{-}{even[X-Z]}={preto=x}
+}
+  & & & \\
+\end{tblr}
+\ENDTEST
+
+\bigskip\hrule\bigskip
+
+\BEGINTEST{name indexes U-Z ensured positive}
+\begin{tblr}{
+  hlines, vlines,
+  cell{-}{U-Z}={preto=x}
+}
+  & & & \\
+\end{tblr}
+\ENDTEST
+\end{document}

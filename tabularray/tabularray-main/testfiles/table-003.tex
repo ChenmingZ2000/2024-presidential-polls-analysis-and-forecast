@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[b5paper,margin=1cm]{geometry}
+\pagestyle{empty}
+
+\input{regression-test}
+
+\usepackage{array}
+\usepackage{tabularray}
+
+\SetTblrTracing{none}
+\UseTblrLibrary{varwidth}
+
+\begin{document}
+
+\START
+\hrule\bigskip
+
+\BEGINTEST{vertical alignment: the first and the last rows}
+\setlength{\arrayrulewidth}{2pt}
+\SetTblrDefault{rows={rowsep=0pt},hlines={2pt}}
+TOP\begin{tabular}[t]{l}\firsthline big\\\hline box\\\hline\end{tabular}TOP
+TOP\begin{tblr}[T]{l}big\\box\\\end{tblr}TOP
+\qquad
+BOT\begin{tabular}[b]{l}\hline big\\\hline box\\\lasthline\end{tabular}BOT
+BOT\begin{tblr}[B]{l}big\\box\\\end{tblr}BOT
+\ENDTEST
+
+\bigskip\hrule\bigskip
+
+\BEGINTEST{vertical alignment: specified rows}
+\SetTblrDefault{stretch=0,belowsep=4pt,hlines=2pt}
+ROW\begin{tblr}[valign=3]{l}big\\box\\middle\\fox\\small\\pot\\\end{tblr}ROW
+\quad
+ROW\begin{tblr}[valign=5]{l}big\\box\\middle\\fox\\small\\pot\\\end{tblr}ROW
+\ENDTEST
+
+\end{document}
