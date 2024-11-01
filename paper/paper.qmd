@@ -582,7 +582,7 @@ This plot shows the $\hat{R}$ diagnostic statistic for our model, which is commo
 #| echo: false
 #| eval: true
 #| label: fig-post4
-#| fig-cap: "TODO"
+#| fig-cap: R hat Diagnostic statistic for model
 #| warning: false
 
 plot(first_model, "rhat")
@@ -594,7 +594,7 @@ plot(first_model, "rhat")
 #| echo: false
 #| eval: true
 #| label: fig-post5
-#| fig-cap: "TODO"
+#| fig-cap: posterior distributions of four parameters in model
 #| warning: false
 
 plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
