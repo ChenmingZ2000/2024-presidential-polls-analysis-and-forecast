@@ -16,9 +16,10 @@
 #### Workspace setup ####
 library(tidyverse)
 library(rstanarm)
+library(arrow)
 
 #### Read data ####
-analysis_data <- read_csv("/cloud/project/data/02-analysis_data/analysis_trump_data.csv")
+analysis_data <- read_parquet("/cloud/project/data/02-analysis_data/analysis_trump_data.parquet")
 
 ### Model data ####
 trump_time_series_model <- stan_glmer(

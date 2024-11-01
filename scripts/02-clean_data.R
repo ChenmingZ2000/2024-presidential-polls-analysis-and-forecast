@@ -22,6 +22,7 @@
 library(tidyverse)
 library(readxl)
 library(dplyr)
+library(arrow)
 
 #### Clean data ####
 raw_data <- read_csv("/cloud/project/data/01-raw_data/president_polls_raw_data.csv")
@@ -72,4 +73,4 @@ trump_data <- trump_data %>%
 trump_data$days_since_Biden_Withdrawal <- as.numeric(trump_data$start_date - as.Date("2024-07-21"))
 
 #### Save data ####
-write_csv(trump_data, "/cloud/project/data/02-analysis_data/analysis_trump_data.csv")
+write_parquet(trump_data, "/cloud/project/data/02-analysis_data/analysis_trump_data.parquet")
