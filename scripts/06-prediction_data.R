@@ -1,11 +1,22 @@
 #### Preamble ####
-# Purpose: Replicated graphs from... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: This script replicates and generates predictions for Trump support rates
+#          in the upcoming U.S. presidential election on November 5, 2024. 
+#          It uses historical polling data and Bayesian time series modeling to forecast support
+#          across various states and methodologies.
+# Author: Chenming Zhao
+# Date: 30 October 2024
+# Contact: chenming.zhao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites:
+#   - Install the necessary libraries: `tidyverse`, `rstanarm`.
+#   - Ensure the Trump time series model is available at "/cloud/project/models/trump_time_model.rds".
+#   - Have a folder structure set up with the data directory "/cloud/project/data/02-analysis_data/"
+#     to save the prediction output.
+# Any other information needed:
+#   - This script assumes the structure of `trump_data` is consistent with the input model 
+#     used to create `trump_time_series_model`.
+#   - The output CSV file ("prediction_data.csv") contains support rate predictions, including
+#     point estimates and 95% credible intervals, to be used for further analysis or visualization.
 
 
 #### Workspace setup ####
