@@ -374,7 +374,7 @@ We based our prior choices on historical polling data and previous research in e
 
 The model assumes that state-level differences and polling method effects are random and normally distributed. In reality, polling methods and state trends may exhibit non-normal behavior, especially during significant political events. Random effects for different polling agencies are introduced to account for biases associated with varying methodologies. However, we assume that each agency's methodology remains consistent over time, an assumption that may not hold if agencies adjust their sampling techniques. While the model effectively captures overall polling trends, it may not fully reflect subtle shifts within specific demographic subgroups (such as gender, race, socioeconomic status) since these details are not consistently available or may be obscured across poll results.
 
-We implemented the model using the rstanarm package, leveraging MCMC sampling for Bayesian inference. To validate the model, we performed out-of-sample testing and calculated the RMSE (Root Mean Square Error), which resulted in 2.31. In the context of complex, socially influenced political surveys, this error level is considered acceptable. Convergence diagnostics show that R-hat values are close to 1, and the Effective Sample Size (ESS) is generally large (often > 400), indicating good independence among samples. Sensitivity analyses on priors indicate that slight adjustments do not significantly alter the predictions, demonstrating model stability.
+We implemented the model using the rstanarm package, leveraging MCMC sampling for Bayesian inference. To validate the model, we performed out-of-sample testing and calculated the RMSE (Root Mean Square Error), which resulted in 2.31. In the context of complex, socially influenced political surveys, this error level is considered acceptable. Convergence diagnostics in @fig-post4 in [Appendix -@sec-model-details] show that R-hat values are close to 1, and the Effective Sample Size (ESS) is generally large (often > 400), indicating good independence among samples. Sensitivity analyses on priors indicate that slight adjustments do not significantly alter the predictions, demonstrating model stability.
 
 We also considered a simpler linear regression model which excluding hierarchical structures and a more complex model which incorporating additional economic data like state GDP and personal income. Through testing, we found that the simpler model could not adequately capture differences across polling agencies and states, while the more complex model added computational cost with minimal gains in accuracy. Consequently, we chose the current approach to balance flexibility, interpretability, and computational efficiency.
 
@@ -525,14 +525,21 @@ With elections occurring only every four years, opportunities to validate predic
 # Additional data details
 
 # Model details {#sec-model-details}
-`bayesplot` [@bayesplot] used for posteriors of model.
+R package `bayesplot` [@bayesplot] is used for posteriors.
+
+Due to space limitations, we have chosen to display only the posterior and prior comparison for one polling methodology variable in the posterior analysis. If we were to display all methodology variables, the chart would become overly complex and difficult to interpret. Although the effects of multiple methodology variables differ, displaying only one variable may make the model’s diversity and sensitivity to biases across different polling methods appear insufficient. Here, we have selected a representative methodology, which allows us to avoid being distracted by excessive data. The output results for other methodologies are similar to IVR/Online Panel/Text-to-Web or hover around zero due to limited data.
 
 ## Posterior predictive check
+@fig-post1 presents a comparative display of the prior and posterior distributions for selected parameters in our model. These parameters include the model’s intercept (Intercept), a polling method-related variable (“mIVR/OP/T--W.” representing `IVR/Online Panel/Text-to-Web`), a flag indicating whether the poll is national (is_national), the number of days since Biden’s withdrawal (dys_snc_Bd_W.), and the model's error term (sigma). The prior distributions represent our initial expectations for these parameters before incorporating the data, while the posterior distributions reflect the influence of actual data on these estimates. By comparing the priors and posteriors, we can observe how the data has refined the estimates for each parameter. For instance, the prior for the IVR/Online Panel/Text-to-Web variable is relatively broad, indicating initial uncertainty about its impact, whereas the posterior distribution is much narrower, suggesting that the data supports a certain level of effect from this polling method.
+
+The intercept here represents the baseline estimate of Trump’s support rate when all other variables are zero. The posterior distribution for the intercept is centered around 50, suggesting that the model’s baseline estimate for Trump’s support rate is approximately 50%, which is relatively high. Additionally, the posterior distributions for `is_national` and `days_since_Biden_Withdrawal` are close to zero, indicating that these variables have minimal or uncertain impact on the support rate. The error term (sigma) represents the model's estimation of uncertainty in the data. A higher posterior mean for sigma suggests that the model detects a moderate level of variability in the data, possibly due to fluctuations in public opinion across states or over time.
+
+We observe that the posterior distribution for `is_national` is concentrated near zero, indicating that there is no significant difference in support rates between national and state-level polls. Similarly, `dys_snc_Bd_W.` is a variable capturing the time elapsed since Biden’s withdrawal, intended to reflect any time-related influence. The posterior distribution near zero suggests that this variable has no substantial effect on Trump’s support rate, possibly indicating that public opinion on Trump has remained relatively stable over time. The `mIVR/OP/T--W.` parameter represents a specific polling method (“IVR/Online Panel/Text-to-Web”), which is included to capture the impact of different polling methods on support rates. The posterior indicates that while the influence of this method is relatively limited, it still contributes some variability to the model.
 ```{r, fig.width=5, fig.height=3}
 #| echo: false
 #| eval: true
 #| label: fig-post1
-#| fig-cap: "TODO"
+#| fig-cap: Comparison of Prior and Posterior Distributions for Selected Model Parameters
 #| warning: false
 
 posterior_vs_prior(first_model, pars = c("(Intercept)", "methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "is_national")) +
@@ -541,12 +548,15 @@ posterior_vs_prior(first_model, pars = c("(Intercept)", "methodologyIVR/Online P
   theme(legend.position = "bottom") +
   coord_flip()
 ```
+@fig-plot2 shows a comparison between the distribution of observed data $y$ and the distribution of simulated data $y_{rep}$ generated by our model. The dark solid line represents the distribution of the actual observed data, while the multiple light lines represent the distribution of multiple simulated datasets generated by the model. This comparison helps assess the model's fit quality that if the distribution of simulated data $y_{rep}$ closely matches that of the observed data $y$ it then suggests that the model effectively captures the characteristics of the observed data, demonstrating good predictive capability and a reasonable posterior distribution.
+
+In @fig-plot2, we see that the distribution of the simulated data (light lines) aligns closely with the real data distribution (dark line), especially in terms of the peak and shape of the distribution. This indicates that the data generated by our model is consistent with the actual data, suggesting that the model can adequately replicate the distributional characteristics of the real data. This comparison validates the model's predictive ability and reliability, giving us greater confidence in the model's subsequent predictions.
 
 ```{r, fig.width=5, fig.height=3}
 #| echo: false
 #| eval: true
 #| label: fig-post2
-#| fig-cap: "TODO"
+#| fig-cap: PP Check for Model
 #| warning: false
 
 
@@ -554,18 +564,19 @@ pp_check(first_model)
 ```
 
 
+@fig-post3 shows the MCMC sampling trace plots for four key parameters in our model, including the `IVR/Online Panel/Text-to-Web` method variable, the `days_since_Biden_Withdrawal` variable, the error term `sigma`, and the intercept term. From Chain 1 to Chain 4, with each chain representing an independent MCMC sampling process. Our expectation is that each sampling chain will stabilize and fluctuate around a central value without showing a clear trend (i.e., the mean of the samples converges over time), and there will be no significant differences between the chains. If these conditions are met, it indicates that the model has reached convergence, and the posterior distribution is reliable. From @fig-post3, we observe that each parameter’s sampling chains display a certain level of stability, with the chains fluctuating around a central value after reaching a steady state, without showing upward or downward trends. The distributions across chains are similar, indicating consistency in sampling results and supporting model convergence. This suggests that our model has successfully achieved a stable state within the posterior distribution, and the sampling results are reliable.
+
 ```{r, fig.width=5, fig.height=3}
 #| echo: false
 #| eval: true
 #| label: fig-post3
-#| fig-cap: "TODO"
+#| fig-cap: MCMC sampling trace plots for model
 #| warning: false
 
 
 plot(first_model, "trace", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
-
-plot(first_model, "rhat")
 ```
+This plot shows the $\hat{R}$ diagnostic statistic for our model, which is commonly used to assess the convergence of MCMC sampling. Ideally, the $\hat{R}$ value should be close to 1, indicating consistent variance across different MCMC chains, signifying that the model has reached a stable state. The horizontal axis represents the $\hat{R}$ values, where values closer to 1 indicate better convergence. Our expectation is that all parameters have $\hat{R}$ values below 1.05, indicating minimal variance differences between chains and consistency across them. This plot shows that nearly all $\hat{R}$ values are concentrated around 1, with all falling below the threshold of 1.05 (indicated by the vertical dashed line on the right), suggesting that the sampling chains have converged well, providing high reliability for the model results.
 
 ```{r, fig.width=5, fig.height=3}
 #| echo: false
@@ -574,6 +585,17 @@ plot(first_model, "rhat")
 #| fig-cap: "TODO"
 #| warning: false
 
+plot(first_model, "rhat")
+```
+
+@fig-post5 shows the posterior distributions of certain parameters in our model, including the `(Intercept)`, a methodology variable `methodologyIVR/Online Panel/Text-to-Web`, a time variable `days_since_Biden_Withdrawal`, and the error term `sigma`. From the shape and location of the posterior distributions, we can see the degree to which the observed data supports the estimates of these parameters and the range of uncertainty around them. The `(Intercept)` distribution is centered around 30% to 55%, suggesting that the model estimates a 45% baseline support rate, which aligns with our expectations for Trump’s support rate. The methodology variable shows a relatively wide distribution, indicating that the data does not provide strong directional support for its influence, suggesting that it may have a minimal or uncertain impact on the support rate. Also, the time variable has a posterior distribution close to zero, indicating that the number of days since Biden’s withdrawal does not significantly impact the support rate. The error term `sigma` is at a low level, suggesting that the model views the data as having low volatility and being relatively concentrated. Thus, we can conclude that the model effectively captures the significant impact of the baseline support rate but but due to data uncertainty, it struggles to reveal the influence of factors like methodology and time. This phenomenon may reflect inconsistencies in the data across different poll methods or limitations in the the sample.
+
+```{r, fig.width=5, fig.height=3}
+#| echo: false
+#| eval: true
+#| label: fig-post5
+#| fig-cap: "TODO"
+#| warning: false
 
 plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
 ```
