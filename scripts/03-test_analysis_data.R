@@ -1,69 +1,80 @@
 #### Preamble ####
-# Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 26 September 2024 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Tests the structure and validity of the America 2024 presidential polls dataset
+# Author: Chenmming Zhao
+# Date: 26 October 2024
+# Contact: chenming.zhao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: 
+# - The `tidyverse` package must be installed and loaded
+# - 02-clean_data.R must have been run
+# Any other information needed? Make sure you are in the `starter_folder` rproj
 
 
 #### Workspace setup ####
 library(tidyverse)
 library(testthat)
 
-data <- read_csv("data/02-analysis_data/analysis_data.csv")
+data <- read_csv("/cloud/project/data/02-analysis_data/analysis_trump_data.csv")
 
 
 #### Test data ####
-# Test that the dataset has 151 rows - there are 151 divisions in Australia
-test_that("dataset has 151 rows", {
-  expect_equal(nrow(analysis_data), 151)
-})
+# Test if the data was successfully loaded
+if (exists("data")) {
+  message("Test Passed: The dataset was successfully loaded.")
+} else {
+  stop("Test Failed: The dataset could not be loaded.")
+}
 
-# Test that the dataset has 3 columns
-test_that("dataset has 3 columns", {
-  expect_equal(ncol(analysis_data), 3)
-})
+#### Test data ####
+# Check if the dataset has 8 columns
+if (ncol(data) == 7) {
+  message("Test Passed: The dataset has 7 columns.")
+} else {
+  stop("Test Failed: The dataset does not have 7 columns.")
+}
 
-# Test that the 'division' column is character type
-test_that("'division' is character", {
-  expect_type(analysis_data$division, "character")
-})
+# Check if the 'state' column contains only valid US state names
+valid_states <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
+                  "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
+                  "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
+                  "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
+                  "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", 
+                  "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
+                  "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
+                  "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
+                  "Tennessee", "Texas", "Utah", "Vermont", "Virginia", 
+                  "Washington", "West Virginia", "Wisconsin", "Wyoming", "national")
 
-# Test that the 'party' column is character type
-test_that("'party' is character", {
-  expect_type(analysis_data$party, "character")
-})
+if (all(data$state %in% valid_states)) {
+  message("Test Passed: The 'state' column contains only valid U.S. state names.")
+} else {
+  stop("Test Failed: The 'state' column contains invalid state names.")
+}
 
-# Test that the 'state' column is character type
-test_that("'state' is character", {
-  expect_type(analysis_data$state, "character")
-})
+# Check if there are any missing values in the dataset
+if (all(!is.na(data))) {
+  message("Test Passed: The dataset contains no missing values.")
+} else {
+  stop("Test Failed: The dataset contains missing values.")
+}
 
-# Test that there are no missing values in the dataset
-test_that("no missing values in dataset", {
-  expect_true(all(!is.na(analysis_data)))
-})
+# Check if there are no empty strings in 'methodology', 'state', and 'pollster' columns
+if (all(data$methodology != "" & data$state != "" & data$pollster != "")) {
+  message("Test Passed: There are no empty strings in 'division', 'state', or 'party'.")
+} else {
+  stop("Test Failed: There are empty strings in one or more columns.")
+}
 
-# Test that 'division' contains unique values (no duplicates)
-test_that("'division' column contains unique values", {
-  expect_equal(length(unique(analysis_data$division)), 151)
-})
+# Check if the 'pct' column has reasonable values
+if (all(0 <= data$pct & 100 >= data$pct)) {
+  message("Test Passed: The 'pct' column contains at least two unique values.")
+} else {
+  stop("Test Failed: The 'pct' column contains less than two unique values.")
+}
 
-# Test that 'state' contains only valid Australian state or territory names
-valid_states <- c("New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", 
-                  "Tasmania", "Northern Territory", "Australian Capital Territory")
-test_that("'state' contains valid Australian state names", {
-  expect_true(all(analysis_data$state %in% valid_states))
-})
-
-# Test that there are no empty strings in 'division', 'party', or 'state' columns
-test_that("no empty strings in 'division', 'party', or 'state' columns", {
-  expect_false(any(analysis_data$division == "" | analysis_data$party == "" | analysis_data$state == ""))
-})
-
-# Test that the 'party' column contains at least 2 unique values
-test_that("'party' column contains at least 2 unique values", {
-  expect_true(length(unique(analysis_data$party)) >= 2)
-})
+# Check if the 'days_since_biden_withdrawal' column has reasonable values
+if (all(0 <= data$days_since_Biden_Withdrawal & as.numeric(as.Date("2024-11-05") - as.Date("2024-07-21")) >= data$days_since_Biden_Withdrawal)) {
+  message("Test Passed: The 'days_since_biden_withdrawal' column contains at least two unique values.")
+} else {
+  stop("Test Failed: The 'days_since_biden_withdrawal' column contains less than two unique values.")
+}

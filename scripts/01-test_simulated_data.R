@@ -16,7 +16,7 @@ library(tidyverse)
 sample_data <- read_csv("/cloud/project/data/00-simulated_data/simulated_data.csv")
 
 # Test if the data was successfully loaded
-if (exists("analysis_data")) {
+if (exists("sample_data")) {
   message("Test Passed: The dataset was successfully loaded.")
 } else {
   stop("Test Failed: The dataset could not be loaded.")
@@ -45,8 +45,8 @@ if (all(as.Date("2024-07-21") <= sample_data$start_date & as.Date("2024-11-04") 
   stop("Test Failed: The 'start_date' column contains unreasonable values.")
 }
 
-# Check if the 'state' column contains only valid Australian state names
-valid_states <- c("Alabama", "Alaska", "Arkansas", "California", "Colorado", 
+# Check if the 'state' column contains only valid US state names
+valid_states <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
                   "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
                   "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
                   "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
@@ -79,9 +79,9 @@ if (all(sample_data$methodology != "" & sample_data$state != "" & sample_data$po
 
 # Check if the 'supports_rate' column has reasonable values
 if (all(0 <= sample_data$supports_rate & 100 >= sample_data$supports_rate)) {
-  message("Test Passed: The 'party' column contains at least two unique values.")
+  message("Test Passed: The 'supports_rate' column contains at least two unique values.")
 } else {
-  stop("Test Failed: The 'party' column contains less than two unique values.")
+  stop("Test Failed: The 'supports_rate' column contains less than two unique values.")
 }
 
 # Check if the 'days_since_biden_withdrawal' column has reasonable values

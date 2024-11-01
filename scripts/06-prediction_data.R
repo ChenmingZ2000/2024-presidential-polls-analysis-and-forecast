@@ -37,16 +37,16 @@ methodology <- c("Live phone", "Online Panel", "Online Panel/Text-to-Web",
 
 days_since_Biden_Withdrawal <- as.numeric(as.Date("2024-11-05") - as.Date("2024-07-21"))
 
-state <- c("Alabama", "Alaska", "Arkansas", "California", "Colorado", 
-            "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
-            "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
-            "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
-            "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", 
-            "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
-            "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
-            "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
-            "Tennessee", "Texas", "Utah", "Vermont", "Virginia", 
-            "Washington", "West Virginia", "Wisconsin", "Wyoming", "national")
+state <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
+           "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
+           "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
+           "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
+           "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", 
+           "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
+           "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
+           "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
+           "Tennessee", "Texas", "Utah", "Vermont", "Virginia", 
+           "Washington", "West Virginia", "Wisconsin", "Wyoming", "national")
 
 is_national <- ifelse(state == "national", 1, 0)
 

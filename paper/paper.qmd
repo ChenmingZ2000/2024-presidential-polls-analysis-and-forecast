@@ -346,7 +346,8 @@ Define $y_i$ as the percentage of support (pct) for Trump in poll in the $i$-th 
 The linear component of the model is defined as follows: 
 
 $$
-\mu_i = \alpha + \beta_1 \cdot \text{methodology}_i+ \beta_2 \cdot \mathrm{days\_since\_Biden\_Withdrawal}_i + \beta_3 \cdot \mathrm{is\_national}_i + u_{\text{state}[i]} + (v_{\text{pollster}[i]} + \gamma_{\text{pollster}[i]} \cdot \mathrm{days\_since\_Biden\_Withdrawal}_i)
+\mu_i = \alpha + \beta_1 \cdot \text{methodology}_i+ \beta_2 \cdot \mathrm{days\_since\_Biden\_Withdrawal}_i \\
+       + \beta_3 \cdot \mathrm{is\_national}_i + u_{\text{state}[i]} + (v_{\text{pollster}[i]} + \gamma_{\text{pollster}[i]} \cdot \mathrm{days\_since\_Biden\_Withdrawal}_i)
 $$
 
 where:
