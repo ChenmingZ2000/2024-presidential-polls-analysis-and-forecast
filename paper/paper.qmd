@@ -7,7 +7,7 @@ thanks: "Code and data are available at: [https://github.com/RohanAlexander/star
         We gratefully acknowledge FiveThirtyEight for providing the polling data used in this analysis. The data is available at: [https://projects.fivethirtyeight.com/polls/president-general/2024/national/](https://projects.fivethirtyeight.com/polls/president-general/2024/national/)."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This study aims to use a hierarchical Bayesian model to predict whether Donald Trump will win the 2024 U.S. presidential election based on support rates. By analyzing data of 2024 US presidential general election polls across states, pollsters, and methodologies, we capture variations in support for Trump driven by these factors. Our results reveal significant differences in support between national and state-level polls, with fluctuations in key swing states potentially influencing the election outcome. There is a dynamic interaction between election results and public opinion trends, and this study provides insights into how various factors influence public sentiment, offering valuable predictions and understanding of voter dynamics in the U.S. election."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -33,20 +33,13 @@ library(patchwork)
 
 # Introduction
 
-Overview paragraph
+The U.S. presidential election has consistently captured the attention of nearly everyone. The 2024 U.S. presidential election is taking place against a backdrop of intense political polarization and complex shifts in public opinion. With changes in the social and economic landscape post-pandemic, the rise of differing ideologies, and frequent political controversies, forecasting the outcome of the 2024 election has become more challenging than ever. Statistics show that the U.S. presidential election is one of the world’s most expensive elections, involving massive amounts of money and manpower, and the 2024 election is expected to cost a record-breaking $15.9 billion (New York Times). Both the Democratic and Republican parties have poured significant resources and funds into the campaign, employing different strategies to win over voters (Reuters). The policy stances of different parties directly affect voters and national policies, and these differences will continue to influence the future direction of the electorate, the United States, and even the world. As the world’s largest economy, the U.S. policy shifts directly impact global markets. Changes in U.S. trade policy often lead to shifts in international trade dynamics, affecting the economic development of other countries. Additionally, the U.S. foreign policy and military strategy hold a dominant position in global affairs. The diplomatic stance of the new president may also alter relations with other countries, impacting global security.
 
-Estimand paragraph
+In this paper, we focus on the outcome of the 2024 presidential election. Using a dataset from FiveThirtyEight containing extensive polling results, we examine the influence of various factors on candidate support rates by accounting for differences in polling methods, state-level variation, and temporal changes. It is evident that polling methods often fail to fully capture the complexity of public opinion, and factors that introduce bias may intervene from the very design of polling methods. The chaos and complexity of the real world are also reflected in a large-scale political event like the 2024 presidential election, which involves a vast number of participants, wide-ranging groups, and massive investments and interests. Therefore, we employ a hierarchical Bayesian model as a predictive tool in our analysis. This model integrates polling data from FiveThirtyEight covering various states and polling organizations, while also considering the effects of regional and methodological influences. By incorporating variables such as days since Biden’s withdrawal, polling methodology, and whether the poll is national or state-level, the model provides a dynamic view of Trump’s support rate across time and place. With an R² of 0.641 and an RMSE of 2.31, the model effectively captures these patterns while maintaining predictive accuracy, indicating that it can provide meaningful insights into regional and national public opinion trends. Finally, we simulate data for Election Day on November 5 to provide a reliable basis for predicting the election outcome.
 
-Results paragraph
+Our analysis reveals that differences in Trump’s support rate across regions and polling methods are particularly pronounced. For example, support rates in traditionally conservative states like Texas differ significantly from those in traditionally liberal states like California, while trends in swing states such as Pennsylvania and Michigan are more unstable, with the potential to disrupt the election balance. This underscores the critical impact of geographic and methodological factors on public opinion, aligning well with the historical tendency of swing states to determine the election outcome. Additionally, our results suggest that polling methodologies introduce systematic differences in support rate estimation, with slight variations between results from online panels and phone surveys. In the predictive results, support for Trump at both the state and national levels hovers around 45% to 50%. Comparing this to the support rates of past U.S. presidents, we predict that Trump is unlikely to win in this election.
 
-Why it matters paragraph
-
-Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data....
-
-
-
-
-
+The remainder of this paper is structured as follows. @sec-data introduces the data sources, preprocessing steps, variable selection criteria, and the potential relationships between independent and dependent variables. @sec-model provides a concise explanation of the hierarchical Bayesian model, including the design rationale and selection of priors and random effects, with more details on the model’s posterior in [Appendix -@sec-model-details]. @sec-results presents the main findings of the study, including a summary of the model output to support its accuracy and predictions of Trump’s support rate across different regions on November 5, 2024. @sec-first in @sec-discussion discusses the implications of the results, @sec-second talks about limitations of the data and polls, complexity of conducting our real world into datas, and future directions.
 
 # Data {#sec-data}
 
@@ -328,7 +321,7 @@ ggplot(support_trend_5day, aes(x = grouped_days, y = avg_pct)) +
 ```
 
 
-# Model
+# Model {#sec-model}
 Our model applies a hierarchical Bayesian approach, based on the framework proposed by @gelman2020regression. This method builds a layered structure that combines polling data collected by different organizations using various methodologies with regional and temporal trends to more accurately predict support rates on Election Day. Running within a Bayesian framework, our model employs a random walk prior to reflect the dynamically changing support rates following Biden's withdrawal in 2024. This prior distribution is based on historical election trends and the latest polling data, allowing the model to continuously update as new data becomes available.
 
 The goal of our modelling strategy is to build a time series model to predict the percentage of support for Trump over time. This model incorporates multiple variables, including the polling methodology, the number of days since Biden's withdrawal from the race on 21 July 2024, whether the poll is at the national level, as well as random effects for each state and each pollster.  These variables are chosen to capture the effects of time, polling characteristics, and geographic location on support rates, allowing us to obtain dynamic estimates of support for Trump and to predict the winner of 2024 U.S. presidential election.
@@ -470,9 +463,9 @@ p5 <- ggplot(all_states, aes(x = state, y = predicted_support)) +
 p4 + p5 + plot_layout(nrow = 2)
 ```
 
-# Discussion
+# Discussion {#sec-discussion}
 
-## Winner Prediction {#sec-pred}
+## Winner Prediction {#sec-first}
 Based on the support rate predictions for Trump at both the national and state levels displayed in @fig-results in @sec-results, it appears challenging for Trump to emerge victorious in the upcoming U.S. presidential election on November 5, 2024, against his primary opponent, Harris. The first chart shows the national support rate prediction for Trump, centering around 45% to 50%. Historically, any candidate needs to reach or exceed the 50% threshold to secure a decisive victory. The current predictions reveal some level of uncertainty, although minor shifts in voter sentiment might occur leading up to Election Day, leaving Trump with some possibility of winning. 
 
 The @fig-results also illustrates the support rates at the state level, revealing significant differences between red and blue states. For instance, Trump’s predicted support rate is higher in traditionally conservative states such as Texas, while in strong Democratic states like California, his support rate is lower. In swing states like Pennsylvania and Michigan, the support rate hovers around 50%, aligning with historical trends where these states tend to have close contests.
@@ -481,10 +474,10 @@ To draw final conclusions from these predictions, it is essential to consider hi
 
 Given the current support rate predictions from our model and the historical performance of swing states, it is projected that Trump cannot secure a clear victory. Furthermore, the volatility in swing states suggests that if these states lean Democratic as they did in 2020, Harris would likely win. However, the final outcome will depend on voter turnout, the last stages of the campaign, and any major events leading up to Election Day.
 
-## Weaknesses and next steps {#sec-weakness}
+## Weaknesses and next steps {#sec-second}
 In discussing the limitations of polls and our model, we aim to evaluate its robustness and the challenges it faces in capturing the complexities of voter behavior. Each step, from data collection to model construction, involves certain assumptions and potential biases. Below is a detailed discussion of these aspects:
 
-### Defects of Existing Data {#sec-first-point}
+### Defects of Existing Data
 Firstly, a major challenge for the model lies in estimating a large number of parameters with limited polling data. This scarcity of data can make the model highly sensitive to choices in priors and interstate covariance structures. For example, relying on historical patterns from states with limited data may fail to reflect the latest shifts in voter sentiment. This issue is also seen across different polling organizations and survey methods. As @gelman2020regression noted, the model can fluctuate between overconfidence and unreasonable uncertainty. To address this, we could consider incorporating alternative data sources, such as social media sentiment or historical population voting trends, to supplement polling data in underrepresented areas. However, these sources carry their own issues, as they may lack reliability and rigor.
 
 Then, in handling systematic bias introduced by different polling methods, the model accounts for variance by assigning specific variance parameters for each method (e.g., phone interviews vs. online panels). Each method may systematically overestimate or underestimate support for a particular candidate. For instance, online panels may attract more politically engaged individuals, leading to biases compared to random phone interviews. To reduce these biases, the model includes variance adjustments specific to each method. Further improvements could involve re-weighting polls based on historical accuracy or introducing dynamic adjustments for newer polling methods. However, as pointed out in @blumenthal2010polls, historical data often include responses to unique events that are not repeatable, making it difficult to assess the accuracy of historical information as a reference. Similarly, the model uses a random walk prior to accommodate fluctuations in public support over time, yet it may struggle to capture abrupt changes driven by political events, such as a debate or controversial statement. The inherent randomness of world events makes it challenging to fully address this problem.
