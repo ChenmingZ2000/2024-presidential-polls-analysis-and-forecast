@@ -1,13 +1,13 @@
 ---
-title: "Demystifying Votes: A Hierarchical Bayesian Model for Predicting the 2024 US Presidential Election"
-subtitle: "Decoding the dynamics and biases behind Trump's Approval Ratings with polling Data"
+title: "A Hierarchical Bayesian Analysis for Predicting the 2024 US Presidential Election"
+subtitle: "Trump's chances of winning are slim"
 author: 
   - Chenming Zhao
 thanks: "Code and data are available at: [https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git](https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git).
         We gratefully acknowledge FiveThirtyEight for providing the polling data used in this analysis. The data is available at: [https://projects.fivethirtyeight.com/polls/president-general/2024/national/](https://projects.fivethirtyeight.com/polls/president-general/2024/national/)."
 date: today
 date-format: long
-abstract: "This study aims to use a hierarchical Bayesian model to predict whether Donald Trump will win the 2024 U.S. presidential election based on support rates. By analyzing data of 2024 US presidential general election polls across states, pollsters, and methodologies, we capture variations in support for Trump driven by these factors. Our results reveal significant differences in support between national and state-level polls, with fluctuations in key swing states potentially influencing the election outcome. There is a dynamic interaction between election results and public opinion trends, and this study provides insights into how various factors influence public sentiment, offering valuable predictions and understanding of voter dynamics in the U.S. election."
+abstract: "This study uses a hierarchical Bayesian model to predict whether Donald Trump will win the 2024 U.S. presidential election based on support rates. By analyzing 2024 election data across states, pollsters, and methodologies, we capture the influence of these elements on Trump’s support rate. Our prediction shows Trump has little chance to win due to those key swing states that could affect the outcome. This study also observes the elements shaping public sentiment and provides predictions on the dynamics of support rates in the U.S. election."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -48,7 +48,7 @@ The remainder of this paper is structured as follows. @sec-data introduces the d
 
 Polling data for the 2024 U.S. presidential election is provided by @fivethirtyeight. This dataset compiles information from numerous polls conducted by various pollsters, detailing public support levels for presidential candidates. This data is periodically updated on FiveThirtyEight's website to reflect the latest polling information for the 2024 election. Each record includes information we need like state in which the poll was conducted (or conducted nationally), polling dates (start and end), the specific pollster, the sample size of each poll, the polling methodology, and support percentages for each candidate. This dataset serves as the foundation for analyzing trends and building predictive models for the winner of the upcoming US presidential election. Table tbl-pollingdata below previews this information for polls conducted in 2023 and 2024.
 
-To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `readxl` [@readxl], `dplyr` [@dplyr], `knitr` [@knitr], `ggplot2` [@ggplot2], `kableExtra` [@kableExtra] and `patchwork` [@patch]. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes. Also this analysis inherits the folder structure from Professor Rohan Alexander from University of Toronto [@rohan].
+To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `readxl` [@readxl], `dplyr` [@dplyr], `arrow` [@arrow], `knitr` [@knitr], `ggplot2` [@ggplot2], `kableExtra` [@kableExtra] and `patchwork` [@patch]. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes. Also this analysis inherits the folder structure from Professor Rohan Alexander from University of Toronto [@rohan].
 
 ## Measurement
 	
@@ -391,7 +391,7 @@ Therefore, we included a random intercept `(1 | state)` for each state, with the
 
 # Results {#sec-results}
 ## Model Output
-Our results are summarized in a table which is available [here](https://8360846bf92342d59862bf4ec3515643.app.posit.cloud/file_show?path=%2Fcloud%2Fproject%2Fpaper%2Fmodel_summary_table.html). This summary reveals the effects of different polling methods and organizations on our estimates. For instance, there is a small difference in estimates between data collected via online panels and phone surveys. The model adjusts for these differences by using a hierarchical structure, which accounts for inconsistencies caused by methodological and organizational biases. Specifically, variance parameters for different methods indicate the different impacts these methods have on sampling coverage and voter behavior, helping the model balance these differences. 
+Our results are summarized in a table which is available in @tbl-model. This summary reveals the effects of different polling methods and organizations on our estimates. For instance, there is a small difference in estimates between data collected via online panels and phone surveys. The model adjusts for these differences by using a hierarchical structure, which accounts for inconsistencies caused by methodological and organizational biases. Specifically, variance parameters for different methods indicate the different impacts these methods have on sampling coverage and voter behavior, helping the model balance these differences. 
 
 The model’s $R^2$ value is 0.641, indicating that it explains about 64% of the variation in support rates. This shows that the model effectively captures the main patterns in the data, although not every detail. Additionally, the Intraclass Correlation Coefficient (ICC) is 0.9, suggesting a high degree of clustering in the data, meaning that factors like state-specific and polling organization differences significantly contribute to overall variability. Other indicators, such as WAIC (2621.8) and RMSE (2.31), further confirm the model’s good fit, showing that it maintains predictive accuracy without overfitting. Also, to balance precision and flexibility, we set a polling error rate of 3% based on historical data. This helps the model capture typical uncertainty without becoming overly confident. 
 
@@ -412,14 +412,19 @@ prediction_data <- read_parquet(here::here("data/02-analysis_data/prediction_dat
 ```{r}
 #| echo: false
 #| eval: true
+#| label: tbl-model
+#| tbl-cap: "TODO"
 #| warning: false
 #| message: false
 
 modelsummary::modelsummary(
-  list("First model" = first_model),
+  list("Bayesian model" = first_model),
   statistic = "mad",
   fmt = 2,
-  output = here::here("paper/model_summary_table.html")
+  coef_map = c("(Intercept)", "days_since_Biden_Withdrawal", "is_national", 
+               "methodologyIVR/Online Panel/Text-to-Web", "Sigma[pollster:(Intercept),(Intercept)]",
+               "Sigma[state:(Intercept),(Intercept)]", "Sigma[pollster:days_since_Biden_Withdrawal,days_since_Biden_Withdrawal]",
+               "Sigma[pollster:days_since_Biden_Withdrawal,(Intercept)]", "sigma")
 )
 ```
 
