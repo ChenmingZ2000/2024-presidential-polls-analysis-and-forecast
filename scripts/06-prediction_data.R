@@ -8,7 +8,7 @@
 # Contact: chenming.zhao@mail.utoronto.ca
 # License: MIT
 # Pre-requisites:
-#   - Install the necessary libraries: `tidyverse`, `rstanarm`.
+#   - Install the necessary libraries: `tidyverse`, `arrow`.
 #   - Ensure the Trump time series model is available at "/cloud/project/models/trump_time_model.rds".
 #   - Have a folder structure set up with the data directory "/cloud/project/data/02-analysis_data/"
 #     to save the prediction output.
@@ -23,7 +23,7 @@
 library(tidyverse)
 library(arrow)
 
-trump_time_series_model <- readRDS("/cloud/project/models/trump_time_model.rds")
+trump_time_series_model <- readRDS("models/trump_time_model.rds")
 
 trump_data$methodology <- as.factor(trump_data$methodology)
 

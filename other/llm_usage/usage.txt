@@ -400,3 +400,48 @@ Arrange the plots:
 r
 grid.arrange(p1, p3, ncol = 2)
 Any of these methods should help you display both p1 and p3 in a single output without the error. Let me know if you encounter further issues!
+
+User
+cite https://www.nytimes.com/article/times-siena-poll-methodology.html in .bib
+ChatGPT
+Here’s the citation in BibTeX format for the New York Times article on the Times/Siena poll methodology:
+
+bibtex
+@misc{nytimes2024methodology,
+  author       = {The New York Times},
+  title        = {How The Times/Siena Poll Works},
+  year         = {2024},
+  url          = {https://www.nytimes.com/article/times-siena-poll-methodology.html},
+  note         = {Accessed: 2024-11-02}
+}
+This citation includes the essential details to reference the article in your bibliography. Let me know if you need any adjustments!
+
+User
+cite https://www.nytimes.com/2018/09/06/upshot/live-poll-method.html in .bib
+ChatGPT
+Here’s the citation in BibTeX format for the New York Times article on live poll methodology:
+
+bibtex
+@misc{nytimes2018pollmethod,
+  author       = {The New York Times},
+  title        = {How The New York Times Is Experimenting With Live Polling},
+  year         = {2018},
+  url          = {https://www.nytimes.com/2018/09/06/upshot/live-poll-method.html},
+  note         = {Accessed: 2024-11-02}
+}
+This citation includes the necessary details to reference the article in your bibliography. Let me know if you need any changes!
+
+cite https://www.nytimes.com/2022/11/08/upshot/poll-experiment-wisconsin-trump.html in .bib
+
+ChatGPT
+Here’s the citation in BibTeX format for the New York Times article on the poll experiment in Wisconsin:
+
+bibtex
+@misc{nytimes2022wisconsin,
+  author       = {The New York Times},
+  title        = {What if We Only Polled People Who Answered the First Time?},
+  year         = {2022},
+  url          = {https://www.nytimes.com/2022/11/08/upshot/poll-experiment-wisconsin-trump.html},
+  note         = {Accessed: 2024-11-02}
+}
+This citation provides the essential details for referencing the article in your bibliography. Let me know if you need any adjustments!

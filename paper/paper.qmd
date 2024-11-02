@@ -1,6 +1,6 @@
 ---
-title: "A Hierarchical Bayesian Analysis for Predicting the 2024 US Presidential Election"
-subtitle: "Trump's chances of winning are slim"
+title: "Bayesian Hierarchical Model Predicts Dim Prospects for Trump's Victory in the 2024 U.S. Presidential Election"
+subtitle: "Key Swing States Expected to Be Decisive Factors"
 author: 
   - Chenming Zhao
 thanks: "Code and data are available at: [https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git](https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git).
@@ -51,14 +51,19 @@ Polling data for the 2024 U.S. presidential election is provided by @fivethirtye
 To simulate, test, analyze, and clean the polling data, the statistical programming language R was employed [@citeR]. Key libraries that supported the data analysis include `tidyverse` [@tidyverse], `readxl` [@readxl], `dplyr` [@dplyr], `arrow` [@arrow], `knitr` [@knitr], `ggplot2` [@ggplot2], `kableExtra` [@kableExtra] and `patchwork` [@patch]. Additionally, the `rstanarm` [@rstanarm] library was utilized to implement multilevel modeling for prediction purposes. Also this analysis inherits the folder structure from Professor Rohan Alexander from University of Toronto [@rohan].
 
 ## Measurement
-	
-The process of transforming real-world phenomena into structured data typically involves several critical steps, from designing surveys to final data entry. First, we identify what needs to be measured. In this case, we focus on public opinion regarding the 2024 presidential election, particularly support rates for various candidates. It is essential to define the data scope (e.g., national or state level) and key variables—such as polling information (e.g., polling organization, start and end dates), sample details (e.g., sample size and demographics), and candidate details (e.g., candidate name and party affiliation).
+In the real world, people's attitudes toward public policies and political events often fluctuate, and these sentiments are frequently concealed beneath the surface. Modern society is rife with interest-driven motives and power struggles, especially at pivotal moments like the 2024 presidential election. The emotions, biases, and underlying interests of voters make capturing the true public sentiment all the more urgent. Polling thus serves as a window into the public’s mood; it is not merely a quantification of voter intent but also a battleground for election strategy and political capital.
 
-Next, polling organizations develop survey questions based on the desired data, considering sample size, sampling methods, and survey modes to capture respondents' preferences and voting intentions. Different methodologies impact the results, as they reflect the views of distinct groups, which may be influenced by factors like access channels, demographics, and technology usage. For instance, face-to-face surveys tend to capture opinions from offline-inclined groups, whereas voluntary online surveys exclude those less active online.
+The design process of a poll is laden with considerations. The first step is to define the measurement objective. Here, we focus on the public’s support for presidential candidates, particularly Donald Trump and Harris. However, designing a "neutral" and "scientific" poll is far from straightforward. Behind the scenes, various interest groups, aiming to sway the poll results in favor of their supported candidates, subtly influence sample selection, questionnaire design, and survey methodology, embedding "stances" within the poll itself.
 
-Once the survey is designed, polling begins, and responses are aggregated by the polling organization. Respondents' answers are recorded and categorized, converting their opinions into structured data points, though these lack of human complexity. To protect privacy, data are often anonymized and aggregated, retaining key insights. After collection, raw data undergo cleaning and processing to minimize sampling biases and errors. Yet, any single poll can have random and systematic error sources, so combining multiple poll results helps mitigate these errors [@blumenthal2010polls].
+When designing the poll, research teams must select an appropriate sampling frame and methodology to ensure that the data represents the broader opinions of the electorate. Yet, in a society divided by information access and technology, survey methods can introduce notable biases. For instance, face-to-face interviews or telephone surveys reach voters who are less internet-active, while online self-administered questionnaires are more likely to attract digitally savvy young people. This variation reflects not only a technical challenge but also a societal layering of bias—who gets represented, who is overlooked, whose voices are amplified, and whose are suppressed. These issues are often embedded in the survey’s design from the outset.
 
-Processed data are entered into structured datasets. Ideally, well-formatted polling data are stored as individual records, typically including fields like polling organization, sample size, survey dates, margin of error, candidate support percentages, and methodology description. On platforms like FiveThirtyEight, these fields are standardized for ease of comparison and analysis. Finally, FiveThirtyEight and similar platforms aggregate these structured records and present them to the public or allow non-commercial research use, with data usually updated as new polls are released. This enables analysts and the public to track changes in candidate support, analyze trends, and interpret results. An interesting phenomenon, however, is that as election day approaches, poll results often "converge" or "follow" the average, reducing polling error, with evidence suggesting some "final adjustments" in methodology may occur [@blumenthal2010polls].
+Next, the formal data collection phase begins. Pollsters must record each voter’s choice in an “impartial” manner, but data collection is often subject to various interferences. On one hand, respondents may not be entirely honest, particularly on sensitive political topics; on the other hand, polling organizations themselves may face influence from sponsors or political pressures, subtly adjusting questionnaires or manipulating how survey results are presented. Ultimately, public opinions are recorded as cold numbers, yet these numbers harbor significant social and political tensions.
+
+Once data collection is complete, polling data are usually anonymized and aggregated to protect respondents’ privacy and produce “objective” statistics. However, even pre-processed data still contain random and systematic errors. This is why many media outlets and analysis platforms conduct meta-analyses of multiple polls to mitigate the bias of any single poll, aiming to capture a more accurate trend of public sentiment [@blumenthal2010polls].
+
+The processed data are then stored in a structured database, facilitating comparisons across time, regions, and groups. On platforms like FiveThirtyEight, this data becomes the basis not only for predicting election outcomes but also for analyzing the ebbs and flows of voter sentiment. Notably, Symposium: Polls, Forecasts, and Aggregators suggests that when election day approaches, poll results often “converge” or “gravitate toward the average,” a phenomenon that may suggest that some polling organizations make final adjustments to their methodologies to present a more accurate forecast to the public and their stakeholders [@blumenthal2010polls].
+
+Through this “game” of polling, we not only glimpse voters' preferences and mindsets but also see a microcosm of power and interest battles. Polls are more than just numbers—they are a living, breathing social portrait shaped by a multitude of forces.
 
 ## Analysis Data
 This analysis is focused on Donald Trump, so we only collected observations where the `candidate_name` is Trump. At the same time, we prioritize the quality of the polls. In a political approval rate prediction model, which is often influenced by numerous complex factors, we encounter data that is typically complex and noisy. Low-quality poll results can introduce significant bias into our prediction model, further impacting the accuracy of inferences. Therefore, only polls with a `numeric_grade` above 2.7 were selected. Additionally, Trump's main opponent, Kamala Harris, only entered the race after Biden’s withdrawal, a major political event that could have significant effects on the support rates for both sides. As such, we focused solely on polls conducted after Biden’s withdrawal to enhance the model’s prediction accuracy for the final outcome.
@@ -523,12 +528,6 @@ With elections occurring only every four years, opportunities to validate predic
 
 # Appendix {-}
 
-
-
-
-
-# Additional data details
-
 # Model details {#sec-model-details}
 R package `bayesplot` [@bayesplot] is used for posteriors.
 
@@ -605,8 +604,52 @@ plot(first_model, "rhat")
 plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
 ```
 
-## Diagnostics
+## Pollster Methodology Overview and Evaluation
+### Polling Methods
+Imagine you are watching an orchestra, hoping it will perform seamlessly. Every instrument needs to be tuned to just the right pitch so that it combines into a harmonious melody, capturing the audience’s attention and drawing them in. This is exactly how polling works—crafting the notes of public opinion into a clear melody that aims to capture and showcase the true views of American voters. In this appendix, we focus on The New York Times and Siena College, a pollster that has consistently received the highest rating of 3.0 in recent years from @fivethirtyeight, as the subject of our study and discussion.
 
+Before diving into the specific sampling methods and results, we consider the poll's target population, framework, and sample selection. The dataset used in the appendix is from @fivethirtyeight. The dataset includes poll results from the middle of 2022 to the present. The choice of target population and sample directly impacts the accuracy and relevance of poll results. @tbl-polls1 provides an overview of several key components of The New York Times and Siena College poll data. From this table, we see that their target population is registered voters (RV), with particular attention given to those likely to vote in the election—likely voters (LV). This choice is guided by the goal of predicting election results by focusing on the voter groups that have the greatest influence. In actual elections, those with the highest intention to vote often impact the results the most. By selecting and focusing on those with strong voting intentions, the poll seeks to ensure that the results are more representative and predictive. By concentrating on these "likely voters," the poll aims to mirror the actual composition of voters, providing a forecast closer to the election scenario.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ny_data <- read_parquet(here :: here("data/02-analysis_data/pollster_data.parquet"))
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| label: tbl-polls1
+#| tbl-cap: TODO
+
+kable(head(ny_data, 6), 
+      col.names = c("pollster_name", "538_numeric_grade", "methodology", "population"), 
+      align = c("l", "c", "c", "c")) %>%
+kable_styling(font_size = 8)
+
+
+```
+
+After selecting the target population, the next step is determining the polling framework. From @nytimes2018pollmethod, we can see that the phone numbers for The New York Times and Siena College poll samples come from national voter files and market research companies. Specifically, the polling team collaborates with L2, extracting samples from the national voter file and supplementing them with matching cell phone numbers provided by Marketing Systems Group to create a database of phone contacts. The purpose of these dual information sources is to allow the poll to gather more complete contact information. Once the phone numbers are obtained, the polling team randomly dials both cell phones and landlines, using the different contact methods to reach diverse groups. Combined, these methods provide a broader, more inclusive view of public opinion. This process is known as a dual-frame approach.
+
+In sampling, The New York Times and Siena College employ stratified sampling, dividing voters by characteristics such as race, party affiliation, and region [see @nytimes2024methodology]. The purpose of stratified sampling is to ensure that each significant voter subgroup is appropriately represented in the final sample, capturing the diversity of the population and preventing the poll from lacking representativeness or being biased. Imagine a jigsaw puzzle, where each group is like a puzzle piece that must fit perfectly within the whole to form a complete picture. Of course, finding the right "pieces" and placing them in the correct spots requires careful planning. The polling team relies on accurate and up-to-date demographic data, a challenge that demands extensive resources and attention to detail.
+
+Then there is population weighting and the voter likelihood model. To make the sample more reflective of the actual voting population, the team takes into account past voting behavior, demographic characteristics, and respondents' self-reported voting intention. This adjustment gives more weight to the feedback from those who are likely to vote. In essence, this model fine-tunes the sample to better align with real voting patterns. However, much like a conductor shaping a new season’s performance based on the last, this model relies on past data, which may overlook new trends or unexpected changes in behavior [see @nytimes2018pollmethod].
+
+Finally, it goes to question design. Like lyrics in a song, each question needs to encourage respondents to share their genuine opinions, avoiding wording that could sway answers. The New York Times and Siena College publish every question verbatim, allowing anyone to see exactly what was asked. Like an open rehearsal, this transparency builds trust. The questions are clear and aim to remain neutral, though the simplicity can sometimes limit depth, missing subtle aspects in complex topics.
+
+### Challenges and New York Times' Response
+
+One challenge that arises in polling is that, despite the careful design aimed at ensuring broad coverage, not everyone is willing to participate. This is known as the **nonresponse issue**. To make the results more representative, pollsters at The New York Times and Siena College make multiple attempts to contact individuals. However, despite these efforts, the overall response rate remains around 2%, which is relatively low. This low rate naturally raises curiosity about how those who stay silent might view the issues. In 2022, an experiment aimed at measuring the impact of nonresponse on their phone surveys suggested that the resulting bias might not be substantial. However, The New York Times also acknowledges, “the truth is that there’s no way to be absolutely sure that the people who respond to surveys are like demographically similar voters who don’t respond. It’s always possible that there’s some extra dimension of nonresponse that we haven’t considered” [see @nytimes2024methodology].
+
+We are concerned about how feedback from around 1,000 people can represent the entire United States. To address this question, The New York Times uses the analogy of “tasting a soup with just one spoonful.” They argue that their method includes a sufficiently random sample, noting that if they were to double—or even triple—the number of respondents, the margin of error would only slightly decrease, possibly by about two percentage points. In other words, increasing the sample size would not greatly improve overall accuracy. The New York Times explains that once the survey is complete, they compare respondents to voter files and use a process known as weighting to ensure the sample reflects the broader voting population. In practice, this often means giving more weight to groups less likely to participate in surveys, such as those without a college degree [@nytimes2024methodology] [@nytimes2022wisconsin].
+
+Then there’s the voter likelihood model. In the NYT/Siena poll, they use information from voter files to review each voter’s voting history, using past behavior to predict future voting patterns. They also ask respondents about their likelihood to vote and use this information to estimate how likely someone is to vote in the upcoming election. However, much like a conductor adjusts a new season’s performance based on the previous one, this model relies on past data, which might miss new trends or unexpected changes in behavior. The New York Times itself mentions that the margin of error in its polls ranges between 2% and 4%, a factor that could play a decisive role in a close election [see @nytimes2024methodology].
+
+Additionally, even with the best planning, The New York Times notes that they ensure the correct number of interviews by race, party, and region so that each NYT/Siena poll reaches, for example, the appropriate proportion of white Democrats from the West, or Hispanic Republicans from Maricopa County, Arizona [@nytimes2024methodology] [@nytimes2022wisconsin]. Still, some groups remain difficult to reach. Pollsters attempt to compensate for this by adjusting sample weights, but weighting itself introduces challenges. If certain groups are over- or under-adjusted within the sample, it may destabilize results and obscure potential sample limitations.
 
 \newpage
 
