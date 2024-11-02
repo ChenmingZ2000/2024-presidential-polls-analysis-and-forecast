@@ -19,7 +19,7 @@ library(rstanarm)
 library(arrow)
 
 #### Read data ####
-analysis_data <- read_parquet("/cloud/project/data/02-analysis_data/analysis_trump_data.parquet")
+analysis_data <- read_parquet("data/02-analysis_data/analysis_trump_data.parquet")
 
 ### Model data ####
 trump_time_series_model <- stan_glmer(
@@ -35,7 +35,7 @@ trump_time_series_model <- stan_glmer(
 #### Save model ####
 saveRDS(
   trump_time_series_model,
-  file = "/cloud/project/models/trump_time_model.rds"
+  file = "models/trump_time_model.rds"
 )
 
 

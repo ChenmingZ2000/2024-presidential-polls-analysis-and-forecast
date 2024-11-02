@@ -13,7 +13,7 @@
 #### Workspace setup ####
 library(tidyverse)
 
-sample_data <- read_csv("/cloud/project/data/00-simulated_data/simulated_data.csv")
+sample_data <- read_csv("data/00-simulated_data/simulated_data.csv")
 
 # Test if the data was successfully loaded
 if (exists("sample_data")) {

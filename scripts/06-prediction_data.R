@@ -21,6 +21,7 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(arrow)
 
 trump_time_series_model <- readRDS("/cloud/project/models/trump_time_model.rds")
 
@@ -70,7 +71,7 @@ prediction_data <- data.frame(
 )
 
 
-# 生成预测值
+# Generating predictions
 prediction_data$methodology <- factor(prediction_data$methodology, levels = levels(trump_data$methodology))
 # Fill missing values in the 'methodology' column with a random sample from valid levels
 prediction_data$methodology[is.na(prediction_data$methodology)] <- sample(
@@ -81,15 +82,15 @@ prediction_data$methodology[is.na(prediction_data$methodology)] <- sample(
 
 prediction_samples <- posterior_predict(trump_time_series_model, newdata = prediction_data)
 
-# 计算预测均值和置信区间
+# Calculate the predicted mean and confidence interval
 prediction_means <- apply(prediction_samples, 2, mean)
 prediction_ci_lower <- apply(prediction_samples, 2, quantile, probs = 0.025)
 prediction_ci_upper <- apply(prediction_samples, 2, quantile, probs = 0.975)
 
-# 将结果添加到数据框
+# Adds the result to the data frame
 prediction_data$predicted_support <- prediction_means
 prediction_data$lower_ci <- prediction_ci_lower
 prediction_data$upper_ci <- prediction_ci_upper
 
 #### Save data ####
-write_csv(prediction_data, "/cloud/project/data/02-analysis_data/prediction_data.csv")
+write_parquet(prediction_data, "data/02-analysis_data/prediction_data.parquet")

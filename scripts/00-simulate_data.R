@@ -52,4 +52,4 @@ political_support
 
 
 #### Save data ####
-write_csv(political_support, "/cloud/project/data/00-simulated_data/simulated_data.csv")
+write_csv(political_support, "data/00-simulated_data/simulated_data.csv")

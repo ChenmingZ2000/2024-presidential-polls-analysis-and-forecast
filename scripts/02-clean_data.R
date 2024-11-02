@@ -25,7 +25,7 @@ library(dplyr)
 library(arrow)
 
 #### Clean data ####
-raw_data <- read_csv("/cloud/project/data/01-raw_data/president_polls_raw_data.csv")
+raw_data <- read_csv("data/01-raw_data/president_polls_raw_data.csv")
 
 
 # Filters were used to filter good quality Trump related polls in the dataset
@@ -73,4 +73,4 @@ trump_data <- trump_data %>%
 trump_data$days_since_Biden_Withdrawal <- as.numeric(trump_data$start_date - as.Date("2024-07-21"))
 
 #### Save data ####
-write_parquet(trump_data, "/cloud/project/data/02-analysis_data/analysis_trump_data.parquet")
+write_parquet(trump_data, "data/02-analysis_data/analysis_trump_data.parquet")

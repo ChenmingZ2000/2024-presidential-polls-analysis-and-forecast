@@ -14,7 +14,7 @@
 library(tidyverse)
 library(testthat)
 
-data <- read_csv("/cloud/project/data/02-analysis_data/analysis_trump_data.csv")
+data <- read_parquet("data/02-analysis_data/analysis_trump_data.parquet")
 
 
 #### Test data ####
