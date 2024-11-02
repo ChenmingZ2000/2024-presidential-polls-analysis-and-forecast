@@ -445,3 +445,18 @@ bibtex
   note         = {Accessed: 2024-11-02}
 }
 This citation provides the essential details for referencing the article in your bibliography. Let me know if you need any adjustments!
+
+User
+cite https://www.nytimes.com/interactive/2024/10/28/us/elections/times-siena-texas-poll-toplines.html in bib：
+ChatGPT
+Here’s the citation in BibTeX format for the New York Times Texas poll topline report:
+
+bibtex
+@misc{nytimes2024texaspoll,
+  author       = {The New York Times},
+  title        = {The Times/Siena Poll: Texas Topline},
+  year         = {2024},
+  url          = {https://www.nytimes.com/interactive/2024/10/28/us/elections/times-siena-texas-poll-toplines.html},
+  note         = {Accessed: 2024-11-02}
+}
+This format includes all essential information for referencing the Texas poll topline report. Let me know if you need further adjustments!
