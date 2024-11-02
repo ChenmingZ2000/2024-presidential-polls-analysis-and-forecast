@@ -3,7 +3,7 @@ title: "Demystifying Votes: A Hierarchical Bayesian Model for Predicting the 202
 subtitle: "Decoding the dynamics and biases behind Trump's Approval Ratings with polling Data"
 author: 
   - Chenming Zhao
-thanks: "Code and data are available at: [https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git).
+thanks: "Code and data are available at: [https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git](https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git).
         We gratefully acknowledge FiveThirtyEight for providing the polling data used in this analysis. The data is available at: [https://projects.fivethirtyeight.com/polls/president-general/2024/national/](https://projects.fivethirtyeight.com/polls/president-general/2024/national/)."
 date: today
 date-format: long
