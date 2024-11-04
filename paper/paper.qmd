@@ -4,10 +4,11 @@ subtitle: "Key Swing States Expected to Be Decisive Factors"
 author: 
   - Chenming Zhao
 thanks: "Code and data are available at: [https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git](https://github.com/ChenmingZ2000/2024-presidential-polls-analysis-and-forecast.git).
-        We gratefully acknowledge FiveThirtyEight for providing the polling data used in this analysis. The data is available at: [https://projects.fivethirtyeight.com/polls/president-general/2024/national/](https://projects.fivethirtyeight.com/polls/president-general/2024/national/)."
+        We gratefully acknowledge FiveThirtyEight for providing the polling data used in this analysis. The data is available at: [https://projects.fivethirtyeight.com/polls/president-general/2024/national/](https://projects.fivethirtyeight.com/polls/president-general/2024/national/).
+        Our survey for the 2024 U.S. presidential election is available at : [https://docs.google.com/forms/d/1GI7KoltEKEdmZNfNorXxjvapUd_s2obJyRNrMYsjndw/prefill](https://docs.google.com/forms/d/1GI7KoltEKEdmZNfNorXxjvapUd_s2obJyRNrMYsjndw/prefill)"
 date: today
 date-format: long
-abstract: "This study uses a hierarchical Bayesian model to predict whether Donald Trump will win the 2024 U.S. presidential election based on support rates. By analyzing 2024 election data across states, pollsters, and methodologies, we capture the influence of these elements on Trump’s support rate. Our prediction shows Trump has little chance to win due to those key swing states that could affect the outcome. This study also observes the elements shaping public sentiment and provides predictions on the dynamics of support rates in the U.S. election."
+abstract: "This study uses a hierarchical Bayesian model to predict whether Donald Trump will win the 2024 U.S. presidential election based on support rates. By analyzing 2024 election data across states, pollsters, and methodologies, we capture the influence of these elements on Trump’s support rate. Our prediction shows Trump has little chance to win due to He will not have higher support rate in key swing states than Harris. This study also observes the elements shaping public sentiment and provides predictions on the dynamics of support rates in the U.S. election."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -120,9 +121,11 @@ The plot on the left side in @fig-pct1 compares the average support rates across
 
 @fig-pct2 displays the trend in support rates over time for the top five pollsters with the most observations. We chose these pollsters because a sufficient number of observations is needed to accurately capture trend changes and reduce the impact of extreme values. Each subplot represents a pollster and shows the change in Trump’s support rate since Biden’s withdrawal. This helps us observe the dynamic change in support rates following major events, and we can also see how different pollsters respond to the same event. Analyzing time trends aids in understanding shifts in public opinion, providing more time-sensitive support rate predictions.
 
+@fig-pct3 shows the differences in Trump’s support rate distribution between national and state-level polls. National polls have a more concentrated support rate, ranging approximately between 45% and 55%, with a median slightly lower than that of state-level polls, indicating a more stable level of support across the country. In contrast, state-level polls show a wider range of support, fluctuating from around 35% to over 60%, highlighting notable variations in support across different states. Additionally, state-level polls display more outliers, further reflecting the uneven support rate among states.
+
 ```{r, message=FALSE, fig.width=6, fig.height=3}
 #| label: fig-pct1
-#| fig-cap: Support rates for Donald Trump which showed in different variables plot 1
+#| fig-cap: Top 5 and Bottom 5 Avg Support Rate for Donald Trump by pollsters (left) and by states with national included (right)
 #| echo: false
 
 ### Group by top 5 and bottom 5 avg pct by pollsters and their most common methodology
@@ -274,7 +277,7 @@ p1 + p2
 
 ```{r, message=FALSE, fig.width= 5, fig.height= 3}
 #| label: fig-pct2
-#| fig-cap: Support rates for Donald Trump which showed in different variables plot 2
+#| fig-cap: Average Support Rate  for Donald Trump from 2024-07-21 to 2024-10-23 reported by different pollsters
 #| echo: false
 ### Identify the top 10 pollsters by occurrence
 top_pollsters2 <- analysis_data %>%
@@ -324,6 +327,18 @@ ggplot(support_trend_5day, aes(x = grouped_days, y = avg_pct)) +
     strip.text = element_text(size = 5)
   ) +
   facet_wrap(~ pollster, scales = "free_y")
+```
+
+```{r, message=FALSE, fig.width= 4, fig.height= 3}
+#| label: fig-pct3
+#| fig-cap: National support rate and state level support rate for Donald Trump 
+#| echo: false
+
+ggplot(analysis_data, aes(x = factor(is_national, levels = c(0, 1), labels = c("State Polls", "National Polls")), 
+                 y = pct)) +
+  geom_boxplot() +
+  labs(x = "Poll Type", y = "Trump Support Rate (%)", title = "Support Rate by Poll Type (National vs. State)") +
+  theme_minimal()
 ```
 
 
@@ -414,11 +429,11 @@ prediction_data <- read_parquet(here::here("data/02-analysis_data/prediction_dat
 ```
 
 
-```{r}
+```{r, message=FALSE}
 #| echo: false
 #| eval: true
 #| label: tbl-model
-#| tbl-cap: "TODO"
+#| tbl-cap: Model summary table for model which predicts support rate for Donald Trump in 2024 presidential election 
 #| warning: false
 #| message: false
 
@@ -434,44 +449,35 @@ modelsummary::modelsummary(
 ```
 
 ## Prediction Output
-From @fig-results, the model predicts that nationwide support for Trump on Election Day, November 5, 2024, will center between 45% to 50% and shows moderate fluctuations. This variability is mainly attributed to national events and differences in polling methods. For instance, nationwide events such as economic shifts or unexpected political occurrences may influence voter sentiment, while differences in polling methods (such as phone surveys versus online panels) may introduce slight fluctuations in estimates due to differences in sample coverage.
+The swig states information is from @270toWin. @fig-results shows that states with similar demographic characteristics (such as Pennsylvania and Michigan) exhibit comparable fluctuations in support rates. It also indicates that the model predicts Trump’s national support rate on Election Day, November 5, 2024, to center around 45% to 50%, with moderate variation. This suggests that despite the influence of national events and polling method differences, the national support rate remains relatively stable, reflecting a steady stance among most voters. We forecast that Trump’s national average support rate will be below 50%.
 
-At the state level, @fig-results shows predictions indicate significant variations between states. For example, support in Texas is considerably higher than in California, with a difference of over 10 percentage points, while swing states like Pennsylvania and Michigan display greater volatility. This result further validates the model’s robustness; the introduction of a random intercept for each state reflects systematic differences across states. This design aligns with data trends, suggesting that states with diverse geographic and demographic profiles exhibit unique political tendencies.
+At the state level, the chart reveals variations in support rates among states, with swing states other than Arizona and North Carolina tending to show average support rates below 50%. Swing states like Pennsylvania and Michigan display significant volatility, as indicated by wider interquartile ranges and multiple outliers in the box plot. This volatility suggests that voter preferences in these states are less stable, and support rates in competitive states are more susceptible to minor events or policy shifts. Therefore, we predict Trump’s support rate in swing states other than Arizona and North Carolina will remain below 50%.
 
-```{r, fig.width=5, fig.height=5}
+As key factors in the election, this forecast data, combined with Harris’s lead, suggests that Trump’s chance of winning 2024 presidential election is slim.
+
+```{r, fig.width=5, fig.height=4}
 #| echo: false
 #| eval: true
 #| label: fig-results
 #| fig-cap: Prediction of average support for Donald Trump on 2024-11-05
 #| warning: false
-national_only <- prediction_data[prediction_data$state == "national", ]
-all_states <- prediction_data[prediction_data$state != "national", ]
 
-p4 <- ggplot(national_only, aes(x = state, y = predicted_support)) +
-  geom_point(size = 3, color = "lightblue") +
-  geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.2, color = "lightblue") +
-  labs(title = "Election Day National Trump Support Rate Prediction", y = "Predictied Support Rate (%)", x = "Area Type in US") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(size = 7),
-    axis.text.y = element_text(size = 6),
-    plot.title = element_text(size = 8, face = "bold", color = "#333333"),
-    axis.title = element_text(size = 7, color = "#333333"))
+swing_states <- c("Arizona", "Nevada", "Michigan", "Wisconsin", "Pennsylvania", "North Carolina", "national")
+need_states <- prediction_data[prediction_data$state %in% swing_states, ]
 
 # Plot for state data
-p5 <- ggplot(all_states, aes(x = state, y = predicted_support)) +
-  geom_jitter(size = 3, color = "lightblue", width = 0.3) +  # Adds slight horizontal jitter to reduce overlap
+ggplot(need_states, aes(x = state, y = predicted_support)) +
+  geom_boxplot(color = "lightblue") +  # Adds slight horizontal jitter to reduce overlap
   geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.2, color = "lightblue", alpha = 0.6) +
-  geom_smooth(aes(group = 1), method = "lm", color = "orange", se = FALSE) +  # Adds a trend line across all states
   geom_hline(yintercept = 50, color = "black", linetype = "dashed", size = 0.7) +  # Adds a reference line at 50%
   scale_y_continuous(breaks = seq(0, 70, by = 10)) +  # Formats y-axis as percentages with 1 decimal precision
-  labs(title = "Election Day Trump Support Rate Prediction by State", y = "Predictied Support Rate (%)", x = "States") +
+  labs(title = "Election Day Trump Support Rate Prediction Both Nation and Swing States Icluded", y = "Predictied Support Rate (%)", x = "States") +
   theme_minimal() +
   theme(axis.text.x = element_text(size = 5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6),
     plot.title = element_text(size = 8, face = "bold", color = "#333333"),
     axis.title = element_text(size = 7, color = "#333333"))
 
-p4 + p5 + plot_layout(nrow = 2)
 ```
 
 # Discussion {#sec-discussion}
@@ -604,7 +610,7 @@ plot(first_model, "rhat")
 plot(first_model, "areas", pars = c("methodologyIVR/Online Panel/Text-to-Web", "days_since_Biden_Withdrawal", "sigma", "(Intercept)"))
 ```
 
-## Pollster Methodology Overview and Evaluation
+# Pollster Methodology Overview and Evaluation
 ### Polling Methods
 Imagine you are watching an orchestra, hoping it will perform seamlessly. Every instrument needs to be tuned to just the right pitch so that it combines into a harmonious melody, capturing the audience’s attention and drawing them in. This is exactly how polling works—crafting the notes of public opinion into a clear melody that aims to capture and showcase the true views of American voters. In this appendix, we focus on The New York Times and Siena College, a pollster that has consistently received the highest rating of 3.0 in recent years from @fivethirtyeight, as the subject of our study and discussion.
 
@@ -642,7 +648,6 @@ Then there is population weighting and the voter likelihood model. To make the s
 Finally, it goes to question design. Like lyrics in a song, each question needs to encourage respondents to share their genuine opinions, avoiding wording that could sway answers. The New York Times and Siena College publish every question verbatim, allowing anyone to see exactly what was asked. Like an open rehearsal, this transparency builds trust. The questions are clear and aim to remain neutral, though the simplicity can sometimes limit depth, missing subtle aspects in complex topics.
 
 ### Challenges and New York Times' Response
-
 One challenge that arises in polling is that, despite the careful design aimed at ensuring broad coverage, not everyone is willing to participate. This is known as the **nonresponse issue**. To make the results more representative, pollsters at The New York Times and Siena College make multiple attempts to contact individuals. However, despite these efforts, the overall response rate remains around 2%, which is relatively low. This low rate naturally raises curiosity about how those who stay silent might view the issues. In 2022, an experiment aimed at measuring the impact of nonresponse on their phone surveys suggested that the resulting bias might not be substantial. However, The New York Times also acknowledges, “the truth is that there’s no way to be absolutely sure that the people who respond to surveys are like demographically similar voters who don’t respond. It’s always possible that there’s some extra dimension of nonresponse that we haven’t considered” [see @nytimes2024methodology].
 
 We are concerned about how feedback from around 1,000 people can represent the entire United States. To address this question, The New York Times uses the analogy of “tasting a soup with just one spoonful.” They argue that their method includes a sufficiently random sample, noting that if they were to double—or even triple—the number of respondents, the margin of error would only slightly decrease, possibly by about two percentage points. In other words, increasing the sample size would not greatly improve overall accuracy. The New York Times explains that once the survey is complete, they compare respondents to voter files and use a process known as weighting to ensure the sample reflects the broader voting population. In practice, this often means giving more weight to groups less likely to participate in surveys, such as those without a college degree [@nytimes2024methodology] [@nytimes2022wisconsin].
@@ -664,6 +669,32 @@ However, certain aspects of the questionnaire design have limitations. For insta
 Another limitation is the focus on mainstream religions, often overlooking other groups such as Islam, Hinduism, Buddhism, and Sikhism. With increasing immigration, the number of voters from these religious backgrounds is rising, and their political preferences may differ from those of traditional religious groups. For instance, Muslim, Hindu, or Buddhist voters may prioritize issues such as cultural diversity, foreign policy, or religious freedom differently. The absence of questions covering these religions may result in a poll that does not fully reflect the priorities of all voters, limiting its representativeness. It also makes it harder to track the growing influence and political leanings of these groups. Without including these religious backgrounds, the questionnaire may miss important shifts in political attitudes among these emerging voter groups, potentially losing opportunities for future research.
 
 The question in The Times/Siena Poll: Texas Topline, “If you had to decide between the two today, would you lean more toward” saw a high rate of “Don’t know/Refused” responses, at 66% [see @nytimes2024texaspoll]. This likely reflects a sense of dissatisfaction among voters due to political polarization. Many voters may feel discontent with both major candidates (Trump and Harris) and, as a result, choose not to respond when dissatisfied with the options or disillusioned with the political landscape. Additionally, the phrasing, “if you had to decide between the two today,” may make respondents feel pressured, leading to a refusal to answer. For those inclined toward third-party candidates or undecided voters, this type of question may further discourage responses. This question specifically targeted “leaners” (respondents who previously did not clearly support either Trump or Harris), often representing “swing” or “undecided” voters. Asking these voters, who are inherently unsure, to make a decision without strong support for either candidate could contribute to the high rate of refusals. A similar pattern is observed in questions like “(Leaners, if no candidate selected in initial multi-candidate question) If you had to decide today, would you lean more toward,” where respondents also frequently chose “Don’t know/Refused.”
+
+# Methodology and Survey Design
+
+To design an effective survey method, we will begin by defining our target population and sampling framework. Our survey will target both **likely voters (LV)**, those who have a high intention of voting, and **registered voters (RV)**. Likely voters provide more accurate election predictions by focusing on those most likely to participate. However, registered voters, including those with lower voting intentions, also represent broader social and political attitudes. Including them ensures the survey reflects not only who is likely to win but also captures societal perspectives on what defines a presidential candidate.
+
+To ensure representativeness, we will use **stratified random sampling**. The sample will be divided by age, race, education, income level, and region. This approach allows selective, representative sampling within key groups, reducing sampling bias and improving reliability.
+
+With a budget of $100,000, we plan to survey approximately 1,500 respondents, covering these demographic groups. Based on The New York Times' experience, this sample size is sufficient to represent the overall picture of the United States [see @nytimes2024methodology]. We aim to keep the margin of error around 2%-4% while ensuring the representativeness of each subgroup, creating a snapshot of U.S. society within the election context. 
+
+Based on the polling methodology of [@nytimes2024methodology], we’ll combine email and phone outreach and provide small incentives (about five dollars to ten dollars) to encourage participation and reduce non-response problem. Additionally, we plan to work with trusted panel providers, such as YouGov or Dynata, using certified voter panels that align with our target population.
+
+For the survey itself, we will use Google Forms as the platform. Familiarity with this platform makes respondents less likely to resist or question the survey. It offers ease of access, cost-effectiveness, and reliable data collection. Questions will be crafted with clear and neutral wording, allowing respondents to understand the questions without any influence from suggestive language. The survey will mostly consist of closed-ended questions and scaled questions to quantify preferences, making the data easier to analyze. Additionally, the survey will include one or two open-ended questions, allowing respondents to share their main concerns or factors influencing their choices. This setup captures responses that are difficult to summarize or quantify but are important for context.
+
+After data collection, we will proceed with data cleaning. First, responses will be cross-verified with national voter files to ensure that respondents are registered voters, filtering out responses from non-voters. Each response will be tagged with a unique identifier (such as survey ID) to prevent duplicates. After cleaning, we will apply weighting based on age, race, education, and region to align the sample structure with the overall voting population.
+
+Our budget will be allocated as follows:
+
+- Approximately $50,000 for panel partnerships and respondent incentives.
+
+- Around $15,000 for voter file cross-verification, data cleaning, and weighting.
+
+- $20,000 for poll aggregation, regression modeling, and consultation with election analysts.
+
+- $15,000 for staffing, platform fees, and survey testing.
+
+Our survey is available [here](https://docs.google.com/forms/d/1GI7KoltEKEdmZNfNorXxjvapUd_s2obJyRNrMYsjndw/prefill)
 
 \newpage
 
